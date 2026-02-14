@@ -297,7 +297,7 @@ function ProblemSection() {
           fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
           fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
           maxWidth: "700px", margin: "0 auto 24px",
-        }}>Half of what's on the shelf isn't what it <span style={{ color: C.green }}>says it is.</span></h2>
+        }}>Your hard-earned money deserves better than <span style={{ color: C.green }}>a coin flip.</span></h2>
         <p style={{
           fontFamily: outfit, fontSize: "18px", color: C.secondary,
           maxWidth: "520px", margin: "0 auto 56px", lineHeight: 1.6,
