@@ -262,7 +262,7 @@ const QUIZ_FLOWS = {
 };
 
 // ─── PROBLEM SECTION WITH DOT GRID ─────────────────────────
-function ProblemSection() {
+function ProblemSection({ headline, bg }) {
   const [gridRef, gridVisible] = useReveal(0.25);
   const [activeDots, setActiveDots] = useState(0);
   const [phase, setPhase] = useState(0); // 0=waiting, 1=filling, 2=done, 3=kicker
@@ -289,7 +289,7 @@ function ProblemSection() {
   return (
     <section style={{
       padding: "120px 32px", textAlign: "center", color: C.white,
-      borderTop: `1px solid ${C.border}`, background: C.bgAlt,
+      borderTop: `1px solid ${C.border}`, background: bg || C.bgAlt,
     }}>
       <Reveal>
         <SectionLabel>The Problem</SectionLabel>
@@ -297,7 +297,7 @@ function ProblemSection() {
           fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
           fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
           maxWidth: "700px", margin: "0 auto 24px",
-        }}>You deserve better than <span style={{ color: C.green }}>a coin flip.</span></h2>
+        }}>{ headline || <>Half of what's on the shelf isn't what it <span style={{ color: C.green }}>says it is.</span></>}</h2>
         <p style={{
           fontFamily: outfit, fontSize: "18px", color: C.secondary,
           maxWidth: "520px", margin: "0 auto 56px", lineHeight: 1.6,
@@ -1605,7 +1605,7 @@ function UFCWLanding({ onActivate }) {
                 fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 52px)",
                 fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
                 margin: "0 0 20px 0",
-              }}>UFCW provides free access to <span style={{ color: C.green }}>Apiverde Health.</span></h1>
+              }}>Your union provides free access to <span style={{ color: C.green }}>Apiverde Health.</span></h1>
               <p style={{
                 fontFamily: outfit, fontSize: "17px", color: C.secondary,
                 lineHeight: 1.7, marginBottom: "32px",
@@ -1785,48 +1785,7 @@ function UFCWLanding({ onActivate }) {
       )}
 
       {/* ─── PROBLEM (dot grid) ─── */}
-      {!activated && <ProblemSection />}
-
-      {/* ─── SOLUTION ─── */}
-      {!activated && (
-        <section style={{
-          padding: "120px 32px", textAlign: "center", color: C.white,
-          borderTop: `1px solid ${C.border}`,
-        }}>
-          <Reveal>
-            <SectionLabel>The Solution</SectionLabel>
-            <h2 style={{
-              fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
-              fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
-              maxWidth: "700px", margin: "0 auto 48px",
-            }}>We only carry what's <span style={{ color: C.green }}>real.</span></h2>
-          </Reveal>
-          <div style={{
-            display: "flex", gap: "48px", justifyContent: "center", flexWrap: "wrap",
-            maxWidth: "700px", margin: "0 auto",
-          }}>
-            {[
-              { num: "100%", label: "third-party tested" },
-              { num: "10–50%", label: "member savings" },
-              { num: "Zero", label: "guesswork" },
-            ].map((stat, i) => (
-              <Reveal key={i} delay={i * 0.12}>
-                <div style={{ textAlign: "center", minWidth: "140px" }}>
-                  <div style={{
-                    fontFamily: jakarta, fontSize: "clamp(36px, 6vw, 48px)",
-                    fontWeight: 700, color: C.green,
-                    lineHeight: 1, marginBottom: "8px", letterSpacing: "-0.03em",
-                  }}>{stat.num}</div>
-                  <div style={{
-                    fontFamily: outfit, fontSize: "14px", color: C.secondary,
-                    textTransform: "uppercase", letterSpacing: "0.08em",
-                  }}>{stat.label}</div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-      )}
+      {!activated && <ProblemSection headline={<>You deserve better than a <span style={{ color: C.green }}>coin flip.</span></>} bg={C.bg} />}
 
       {/* ─── MATCHING ─── */}
       {!activated && <MatchingSection />}
