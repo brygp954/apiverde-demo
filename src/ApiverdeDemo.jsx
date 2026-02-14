@@ -793,7 +793,7 @@ export default function ApiverdeDemo() {
           <p style={{
             fontFamily: outfit, fontSize: "18px", color: C.secondary,
             maxWidth: "520px", margin: "0 auto 48px", lineHeight: 1.6,
-          }}>Cannabinoid products you can trust, matched to how your body works.</p>
+          }}>Cannabinoid products you can trust, matched to your situation.</p>
 
           <p style={{
             fontFamily: outfit, fontSize: "15px", fontWeight: 500,
