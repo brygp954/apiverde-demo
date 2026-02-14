@@ -624,7 +624,7 @@ function SmokePuff({ active }) {
 }
 
 // ─── MAIN APP ───────────────────────────────────────────────
-export default function ApiverdeDemo() {
+function ApiverdeDemo() {
   const [view, setView] = useState("landing");
   const [heroReady, setHeroReady] = useState(false);
   const [concern, setConcern] = useState(null);
@@ -649,7 +649,7 @@ export default function ApiverdeDemo() {
 
   const handleConcernSelect = (c) => {
     setConcern(c);
-    setView("quiz");
+    setView("gate");
     scrollToTool();
   };
 
@@ -742,12 +742,12 @@ export default function ApiverdeDemo() {
                 padding: "8px 20px", cursor: "pointer", letterSpacing: "0.04em",
               }}>← Start Over</button>
             )}
-            <span style={{
+            <span onClick={() => { window.location.href = "/ufcw"; }} style={{
               fontFamily: outfit, fontSize: "10px", fontWeight: 600,
               color: isLight ? C.greenDark : C.green,
               textTransform: "uppercase", letterSpacing: "0.12em",
               border: `1px solid ${isLight ? C.greenDark : C.green}`,
-              padding: "5px 12px",
+              padding: "5px 12px", cursor: "pointer",
             }}>Member Benefit</span>
           </div>
         </div>
@@ -793,7 +793,7 @@ export default function ApiverdeDemo() {
           <p style={{
             fontFamily: outfit, fontSize: "18px", color: C.secondary,
             maxWidth: "520px", margin: "0 auto 48px", lineHeight: 1.6,
-          }}>Cannabinoid products you can trust, matched to your situation.</p>
+          }}>Cannabinoid products you can trust, matched to how your body works.</p>
 
           <p style={{
             fontFamily: outfit, fontSize: "15px", fontWeight: 500,
@@ -946,6 +946,100 @@ export default function ApiverdeDemo() {
       {/* ═══════════════ LIGHT TOOL SECTION ═══════════════ */}
 
       <div ref={toolRef}>
+
+        {/* ─── VERIFICATION GATE ─── */}
+        {view === "gate" && (
+          <section style={{
+            minHeight: "100vh", background: C.lightBg,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "100px 32px 60px",
+          }}>
+            <div style={{ maxWidth: "580px", width: "100%", animation: "fadeUp 0.5s ease" }}>
+
+              {/* Header */}
+              <div style={{ textAlign: "center", marginBottom: "48px" }}>
+                <div style={{
+                  fontFamily: outfit, fontSize: "12px", fontWeight: 600,
+                  color: C.greenDark, textTransform: "uppercase",
+                  letterSpacing: "0.15em", marginBottom: "16px",
+                }}>MEMBER ACCESS</div>
+                <h2 style={{
+                  fontFamily: jakarta, fontSize: "clamp(28px, 5vw, 40px)", fontWeight: 700,
+                  color: C.textDark, letterSpacing: "-0.02em", marginBottom: "12px", lineHeight: 1.1,
+                }}>This is where it gets <span style={{ color: C.greenDark }}>personal.</span></h2>
+                <p style={{
+                  fontFamily: outfit, fontSize: "16px", color: C.textMid,
+                  lineHeight: 1.6, maxWidth: "460px", margin: "0 auto",
+                }}>You tapped <strong>{concerns.find(c => c.id === concern)?.icon} {concerns.find(c => c.id === concern)?.label}</strong>. To give you real guidance — not generic marketing — we verify your membership first. Here's what you're unlocking:</p>
+              </div>
+
+              {/* Benefits */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "40px" }}>
+                {[
+                  {
+                    icon: "🎯",
+                    title: "Personalized Matching",
+                    desc: "Products matched to your specific situation — not bestseller lists. We ask the right questions so you get the right product.",
+                  },
+                  {
+                    icon: "📋",
+                    title: "Protocol Guidance",
+                    desc: "You don't just get a product. You get timing, dosing, and a plan that's built around how you'll actually use it.",
+                  },
+                  {
+                    icon: "💰",
+                    title: "Member Pricing",
+                    desc: "10–50% off retail on every product. Third-party tested, verified products only.",
+                  },
+                  {
+                    icon: "🔄",
+                    title: "Check-ins & Adjustments",
+                    desc: "We follow up. If something's not working, we adjust. Your protocol evolves with you.",
+                  },
+                  {
+                    icon: "🧠",
+                    title: "Education",
+                    desc: "Learn what cannabinoids actually do, how they work differently in different people, and why most of what's on the shelf doesn't work.",
+                  },
+                ].map((b, i) => (
+                  <div key={i} style={{
+                    background: C.white, border: `1px solid ${C.cardBorder}`,
+                    borderLeft: `4px solid ${C.greenDark}`,
+                    padding: "20px 24px",
+                    display: "flex", gap: "16px", alignItems: "flex-start",
+                    animation: `fadeUp 0.5s ease ${i * 0.08}s both`,
+                  }}>
+                    <div style={{ fontSize: "24px", lineHeight: 1, flexShrink: 0, marginTop: "2px" }}>{b.icon}</div>
+                    <div>
+                      <div style={{
+                        fontFamily: jakarta, fontSize: "16px", fontWeight: 700,
+                        color: C.textDark, marginBottom: "4px",
+                      }}>{b.title}</div>
+                      <div style={{
+                        fontFamily: outfit, fontSize: "14px", color: C.textMid, lineHeight: 1.5,
+                      }}>{b.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Verify button */}
+              <div style={{ textAlign: "center" }}>
+                <button onClick={() => { setView("quiz"); scrollToTool(); }} style={{
+                  fontFamily: outfit, fontSize: "16px", fontWeight: 700,
+                  color: C.white, background: C.greenDark,
+                  border: "none", padding: "18px 48px", cursor: "pointer",
+                  textTransform: "uppercase", letterSpacing: "0.06em",
+                  width: "100%", maxWidth: "400px",
+                }}>Verify Membership</button>
+                <p style={{
+                  fontFamily: outfit, fontSize: "13px", color: C.textLight,
+                  marginTop: "16px",
+                }}>Your information stays private. We only verify your membership status.</p>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ─── QUIZ ─── */}
         {view === "quiz" && (
@@ -1402,4 +1496,279 @@ export default function ApiverdeDemo() {
       </div>
     </div>
   );
+}
+
+// ─── UFCW LANDING PAGE ──────────────────────────────────────
+function UFCWLanding({ onActivate }) {
+  const [heroReady, setHeroReady] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [contact, setContact] = useState("");
+  const [contactType, setContactType] = useState("email");
+  const [localNum, setLocalNum] = useState("1189");
+  const [activated, setActivated] = useState(false);
+
+  useEffect(() => { setTimeout(() => setHeroReady(true), 200); }, []);
+
+  const handleSubmit = () => {
+    if (!firstName || !contact) return;
+    setActivated(true);
+    setTimeout(() => {
+      if (onActivate) onActivate({ firstName, contact, contactType, localNum });
+    }, 2000);
+  };
+
+  const inputStyle = {
+    fontFamily: outfit, fontSize: "16px", color: C.textDark,
+    background: C.white, border: `1px solid ${C.cardBorder}`,
+    padding: "14px 16px", width: "100%", outline: "none",
+    boxSizing: "border-box",
+    transition: "border-color 0.2s ease",
+  };
+
+  return (
+    <div style={{ background: C.bg, minHeight: "100vh", overflowX: "hidden" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+      <style>{`
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        ::selection { background: ${C.green}33; }
+        input:focus, select:focus { border-color: ${C.greenDark} !important; }
+        button:hover { opacity: 0.85; }
+      `}</style>
+
+      {/* Nav */}
+      <nav style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        background: "rgba(8,11,17,0.85)", backdropFilter: "blur(20px)",
+        borderBottom: `2px solid ${C.green}`,
+      }}>
+        <div style={{
+          maxWidth: "1200px", margin: "0 auto", padding: "14px 32px",
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+        }}>
+          <span style={{
+            fontFamily: jakarta, fontSize: "18px", fontWeight: 700,
+            color: C.white, letterSpacing: "-0.01em",
+          }}>Apiverde <span style={{ color: C.green }}>Health</span></span>
+          <span style={{
+            fontFamily: outfit, fontSize: "10px", fontWeight: 600,
+            color: C.green, textTransform: "uppercase", letterSpacing: "0.12em",
+            border: `1px solid ${C.green}`, padding: "5px 12px",
+          }}>UFCW Member Benefit</span>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section style={{
+        minHeight: "100vh", display: "flex", alignItems: "center",
+        justifyContent: "center", padding: "100px 32px 60px",
+        color: C.white, position: "relative",
+      }}>
+        <div style={{
+          position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)",
+          width: "900px", height: "600px",
+          background: `radial-gradient(ellipse, ${C.greenDeep}0A 0%, transparent 70%)`,
+          pointerEvents: "none",
+        }} />
+
+        {activated ? (
+          <div style={{
+            textAlign: "center", animation: "fadeUp 0.6s ease",
+            maxWidth: "480px",
+          }}>
+            <div style={{
+              width: "64px", height: "64px", borderRadius: "50%",
+              background: `${C.green}22`, border: `2px solid ${C.green}`,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              margin: "0 auto 24px", fontSize: "28px",
+            }}>✓</div>
+            <h2 style={{
+              fontFamily: jakarta, fontSize: "clamp(28px, 5vw, 40px)",
+              fontWeight: 700, letterSpacing: "-0.02em", marginBottom: "12px",
+            }}>You're in, {firstName}.</h2>
+            <p style={{
+              fontFamily: outfit, fontSize: "18px", color: C.secondary, lineHeight: 1.6,
+            }}>Your access is activated. Let's find what works for you.</p>
+          </div>
+        ) : (
+          <div style={{
+            display: "flex", gap: "64px", alignItems: "center",
+            flexWrap: "wrap", justifyContent: "center", maxWidth: "960px",
+            opacity: heroReady ? 1 : 0,
+            transform: heroReady ? "translateY(0)" : "translateY(30px)",
+            transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1)",
+          }}>
+            {/* Left side — message */}
+            <div style={{ flex: 1, minWidth: "300px", maxWidth: "460px" }}>
+              <SectionLabel>Member Benefit</SectionLabel>
+              <h1 style={{
+                fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 52px)",
+                fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
+                margin: "0 0 20px 0",
+              }}>Your union provides free access to <span style={{ color: C.green }}>Apiverde Health.</span></h1>
+              <p style={{
+                fontFamily: outfit, fontSize: "17px", color: C.secondary,
+                lineHeight: 1.7, marginBottom: "32px",
+              }}>A wellness platform with tested cannabinoid products, personalized matching, and member pricing — at no cost to you.</p>
+
+              {/* Benefits */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                {[
+                  { icon: "🎯", title: "Personalized matching", desc: "Products matched to your situation, not bestseller lists" },
+                  { icon: "📋", title: "Protocol guidance", desc: "Timing, dosing, and a plan that evolves with you" },
+                  { icon: "💰", title: "Member pricing", desc: "10–50% off retail on every product" },
+                  { icon: "🔄", title: "Ongoing check-ins", desc: "We follow up and adjust if something's not working" },
+                ].map((b, i) => (
+                  <div key={i} style={{
+                    display: "flex", gap: "12px", alignItems: "flex-start",
+                    animation: `fadeUp 0.5s ease ${0.2 + i * 0.1}s both`,
+                  }}>
+                    <div style={{ fontSize: "18px", lineHeight: 1, marginTop: "2px" }}>{b.icon}</div>
+                    <div>
+                      <span style={{
+                        fontFamily: jakarta, fontSize: "15px", fontWeight: 700, color: C.white,
+                      }}>{b.title}</span>
+                      <span style={{
+                        fontFamily: outfit, fontSize: "14px", color: C.secondary, marginLeft: "6px",
+                      }}>— {b.desc}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right side — form */}
+            <div style={{
+              flex: "0 0 340px", minWidth: "300px",
+              background: C.bgCard, border: `1px solid ${C.border}`,
+              padding: "32px", animation: "fadeUp 0.6s ease 0.3s both",
+            }}>
+              <h3 style={{
+                fontFamily: jakarta, fontSize: "20px", fontWeight: 700,
+                color: C.white, marginBottom: "4px", textAlign: "center",
+              }}>Activate Your Access</h3>
+              <p style={{
+                fontFamily: outfit, fontSize: "13px", color: C.secondary,
+                marginBottom: "24px", textAlign: "center",
+              }}>Takes 30 seconds. No password needed.</p>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {/* First name */}
+                <div>
+                  <label style={{
+                    fontFamily: outfit, fontSize: "12px", fontWeight: 600,
+                    color: C.secondary, textTransform: "uppercase",
+                    letterSpacing: "0.08em", marginBottom: "6px", display: "block",
+                  }}>First Name</label>
+                  <input
+                    type="text" placeholder="Your first name"
+                    value={firstName} onChange={(e) => setFirstName(e.target.value)}
+                    style={inputStyle}
+                  />
+                </div>
+
+                {/* Contact type toggle */}
+                <div>
+                  <label style={{
+                    fontFamily: outfit, fontSize: "12px", fontWeight: 600,
+                    color: C.secondary, textTransform: "uppercase",
+                    letterSpacing: "0.08em", marginBottom: "6px", display: "block",
+                  }}>How should we reach you?</label>
+                  <div style={{ display: "flex", gap: "0", marginBottom: "8px" }}>
+                    {[
+                      { id: "email", label: "Email" },
+                      { id: "phone", label: "Phone" },
+                    ].map(t => (
+                      <button key={t.id} onClick={() => setContactType(t.id)} style={{
+                        fontFamily: outfit, fontSize: "13px", fontWeight: 600,
+                        color: contactType === t.id ? C.bg : C.secondary,
+                        background: contactType === t.id ? C.green : "transparent",
+                        border: `1px solid ${contactType === t.id ? C.green : C.border}`,
+                        padding: "8px 20px", cursor: "pointer", flex: 1,
+                        transition: "all 0.2s ease",
+                      }}>{t.label}</button>
+                    ))}
+                  </div>
+                  <input
+                    type={contactType === "email" ? "email" : "tel"}
+                    placeholder={contactType === "email" ? "you@email.com" : "(555) 555-5555"}
+                    value={contact} onChange={(e) => setContact(e.target.value)}
+                    style={inputStyle}
+                  />
+                </div>
+
+                {/* Local */}
+                <div>
+                  <label style={{
+                    fontFamily: outfit, fontSize: "12px", fontWeight: 600,
+                    color: C.secondary, textTransform: "uppercase",
+                    letterSpacing: "0.08em", marginBottom: "6px", display: "block",
+                  }}>UFCW Local</label>
+                  <select
+                    value={localNum} onChange={(e) => setLocalNum(e.target.value)}
+                    style={{ ...inputStyle, cursor: "pointer" }}
+                  >
+                    <option value="1189">Local 1189</option>
+                    <option value="653">Local 653</option>
+                    <option value="663">Local 663</option>
+                  </select>
+                </div>
+
+                {/* Submit */}
+                <button onClick={handleSubmit} style={{
+                  fontFamily: outfit, fontSize: "15px", fontWeight: 700,
+                  color: C.bg, background: C.green,
+                  border: "none", padding: "16px", cursor: "pointer",
+                  textTransform: "uppercase", letterSpacing: "0.06em",
+                  marginTop: "8px", width: "100%",
+                  opacity: firstName && contact ? 1 : 0.5,
+                }}>Activate My Access</button>
+              </div>
+
+              <p style={{
+                fontFamily: outfit, fontSize: "11px", color: C.muted,
+                marginTop: "16px", textAlign: "center", lineHeight: 1.5,
+              }}>Your information stays private. Apiverde Health does not share your data with your employer or your union.</p>
+            </div>
+          </div>
+        )}
+      </section>
+
+      {/* Footer */}
+      <footer style={{
+        borderTop: `2px solid ${C.green}`, padding: "40px 32px",
+        textAlign: "center", color: C.white, background: C.bg,
+      }}>
+        <div style={{
+          fontFamily: outfit, fontSize: "13px", fontWeight: 700,
+          textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "16px",
+        }}>Wellness that works.</div>
+        <div style={{ height: "1px", background: C.border, maxWidth: "200px", margin: "0 auto 16px" }} />
+        <p style={{
+          fontFamily: outfit, fontSize: "13px",
+          color: "rgba(255,255,255,0.5)", letterSpacing: "0.05em",
+        }}>A project of Apiverde Health · Powered by The Human Variable</p>
+      </footer>
+    </div>
+  );
+}
+
+// ─── ROUTER ─────────────────────────────────────────────────
+export default function App() {
+  const [path, setPath] = useState(window.location.pathname);
+
+  useEffect(() => {
+    const onPop = () => setPath(window.location.pathname);
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  if (path === "/ufcw" || path === "/ufcw/") {
+    return <UFCWLanding onActivate={(data) => {
+      window.history.pushState({}, "", "/");
+      setPath("/");
+    }} />;
+  }
+
+  return <ApiverdeDemo />;
 }
