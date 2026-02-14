@@ -290,7 +290,15 @@ function ProblemSection({ headline, bg }) {
     <section style={{
       padding: "120px 32px", textAlign: "center", color: C.white,
       borderTop: `1px solid ${C.border}`, background: bg || C.bgAlt,
+      position: "relative", overflow: "hidden",
     }}>
+      {/* Ambient glow */}
+      <div style={{
+        position: "absolute", top: "-10%", right: "20%",
+        width: "700px", height: "500px",
+        background: `radial-gradient(ellipse at center, ${C.green}12 0%, transparent 65%)`,
+        pointerEvents: "none", filter: "blur(50px)",
+      }} />
       <Reveal>
         <SectionLabel>The Problem</SectionLabel>
         <h2 style={{
@@ -414,7 +422,15 @@ function MatchingSection() {
     <section style={{
       padding: "120px 32px", textAlign: "center", color: C.white,
       borderTop: `1px solid ${C.border}`, background: C.bgAlt,
+      position: "relative", overflow: "hidden",
     }}>
+      {/* Ambient glow */}
+      <div style={{
+        position: "absolute", top: "15%", left: "60%", transform: "translateX(-50%)",
+        width: "800px", height: "600px",
+        background: `radial-gradient(ellipse at center, ${C.green}14 0%, transparent 60%)`,
+        pointerEvents: "none", filter: "blur(50px)",
+      }} />
       <Reveal>
         <SectionLabel>Personalized Matching</SectionLabel>
         <h2 style={{
@@ -762,11 +778,19 @@ function ApiverdeDemo() {
         padding: "120px 32px 60px", position: "relative",
         textAlign: "center", color: C.white,
       }}>
+        {/* Ambient green glow - primary */}
         <div style={{
-          position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)",
-          width: "900px", height: "600px",
-          background: `radial-gradient(ellipse, ${C.greenDeep}0A 0%, transparent 70%)`,
-          pointerEvents: "none",
+          position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)",
+          width: "1000px", height: "700px",
+          background: `radial-gradient(ellipse at center, ${C.green}18 0%, ${C.greenDeep}0C 35%, transparent 70%)`,
+          pointerEvents: "none", filter: "blur(40px)",
+        }} />
+        {/* Ambient green glow - secondary (offset for depth) */}
+        <div style={{
+          position: "absolute", top: "30%", left: "35%", transform: "translateX(-50%)",
+          width: "600px", height: "500px",
+          background: `radial-gradient(ellipse at center, ${C.green}10 0%, transparent 65%)`,
+          pointerEvents: "none", filter: "blur(60px)",
         }} />
 
         <div style={{
@@ -845,7 +869,15 @@ function ApiverdeDemo() {
         <section style={{
           padding: "120px 32px", textAlign: "center", color: C.white,
           borderTop: `1px solid ${C.border}`,
+          position: "relative", overflow: "hidden",
         }}>
+          {/* Ambient glow */}
+          <div style={{
+            position: "absolute", top: "0%", left: "50%", transform: "translateX(-50%)",
+            width: "700px", height: "500px",
+            background: `radial-gradient(ellipse at center, ${C.green}12 0%, transparent 65%)`,
+            pointerEvents: "none", filter: "blur(50px)",
+          }} />
           <Reveal>
             <SectionLabel>The Solution</SectionLabel>
             <h2 style={{
@@ -889,8 +921,15 @@ function ApiverdeDemo() {
         <section style={{
           padding: "120px 32px", textAlign: "center", color: C.white,
           borderTop: `1px solid ${C.border}`,
-          background: C.bg,
+          background: C.bg, position: "relative", overflow: "hidden",
         }}>
+          {/* Ambient glow */}
+          <div style={{
+            position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)",
+            width: "800px", height: "500px",
+            background: `radial-gradient(ellipse at center, ${C.green}15 0%, transparent 60%)`,
+            pointerEvents: "none", filter: "blur(50px)",
+          }} />
           <Reveal>
             <SectionLabel>Ready?</SectionLabel>
             <h2 style={{
@@ -1567,8 +1606,15 @@ function UFCWLanding({ onActivate }) {
         <div style={{
           position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)",
           width: "900px", height: "600px",
-          background: `radial-gradient(ellipse, ${C.greenDeep}0A 0%, transparent 70%)`,
-          pointerEvents: "none",
+          background: `radial-gradient(ellipse at center, ${C.green}16 0%, ${C.greenDeep}0C 35%, transparent 70%)`,
+          pointerEvents: "none", filter: "blur(40px)",
+        }} />
+        {/* Secondary glow */}
+        <div style={{
+          position: "absolute", top: "25%", right: "15%",
+          width: "500px", height: "400px",
+          background: `radial-gradient(ellipse at center, ${C.green}0E 0%, transparent 65%)`,
+          pointerEvents: "none", filter: "blur(60px)",
         }} />
 
         {activated ? (
@@ -1740,7 +1786,15 @@ function UFCWLanding({ onActivate }) {
         <section style={{
           padding: "120px 32px", textAlign: "center", color: C.white,
           borderTop: `1px solid ${C.border}`, background: C.bgAlt,
+          position: "relative", overflow: "hidden",
         }}>
+          {/* Ambient glow */}
+          <div style={{
+            position: "absolute", top: "5%", left: "45%", transform: "translateX(-50%)",
+            width: "800px", height: "600px",
+            background: `radial-gradient(ellipse at center, ${C.green}14 0%, transparent 60%)`,
+            pointerEvents: "none", filter: "blur(50px)",
+          }} />
           <Reveal>
             <SectionLabel>Why This Matters</SectionLabel>
             <h2 style={{
@@ -1795,8 +1849,15 @@ function UFCWLanding({ onActivate }) {
         <section style={{
           padding: "100px 32px", textAlign: "center", color: C.white,
           borderTop: `1px solid ${C.border}`,
-          background: C.bg,
+          background: C.bg, position: "relative", overflow: "hidden",
         }}>
+          {/* Ambient glow */}
+          <div style={{
+            position: "absolute", top: "0%", left: "50%", transform: "translateX(-50%)",
+            width: "700px", height: "400px",
+            background: `radial-gradient(ellipse at center, ${C.green}12 0%, transparent 65%)`,
+            pointerEvents: "none", filter: "blur(50px)",
+          }} />
           <Reveal>
             <h2 style={{
               fontFamily: jakarta, fontSize: "clamp(28px, 5vw, 40px)",
