@@ -1734,6 +1734,60 @@ function UFCWLanding({ onActivate }) {
         )}
       </section>
 
+      {/* ─── WHY THIS MATTERS ─── */}
+      {!activated && (
+        <section style={{
+          padding: "120px 32px", textAlign: "center", color: C.white,
+          borderTop: `1px solid ${C.border}`, background: C.bgAlt,
+        }}>
+          <Reveal>
+            <SectionLabel>Why This Matters</SectionLabel>
+            <h2 style={{
+              fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
+              fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
+              maxWidth: "700px", margin: "0 auto 16px",
+            }}>Better sleep. Less pain. Lower stress. <span style={{ color: C.green }}>More good days.</span></h2>
+            <p style={{
+              fontFamily: outfit, fontSize: "18px", color: C.secondary,
+              maxWidth: "520px", margin: "0 auto 56px", lineHeight: 1.6,
+            }}>Cannabinoid products are changing how people manage the things that wear them down — naturally, without a prescription, on their own terms.</p>
+          </Reveal>
+
+          <div style={{
+            display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "20px", maxWidth: "800px", margin: "0 auto", textAlign: "left",
+          }}>
+            {[
+              { icon: "🌙", title: "Sleep", desc: "Fall asleep faster, stay asleep longer, wake up actually rested" },
+              { icon: "🔥", title: "Pain", desc: "Targeted relief for joints, muscles, and the aches that build up over a long shift" },
+              { icon: "😤", title: "Stress", desc: "Take the edge off without feeling foggy or slowed down" },
+              { icon: "⚡", title: "Energy", desc: "Clear-headed focus without the caffeine cycle" },
+              { icon: "✌️", title: "Good Vibes", desc: "IYKYK" },
+            ].map((item, i) => (
+              <Reveal key={i} delay={i * 0.08}>
+                <div style={{
+                  background: C.bgCard, border: `1px solid ${C.border}`,
+                  borderLeft: `4px solid ${C.green}`,
+                  padding: "20px 24px",
+                }}>
+                  <div style={{
+                    fontSize: "24px", marginBottom: "10px",
+                  }}>{item.icon}</div>
+                  <div style={{
+                    fontFamily: jakarta, fontSize: "17px", fontWeight: 700,
+                    color: C.white, marginBottom: "6px",
+                  }}>{item.title}</div>
+                  <div style={{
+                    fontFamily: outfit, fontSize: "14px", color: C.secondary,
+                    lineHeight: 1.5,
+                  }}>{item.desc}</div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* ─── PROBLEM (dot grid) ─── */}
       {!activated && <ProblemSection />}
 
