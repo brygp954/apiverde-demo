@@ -1734,6 +1734,80 @@ function UFCWLanding({ onActivate }) {
         )}
       </section>
 
+      {/* ─── PROBLEM (dot grid) ─── */}
+      {!activated && <ProblemSection />}
+
+      {/* ─── SOLUTION ─── */}
+      {!activated && (
+        <section style={{
+          padding: "120px 32px", textAlign: "center", color: C.white,
+          borderTop: `1px solid ${C.border}`,
+        }}>
+          <Reveal>
+            <SectionLabel>The Solution</SectionLabel>
+            <h2 style={{
+              fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
+              fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
+              maxWidth: "700px", margin: "0 auto 48px",
+            }}>We only carry what's <span style={{ color: C.green }}>real.</span></h2>
+          </Reveal>
+          <div style={{
+            display: "flex", gap: "48px", justifyContent: "center", flexWrap: "wrap",
+            maxWidth: "700px", margin: "0 auto",
+          }}>
+            {[
+              { num: "100%", label: "third-party tested" },
+              { num: "10–50%", label: "member savings" },
+              { num: "Zero", label: "guesswork" },
+            ].map((stat, i) => (
+              <Reveal key={i} delay={i * 0.12}>
+                <div style={{ textAlign: "center", minWidth: "140px" }}>
+                  <div style={{
+                    fontFamily: jakarta, fontSize: "clamp(36px, 6vw, 48px)",
+                    fontWeight: 700, color: C.green,
+                    lineHeight: 1, marginBottom: "8px", letterSpacing: "-0.03em",
+                  }}>{stat.num}</div>
+                  <div style={{
+                    fontFamily: outfit, fontSize: "14px", color: C.secondary,
+                    textTransform: "uppercase", letterSpacing: "0.08em",
+                  }}>{stat.label}</div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ─── MATCHING ─── */}
+      {!activated && <MatchingSection />}
+
+      {/* ─── READY? Back to top ─── */}
+      {!activated && (
+        <section style={{
+          padding: "100px 32px", textAlign: "center", color: C.white,
+          borderTop: `1px solid ${C.border}`,
+          background: C.bg,
+        }}>
+          <Reveal>
+            <h2 style={{
+              fontFamily: jakarta, fontSize: "clamp(28px, 5vw, 40px)",
+              fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em",
+              marginBottom: "16px",
+            }}>Ready to see what it can <span style={{ color: C.green }}>do for you?</span></h2>
+            <p style={{
+              fontFamily: outfit, fontSize: "17px", color: C.secondary,
+              maxWidth: "400px", margin: "0 auto 32px", lineHeight: 1.6,
+            }}>Your union already covered the cost. All you have to do is sign up.</p>
+            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} style={{
+              fontFamily: outfit, fontSize: "15px", fontWeight: 700,
+              color: C.bg, background: C.green,
+              border: "none", padding: "16px 48px", cursor: "pointer",
+              textTransform: "uppercase", letterSpacing: "0.06em",
+            }}>Activate My Access</button>
+          </Reveal>
+        </section>
+      )}
+
       {/* Footer */}
       <footer style={{
         borderTop: `2px solid ${C.green}`, padding: "40px 32px",
