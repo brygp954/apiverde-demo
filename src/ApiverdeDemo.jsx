@@ -1756,26 +1756,19 @@ function UFCWLanding({ onActivate }) {
 
           <div style={{
             display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "20px", maxWidth: "800px", margin: "0 auto", textAlign: "left",
+            gap: "32px 40px", maxWidth: "720px", margin: "0 auto", textAlign: "center",
           }}>
             {[
-              { icon: "🌙", title: "Sleep", desc: "Fall asleep faster, stay asleep longer, wake up actually rested" },
-              { icon: "🔥", title: "Pain", desc: "Targeted relief for joints, muscles, and the wear of a long shift" },
-              { icon: "😤", title: "Stress", desc: "Take the edge off without feeling foggy or slowed down" },
-              { icon: "⚡", title: "Energy", desc: "Sustained clarity without the caffeine crash cycle" },
-              { icon: "🧠", title: "Focus", desc: "Stay sharp and dialed in — naturally, not chemically" },
+              { icon: "🌙", title: "Sleep", desc: "Fall asleep faster. Stay asleep longer." },
+              { icon: "🔥", title: "Pain", desc: "Targeted relief after a long shift." },
+              { icon: "😤", title: "Stress", desc: "Take the edge off. Stay clear." },
+              { icon: "⚡", title: "Energy", desc: "Sustained focus without the crash." },
+              { icon: "🧠", title: "Focus", desc: "Sharp and dialed in. Naturally." },
               { icon: "✌️", title: "Good Vibes", desc: "IYKYK" },
             ].map((item, i) => (
               <Reveal key={i} delay={i * 0.08}>
-                <div style={{
-                  background: C.bgCard, border: `1px solid ${C.border}`,
-                  borderLeft: `4px solid ${C.green}`,
-                  padding: "20px 24px", minHeight: "140px",
-                  display: "flex", flexDirection: "column",
-                }}>
-                  <div style={{
-                    fontSize: "24px", marginBottom: "10px",
-                  }}>{item.icon}</div>
+                <div>
+                  <div style={{ fontSize: "32px", marginBottom: "10px" }}>{item.icon}</div>
                   <div style={{
                     fontFamily: jakarta, fontSize: "17px", fontWeight: 700,
                     color: C.white, marginBottom: "6px",
