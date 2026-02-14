@@ -1618,6 +1618,7 @@ function UFCWLanding({ onActivate }) {
                   { icon: "📋", title: "Protocol guidance", desc: "Timing, dosing, and a plan that evolves with you" },
                   { icon: "💰", title: "Member pricing", desc: "10–50% off retail on every product" },
                   { icon: "🔄", title: "Ongoing check-ins", desc: "We follow up and adjust if something's not working" },
+                  { icon: "🔒", title: "Completely private", desc: "Your employer and your union never see your data" },
                 ].map((b, i) => (
                   <div key={i} style={{
                     display: "flex", gap: "12px", alignItems: "flex-start",
