@@ -1754,21 +1754,23 @@ function UFCWLanding({ onActivate }) {
           </Reveal>
 
           <div style={{
-            display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
             gap: "20px", maxWidth: "800px", margin: "0 auto", textAlign: "left",
           }}>
             {[
               { icon: "🌙", title: "Sleep", desc: "Fall asleep faster, stay asleep longer, wake up actually rested" },
-              { icon: "🔥", title: "Pain", desc: "Targeted relief for joints, muscles, and the aches that build up over a long shift" },
+              { icon: "🔥", title: "Pain", desc: "Targeted relief for joints, muscles, and the wear of a long shift" },
               { icon: "😤", title: "Stress", desc: "Take the edge off without feeling foggy or slowed down" },
-              { icon: "⚡", title: "Energy", desc: "Clear-headed focus without the caffeine cycle" },
+              { icon: "⚡", title: "Energy", desc: "Sustained clarity without the caffeine crash cycle" },
+              { icon: "🧠", title: "Focus", desc: "Stay sharp and dialed in — naturally, not chemically" },
               { icon: "✌️", title: "Good Vibes", desc: "IYKYK" },
             ].map((item, i) => (
               <Reveal key={i} delay={i * 0.08}>
                 <div style={{
                   background: C.bgCard, border: `1px solid ${C.border}`,
                   borderLeft: `4px solid ${C.green}`,
-                  padding: "20px 24px",
+                  padding: "20px 24px", minHeight: "140px",
+                  display: "flex", flexDirection: "column",
                 }}>
                   <div style={{
                     fontSize: "24px", marginBottom: "10px",
