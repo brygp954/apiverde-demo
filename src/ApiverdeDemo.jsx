@@ -1605,7 +1605,7 @@ function UFCWLanding({ onActivate }) {
                 fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 52px)",
                 fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
                 margin: "0 0 20px 0",
-              }}>Your union provides free access to <span style={{ color: C.green }}>Apiverde Health.</span></h1>
+              }}>UFCW provides free access to <span style={{ color: C.green }}>Apiverde Health.</span></h1>
               <p style={{
                 fontFamily: outfit, fontSize: "17px", color: C.secondary,
                 lineHeight: 1.7, marginBottom: "32px",
