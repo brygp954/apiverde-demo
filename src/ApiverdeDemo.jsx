@@ -748,7 +748,7 @@ function PrecisionSection() {
         }}>Apiverde Health doesn't start with products. It starts with why you need one, then builds a protocol around the answer.</p>
       </Reveal>
 
-      <div style={{
+      <div className="capability-grid" style={{
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
         gap: "16px",
@@ -848,7 +848,7 @@ function HowItWorksSection() {
         }}>From concern to protocol in <span style={{ color: C.green }}>under 3 minutes.</span></h2>
       </Reveal>
 
-      <div ref={sectionRef} style={{
+      <div ref={sectionRef} className="hiw-grid" style={{
         maxWidth: "720px", margin: "0 auto",
         display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px",
       }}>
@@ -1125,7 +1125,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
           <div style={{ textAlign: "center", marginBottom: "36px" }}>
             <Prompt>{DIAGNOSTIC_SCENARIOS[0].prompt}</Prompt>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+          <div className="scenario-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
             {DIAGNOSTIC_SCENARIOS[0].options.map(opt => (
               <ScenarioCard key={opt.id} opt={opt} onClick={() => handleQ1(opt.id)} />
             ))}
@@ -1140,7 +1140,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
           <div style={{ textAlign: "center", marginBottom: "36px" }}>
             <Prompt>{DIAGNOSTIC_SCENARIOS[1].prompt}</Prompt>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+          <div className="scenario-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
             {(DIAGNOSTIC_SCENARIOS[1].options[q1] || []).map(opt => (
               <ScenarioCard key={opt.id} opt={opt} onClick={() => handleQ2(opt.id)} />
             ))}
@@ -1310,7 +1310,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
           </div>
 
           {/* Two-Column: Cannabinoid + Lifestyle */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
+          <div className="result-cols" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
             <div style={{
               background: C.bgCard, border: `1px solid ${C.border}`, padding: "28px",
               display: "flex", flexDirection: "column", animation: "fadeUp 0.7s ease 0.2s both",
@@ -1363,7 +1363,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
               <p style={{ fontFamily: outfit, fontSize: "15px", color: C.secondary, lineHeight: 1.6, maxWidth: "460px", margin: "0 auto 28px" }}>
                 With an account, you get the specific product, exact dosing, timing protocol, and follow-up checkpoints calibrated to your profile.
               </p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px", maxWidth: "480px", margin: "0 auto 28px" }}>
+              <div className="teaser-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px", maxWidth: "480px", margin: "0 auto 28px" }}>
                 {[
                   { icon: "🎯", label: "Specific products" },
                   { icon: "⏱️", label: "Dosing & timing" },
@@ -1551,6 +1551,17 @@ function ApiverdeDemo() {
         }
         ::selection { background: ${C.green}33; }
         button:hover { opacity: 0.85; }
+        @media (max-width: 768px) {
+          .capability-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .hiw-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .result-cols { grid-template-columns: 1fr !important; }
+          .scenario-grid { grid-template-columns: 1fr !important; }
+          .teaser-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 480px) {
+          .capability-grid { grid-template-columns: 1fr !important; }
+          .hiw-grid { grid-template-columns: 1fr !important; }
+        }
       `}</style>
 
       {/* ─── NAV ─── */}
@@ -1558,7 +1569,7 @@ function ApiverdeDemo() {
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         background: "rgba(8,11,17,0.85)",
         backdropFilter: "blur(20px)",
-        borderBottom: `1px solid ${C.green}`,
+        borderBottom: `1px solid ${C.green}30`,
       }}>
         <div style={{
           maxWidth: "1200px", margin: "0 auto", padding: "14px 32px",
@@ -1661,7 +1672,7 @@ function ApiverdeDemo() {
 
       {/* ─── FOOTER ─── */}
       <footer style={{
-        borderTop: `1px solid ${C.green}`, padding: "40px 32px",
+        borderTop: `1px solid ${C.green}30`, padding: "40px 32px",
         textAlign: "center", color: C.white, background: C.bg,
       }}>
         <div style={{
@@ -1724,7 +1735,7 @@ function UFCWLanding({ onActivate }) {
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         background: "rgba(8,11,17,0.85)", backdropFilter: "blur(20px)",
-        borderBottom: `1px solid ${C.green}`,
+        borderBottom: `1px solid ${C.green}30`,
       }}>
         <div style={{
           maxWidth: "1200px", margin: "0 auto", padding: "14px 32px",
@@ -2025,7 +2036,7 @@ function UFCWLanding({ onActivate }) {
 
       {/* Footer */}
       <footer style={{
-        borderTop: `1px solid ${C.green}`, padding: "40px 32px",
+        borderTop: `1px solid ${C.green}30`, padding: "40px 32px",
         textAlign: "center", color: C.white, background: C.bg,
       }}>
         <div style={{
