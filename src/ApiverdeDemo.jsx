@@ -1103,7 +1103,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
   };
 
   const ProgressBar = ({ step }) => (
-    <div style={{ display: "flex", gap: "8px", marginBottom: "48px", justifyContent: "center" }}>
+    <div className="diag-progress" style={{ display: "flex", gap: "8px", marginBottom: "48px", justifyContent: "center" }}>
       {[1, 2, 3, 4].map(i => (
         <div key={i} style={{ width: "60px", height: "3px", background: i <= step ? C.green : C.faint }} />
       ))}
@@ -1111,7 +1111,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
   );
 
   const Prompt = ({ children }) => (
-    <p style={{
+    <p className="diag-prompt" style={{
       fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)",
       fontWeight: 700, color: C.white,
       lineHeight: 1.2, letterSpacing: "-0.02em",
@@ -1123,10 +1123,10 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
       background: C.bgCard, border: `1px solid ${C.border}`,
       padding: "24px 20px", cursor: "pointer",
       textAlign: "left", transition: "all 0.2s ease",
-      display: "flex", flexDirection: "column", gap: "8px",
+      display: "flex", flexDirection: "column", gap: "6px",
     }}>
-      <span style={{ fontFamily: jakarta, fontSize: "17px", fontWeight: 700, color: C.white, lineHeight: 1.3 }}>{opt.title}</span>
-      <span style={{ fontFamily: outfit, fontSize: "13px", color: C.secondary, lineHeight: 1.5 }}>{opt.desc}</span>
+      <span style={{ fontFamily: jakarta, fontSize: "16px", fontWeight: 700, color: C.white, lineHeight: 1.3 }}>{opt.title}</span>
+      <span className="diag-card-desc" style={{ fontFamily: outfit, fontSize: "13px", color: C.secondary, lineHeight: 1.5 }}>{opt.desc}</span>
     </button>
   );
 
@@ -1142,11 +1142,15 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
         textarea:focus { outline: none; border-color: rgba(52,211,153,0.3) !important; }
         button:hover { opacity: 0.85; }
         @media (max-width: 768px) {
-          .diag-scenario-grid { grid-template-columns: 1fr !important; }
+          .diag-scenario-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
           .diag-result-cols { grid-template-columns: 1fr !important; }
           .diag-teaser-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .diag-main { min-height: auto !important; justify-content: flex-start !important; padding-bottom: 40px !important; }
-          .diag-scenario-grid button { padding: 18px 16px !important; }
+          .diag-main { min-height: auto !important; justify-content: flex-start !important; padding-top: 80px !important; padding-bottom: 40px !important; }
+          .diag-scenario-grid button { padding: 14px 16px !important; }
+          .diag-prompt { font-size: 22px !important; margin-bottom: 20px !important; }
+          .diag-progress { margin-bottom: 24px !important; }
+          .diag-card-desc { font-size: 12px !important; line-height: 1.4 !important; }
+          .diag-prompt-wrap { margin-bottom: 20px !important; }
         }
       `}</style>
 
@@ -1197,7 +1201,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
         {phase === "q1" && (
           <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
             <ProgressBar step={1} />
-            <div style={{ textAlign: "center", marginBottom: "36px" }}>
+            <div className="diag-prompt-wrap" style={{ textAlign: "center", marginBottom: "36px" }}>
               <Prompt>{DIAGNOSTIC_SCENARIOS[0].prompt}</Prompt>
             </div>
             <div className="diag-scenario-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
@@ -1212,7 +1216,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
         {phase === "q2" && (
           <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
             <ProgressBar step={2} />
-            <div style={{ textAlign: "center", marginBottom: "36px" }}>
+            <div className="diag-prompt-wrap" style={{ textAlign: "center", marginBottom: "36px" }}>
               <Prompt>{DIAGNOSTIC_SCENARIOS[1].prompt}</Prompt>
             </div>
             <div className="diag-scenario-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
