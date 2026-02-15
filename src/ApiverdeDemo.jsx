@@ -1013,15 +1013,17 @@ function DiagnosticPage() {
   const [error, setError] = useState(null);
   const [avoidances, setAvoidances] = useState([]);
 
-  const handleQ1 = (id) => { setQ1(id); setPhase("q2"); };
-  const handleQ2 = (id) => { setQ2(id); setPhase("context"); };
-  const handleContextNext = () => { setPhase("avoid"); };
+  const goPhase = (p) => { setPhase(p); window.scrollTo({ top: 0, behavior: "instant" }); };
+
+  const handleQ1 = (id) => { setQ1(id); goPhase("q2"); };
+  const handleQ2 = (id) => { setQ2(id); goPhase("context"); };
+  const handleContextNext = () => { goPhase("avoid"); };
   const toggleAvoidance = (item) => {
     setAvoidances(prev => prev.includes(item) ? prev.filter(a => a !== item) : [...prev, item]);
   };
 
   const handleSubmitAvoid = async () => {
-    setPhase("analyzing");
+    goPhase("analyzing");
     setError(null);
     const q1Text = getDiagScenarioText(q1);
     const q2Text = getDiagQ2Text(q1, q2);
@@ -1082,16 +1084,16 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
       const text = data.content.map(item => (item.type === "text" ? item.text : "")).filter(Boolean).join("\n");
       const clean = text.replace(/```json|```/g, "").trim();
       setResult(JSON.parse(clean));
-      setPhase("result");
+      goPhase("result");
     } catch (err) {
       console.error("API error:", err);
       setError("Something went wrong. Please try again.");
-      setPhase("avoid");
+      goPhase("avoid");
     }
   };
 
   const reset = () => {
-    setPhase("q1"); setQ1(null); setQ2(null);
+    goPhase("q1"); setQ1(null); setQ2(null);
     setFreeText(""); setAvoidances([]); setResult(null); setError(null);
   };
 
@@ -1129,7 +1131,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
   );
 
   return (
-    <div style={{ background: C.bg, minHeight: "100vh", color: C.white }}>
+    <div style={{ background: C.bg, minHeight: "100vh", color: C.white, overflowX: "hidden" }}>
       <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       <style>{`
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1143,7 +1145,8 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
           .diag-scenario-grid { grid-template-columns: 1fr !important; }
           .diag-result-cols { grid-template-columns: 1fr !important; }
           .diag-teaser-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .diag-main { min-height: auto !important; justify-content: flex-start !important; }
+          .diag-main { min-height: auto !important; justify-content: flex-start !important; padding-bottom: 40px !important; }
+          .diag-scenario-grid button { padding: 18px 16px !important; }
         }
       `}</style>
 
@@ -1175,7 +1178,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
         display: "flex", flexDirection: "column",
         justifyContent: "center", alignItems: "center",
         padding: "100px 32px 60px",
-        position: "relative",
+        position: "relative", overflow: "hidden",
       }}>
         <div style={{
           position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)",
