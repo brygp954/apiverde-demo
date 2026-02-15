@@ -885,15 +885,80 @@ function HowItWorksSection() {
   );
 }
 
-// ─── DIAGNOSTIC SECTION DATA ─────────────────────────────────
-const DIAGNOSTIC_CONCERNS = [
-  { id: "sleep", label: "Sleep", icon: "🌙", active: true },
-  { id: "pain", label: "Pain", icon: "🔥", active: false },
-  { id: "stress", label: "Stress", icon: "😤", active: false },
-  { id: "energy", label: "Energy", icon: "⚡", active: false },
-  { id: "recovery", label: "Recovery", icon: "🏋️", active: false },
-];
+// ─── DIAGNOSTIC CTA SECTION ──────────────────────────────────
+function DiagnosticCTA() {
+  const handleLaunch = () => {
+    window.history.pushState({}, "", "/diagnostic");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  };
 
+  return (
+    <section style={{
+      padding: "120px 32px", color: C.white,
+      borderTop: `1px solid ${C.border}`,
+      position: "relative", overflow: "hidden",
+      textAlign: "center",
+    }}>
+      <div style={{
+        position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)",
+        width: "800px", height: "600px",
+        background: `radial-gradient(ellipse at center, ${C.green}30 0%, ${C.greenDeep}15 40%, transparent 68%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+      <div style={{
+        position: "absolute", bottom: "-15%", left: "-18%",
+        width: "450px", height: "350px",
+        background: `radial-gradient(ellipse at center, ${C.cyan}35 0%, ${C.cyanDeep}18 40%, transparent 65%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+
+      <Reveal>
+        <SectionLabel>See It In Action</SectionLabel>
+        <h2 style={{
+          fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
+          fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
+          maxWidth: "700px", margin: "0 auto 12px",
+        }}>Try the <span style={{ color: C.green }}>diagnostic.</span></h2>
+        <p style={{
+          fontFamily: outfit, fontSize: "16px", color: C.secondary,
+          maxWidth: "440px", margin: "0 auto 40px", lineHeight: 1.6,
+        }}>4 questions. 3 minutes. See what the platform sees.</p>
+
+        <div style={{
+          display: "flex", flexWrap: "wrap", gap: "10px",
+          justifyContent: "center", marginBottom: "40px",
+        }}>
+          {[
+            { id: "sleep", label: "Sleep", icon: "🌙", active: true },
+            { id: "pain", label: "Pain", icon: "🔥", active: false },
+            { id: "stress", label: "Stress", icon: "😤", active: false },
+            { id: "energy", label: "Energy", icon: "⚡", active: false },
+            { id: "recovery", label: "Recovery", icon: "🏋️", active: false },
+          ].map(c => (
+            <button key={c.id} onClick={c.active ? handleLaunch : undefined} style={{
+              fontFamily: outfit, fontSize: "15px", fontWeight: 600,
+              color: C.white, background: "transparent",
+              border: `1px solid ${c.active ? C.green : "rgba(255,255,255,0.15)"}`,
+              padding: "12px 24px", cursor: c.active ? "pointer" : "default",
+              display: "flex", alignItems: "center", gap: "8px",
+              transition: "all 0.2s ease",
+            }}>
+              {c.icon} {c.label}
+              {!c.active && <span style={{ fontSize: "14px", marginLeft: "2px" }}>🔒</span>}
+            </button>
+          ))}
+        </div>
+
+        <p style={{
+          fontFamily: outfit, fontSize: "13px", color: C.muted,
+          maxWidth: "400px", margin: "0 auto", lineHeight: 1.5,
+        }}>This is an abbreviated version. The full diagnostic goes much deeper.</p>
+      </Reveal>
+    </section>
+  );
+}
+
+// ─── DIAGNOSTIC DATA ─────────────────────────────────────────
 const DIAGNOSTIC_SCENARIOS = [
   {
     prompt: "Which sounds more like your night?",
@@ -938,9 +1003,9 @@ function getDiagQ2Text(q1Id, q2Id) {
   return opt ? `${opt.title}: ${opt.desc}` : q2Id;
 }
 
-// ─── DIAGNOSTIC SECTION ──────────────────────────────────────
-function DiagnosticSection() {
-  const [phase, setPhase] = useState("select");
+// ─── STANDALONE DIAGNOSTIC PAGE ──────────────────────────────
+function DiagnosticPage() {
+  const [phase, setPhase] = useState("q1");
   const [q1, setQ1] = useState(null);
   const [q2, setQ2] = useState(null);
   const [freeText, setFreeText] = useState("");
@@ -948,9 +1013,6 @@ function DiagnosticSection() {
   const [error, setError] = useState(null);
   const [avoidances, setAvoidances] = useState([]);
 
-  const handleConcernSelect = (id) => {
-    if (id === "sleep") setPhase("q1");
-  };
   const handleQ1 = (id) => { setQ1(id); setPhase("q2"); };
   const handleQ2 = (id) => { setQ2(id); setPhase("context"); };
   const handleContextNext = () => { setPhase("avoid"); };
@@ -968,10 +1030,10 @@ function DiagnosticSection() {
     const systemPrompt = `You are the diagnostic intelligence behind Apiverde Health, a science-backed cannabinoid wellness platform. You specialize in sleep system analysis.
 
 There are 4 primary sleep driver types:
-1. Stress-Dominant — cortisol-driven, racing mind, nervous system won't stand down
-2. Circadian-Misaligned — internal clock out of sync with life schedule
-3. Metabolic-Disrupted — blood sugar, late eating, stimulants affecting sleep architecture
-4. Cognitive-Hypervigilant — light sleeper, hyperarousal, brain treats sleep as vulnerability
+1. Stress-Dominant: cortisol-driven, racing mind, nervous system won't stand down
+2. Circadian-Misaligned: internal clock out of sync with life schedule
+3. Metabolic-Disrupted: blood sugar, late eating, stimulants affecting sleep architecture
+4. Cognitive-Hypervigilant: light sleeper, hyperarousal, brain treats sleep as vulnerability
 
 Based on the user's responses, determine their most likely sleep driver type and provide personalized guidance.
 
@@ -993,16 +1055,16 @@ Respond ONLY in this exact JSON format with no preamble, no markdown backticks, 
 
     const userMessage = `Here are my sleep assessment responses:
 
-SCENARIO 1 — "Which sounds more like your night?"
+SCENARIO 1: "Which sounds more like your night?"
 Selected: ${q1Text}
 
-SCENARIO 2 — "Which feels more familiar?"
+SCENARIO 2: "Which feels more familiar?"
 Selected: ${q2Text}
 
 ADDITIONAL CONTEXT:
 ${additional}
 
-THINGS TO AVOID (hard constraints — recommendations must respect these):
+THINGS TO AVOID (hard constraints, recommendations must respect these):
 ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted."}`;
 
     try {
@@ -1029,11 +1091,15 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
   };
 
   const reset = () => {
-    setPhase("select"); setQ1(null); setQ2(null);
+    setPhase("q1"); setQ1(null); setQ2(null);
     setFreeText(""); setAvoidances([]); setResult(null); setError(null);
   };
 
-  // ── Progress bar helper ──
+  const goHome = () => {
+    window.history.pushState({}, "", "/");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  };
+
   const ProgressBar = ({ step }) => (
     <div style={{ display: "flex", gap: "8px", marginBottom: "48px", justifyContent: "center" }}>
       {[1, 2, 3, 4].map(i => (
@@ -1042,7 +1108,6 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
     </div>
   );
 
-  // ── Prompt heading helper ──
   const Prompt = ({ children }) => (
     <p style={{
       fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)",
@@ -1051,7 +1116,6 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
     }}>{children}</p>
   );
 
-  // ── Scenario card helper ──
   const ScenarioCard = ({ opt, onClick }) => (
     <button onClick={onClick} style={{
       background: C.bgCard, border: `1px solid ${C.border}`,
@@ -1065,330 +1129,334 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
   );
 
   return (
-    <section style={{
-      padding: "120px 32px", color: C.white,
-      borderTop: `1px solid ${C.border}`,
-      position: "relative", overflow: "hidden",
-      display: "flex", flexDirection: "column", alignItems: "center",
-      minHeight: phase === "select" ? "auto" : "700px",
-      justifyContent: phase === "select" ? "flex-start" : "center",
-    }}>
-      <div style={{
-        position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)",
-        width: "800px", height: "600px",
-        background: `radial-gradient(ellipse at center, ${C.green}30 0%, ${C.greenDeep}15 40%, transparent 68%)`,
-        pointerEvents: "none", filter: "blur(80px)",
-      }} />
-      {/* Cyan accent glow - bottom left */}
-      <div style={{
-        position: "absolute", bottom: "-15%", left: "-18%",
-        width: "450px", height: "350px",
-        background: `radial-gradient(ellipse at center, ${C.cyan}35 0%, ${C.cyanDeep}18 40%, transparent 65%)`,
-        pointerEvents: "none", filter: "blur(80px)",
-      }} />
+    <div style={{ background: C.bg, minHeight: "100vh", color: C.white }}>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+      <style>{`
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes dotPulse { 0%, 80%, 100% { opacity: 0.2; } 40% { opacity: 1; } }
+        ::selection { background: ${C.green}33; }
+        textarea::placeholder { color: rgba(255,255,255,0.25); }
+        textarea:focus { outline: none; border-color: rgba(52,211,153,0.3) !important; }
+        button:hover { opacity: 0.85; }
+        @media (max-width: 768px) {
+          .diag-scenario-grid { grid-template-columns: 1fr !important; }
+          .diag-result-cols { grid-template-columns: 1fr !important; }
+          .diag-teaser-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+      `}</style>
 
-      {/* ─── CONCERN SELECT ─── */}
-      {phase === "select" && (
-        <div style={{ textAlign: "center", maxWidth: "600px", animation: "fadeUp 0.6s ease both" }}>
-          <SectionLabel>See It In Action</SectionLabel>
-          <h2 style={{
-            fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
-            fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
-            maxWidth: "700px", margin: "0 auto 12px",
-          }}>Try the <span style={{ color: C.green }}>diagnostic.</span></h2>
-          <p style={{
-            fontFamily: outfit, fontSize: "16px", color: C.secondary,
-            maxWidth: "440px", margin: "0 auto 40px", lineHeight: 1.6,
-          }}>Select a concern to see how the platform thinks. This is an abbreviated version. The full diagnostic goes much deeper.</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", justifyContent: "center" }}>
-            {DIAGNOSTIC_CONCERNS.map(c => (
-              <button key={c.id} onClick={() => handleConcernSelect(c.id)} style={{
-                fontFamily: outfit, fontSize: "15px", fontWeight: 600,
-                color: C.white, background: "transparent",
-                border: `1px solid ${c.active ? C.green : "rgba(255,255,255,0.15)"}`,
-                padding: "12px 24px", cursor: c.active ? "pointer" : "default",
-                display: "flex", alignItems: "center", gap: "8px",
-                transition: "all 0.2s ease",
-              }}>
-                {c.icon} {c.label}
-                {!c.active && <span style={{ fontSize: "14px", marginLeft: "2px" }}>🔒</span>}
-              </button>
-            ))}
-          </div>
+      {/* Nav */}
+      <nav style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        background: "rgba(8,11,17,0.85)",
+        backdropFilter: "blur(20px)",
+        borderBottom: `1px solid ${C.green}30`,
+      }}>
+        <div style={{
+          maxWidth: "1200px", margin: "0 auto", padding: "14px 32px",
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+        }}>
+          <span onClick={goHome} style={{
+            fontFamily: jakarta, fontSize: "18px", fontWeight: 700,
+            color: C.white, letterSpacing: "-0.01em", cursor: "pointer",
+          }}>Apiverde <span style={{ color: C.green }}>Health</span></span>
+          <span style={{
+            fontFamily: outfit, fontSize: "11px", fontWeight: 600,
+            color: C.green, textTransform: "uppercase", letterSpacing: "0.12em",
+          }}>Sleep Diagnostic</span>
         </div>
-      )}
+      </nav>
 
-      {/* ─── Q1 ─── */}
-      {phase === "q1" && (
-        <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
-          <ProgressBar step={1} />
-          <div style={{ textAlign: "center", marginBottom: "36px" }}>
-            <Prompt>{DIAGNOSTIC_SCENARIOS[0].prompt}</Prompt>
-          </div>
-          <div className="scenario-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-            {DIAGNOSTIC_SCENARIOS[0].options.map(opt => (
-              <ScenarioCard key={opt.id} opt={opt} onClick={() => handleQ1(opt.id)} />
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Full-screen diagnostic */}
+      <section style={{
+        minHeight: "100vh",
+        display: "flex", flexDirection: "column",
+        justifyContent: "center", alignItems: "center",
+        padding: "100px 32px 60px",
+        position: "relative",
+      }}>
+        <div style={{
+          position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)",
+          width: "800px", height: "600px",
+          background: `radial-gradient(ellipse at center, ${C.green}30 0%, ${C.greenDeep}15 40%, transparent 68%)`,
+          pointerEvents: "none", filter: "blur(80px)",
+        }} />
+        <div style={{
+          position: "absolute", bottom: "-15%", right: "-18%",
+          width: "450px", height: "350px",
+          background: `radial-gradient(ellipse at center, ${C.cyan}35 0%, ${C.cyanDeep}18 40%, transparent 65%)`,
+          pointerEvents: "none", filter: "blur(80px)",
+        }} />
 
-      {/* ─── Q2 ─── */}
-      {phase === "q2" && (
-        <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
-          <ProgressBar step={2} />
-          <div style={{ textAlign: "center", marginBottom: "36px" }}>
-            <Prompt>{DIAGNOSTIC_SCENARIOS[1].prompt}</Prompt>
-          </div>
-          <div className="scenario-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-            {(DIAGNOSTIC_SCENARIOS[1].options[q1] || []).map(opt => (
-              <ScenarioCard key={opt.id} opt={opt} onClick={() => handleQ2(opt.id)} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* ─── CONTEXT ─── */}
-      {phase === "context" && (
-        <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
-          <ProgressBar step={3} />
-          <div style={{ textAlign: "center", marginBottom: "36px" }}>
-            <p style={{
-              fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)",
-              fontWeight: 700, color: C.white,
-              lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: "8px",
-            }}>What have you tried, and what's your caffeine situation?</p>
-            <p style={{ fontFamily: outfit, fontSize: "15px", color: C.muted, lineHeight: 1.5 }}>
-              Any products, supplements, or prescriptions you've used for sleep. And how much caffeine you consume and when.
-            </p>
-          </div>
-          <textarea value={freeText} onChange={(e) => setFreeText(e.target.value)}
-            placeholder="e.g. I've tried melatonin but it makes me groggy. I tried CBD gummies once but didn't notice anything. I drink 3 cups of coffee, last one around 2pm..."
-            style={{
-              width: "100%", minHeight: "140px", background: C.bgCard,
-              border: `1px solid ${C.border}`, padding: "20px",
-              fontFamily: outfit, fontSize: "15px", color: C.white,
-              lineHeight: 1.6, resize: "vertical", transition: "border-color 0.2s ease",
-            }} />
-          {error && <p style={{ fontFamily: outfit, fontSize: "14px", color: "#f87171", marginTop: "12px", textAlign: "center" }}>{error}</p>}
-          <button onClick={handleContextNext} style={{
-            fontFamily: outfit, fontSize: "15px", fontWeight: 700,
-            color: C.bg, background: C.green, border: "none",
-            padding: "16px 32px", cursor: "pointer",
-            textTransform: "uppercase", letterSpacing: "0.06em",
-            width: "100%", marginTop: "24px",
-          }}>Continue</button>
-          <div style={{ textAlign: "center", marginTop: "12px" }}>
-            <button onClick={handleContextNext} style={{
-              fontFamily: outfit, fontSize: "13px", fontWeight: 500,
-              color: C.muted, background: "none", border: "none", cursor: "pointer",
-            }}>Skip this step →</button>
-          </div>
-        </div>
-      )}
-
-      {/* ─── AVOID ─── */}
-      {phase === "avoid" && (
-        <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
-          <ProgressBar step={4} />
-          <div style={{ textAlign: "center", marginBottom: "36px" }}>
-            <p style={{
-              fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)",
-              fontWeight: 700, color: C.white,
-              lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: "8px",
-            }}>What would make you stop using a product?</p>
-            <p style={{ fontFamily: outfit, fontSize: "15px", color: C.muted, lineHeight: 1.5 }}>
-              Select any that apply. These become hard constraints in your recommendation.
-            </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "32px" }}>
-            {[
-              { id: "grogginess", label: "Morning grogginess or brain fog", desc: "I need to wake up sharp. Can't afford to feel sluggish." },
-              { id: "altered", label: 'Feeling "high" or altered in any way', desc: "I want to sleep better, not feel intoxicated." },
-              { id: "dependency", label: "Dependency or needing it every night", desc: "I don't want to trade one problem for another." },
-              { id: "digestive", label: "Digestive issues or stomach discomfort", desc: "I've had bad reactions to supplements before." },
-              { id: "drug-test", label: "Anything that affects drug testing", desc: "THC-free is non-negotiable for me." },
-            ].map(item => {
-              const selected = avoidances.includes(item.label);
-              return (
-                <button key={item.id} onClick={() => toggleAvoidance(item.label)} style={{
-                  background: selected ? `${C.green}12` : C.bgCard,
-                  border: `1px solid ${selected ? `${C.green}40` : C.border}`,
-                  padding: "18px 20px", cursor: "pointer",
-                  textAlign: "left", transition: "all 0.2s ease",
-                  display: "flex", gap: "16px", alignItems: "flex-start",
-                }}>
-                  <div style={{
-                    width: "20px", height: "20px", flexShrink: 0,
-                    border: `2px solid ${selected ? C.green : C.muted}`,
-                    background: selected ? C.green : "transparent",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    marginTop: "2px", transition: "all 0.2s ease",
-                  }}>
-                    {selected && <span style={{ color: C.bg, fontSize: "13px", fontWeight: 700 }}>✓</span>}
-                  </div>
-                  <div>
-                    <span style={{ fontFamily: jakarta, fontSize: "16px", fontWeight: 600, color: C.white, lineHeight: 1.3, display: "block", marginBottom: "4px" }}>{item.label}</span>
-                    <span style={{ fontFamily: outfit, fontSize: "13px", color: C.muted, lineHeight: 1.4 }}>{item.desc}</span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-          <button onClick={handleSubmitAvoid} style={{
-            fontFamily: outfit, fontSize: "15px", fontWeight: 700,
-            color: C.bg, background: C.green, border: "none",
-            padding: "16px 32px", cursor: "pointer",
-            textTransform: "uppercase", letterSpacing: "0.06em", width: "100%",
-          }}>Analyze My Sleep</button>
-          <div style={{ textAlign: "center", marginTop: "12px" }}>
-            <button onClick={handleSubmitAvoid} style={{
-              fontFamily: outfit, fontSize: "13px", fontWeight: 500,
-              color: C.muted, background: "none", border: "none", cursor: "pointer",
-            }}>Skip, no strong preferences →</button>
-          </div>
-        </div>
-      )}
-
-      {/* ─── ANALYZING ─── */}
-      {phase === "analyzing" && (
-        <div style={{ textAlign: "center", animation: "fadeUp 0.4s ease both" }}>
-          <div style={{ display: "flex", gap: "8px", justifyContent: "center", marginBottom: "32px" }}>
-            {[0, 1, 2].map(i => (
-              <div key={i} style={{
-                width: "10px", height: "10px", borderRadius: "50%",
-                background: C.green,
-                animation: `dotPulse 1.4s ease-in-out ${i * 0.2}s infinite`,
-              }} />
-            ))}
-          </div>
-          <p style={{ fontFamily: jakarta, fontSize: "22px", fontWeight: 600, color: C.white, marginBottom: "8px" }}>
-            Analyzing your sleep profile
-          </p>
-          <p style={{ fontFamily: outfit, fontSize: "14px", color: C.muted, lineHeight: 1.5, maxWidth: "360px", margin: "0 auto" }}>
-            Cross-referencing your responses against known sleep driver patterns...
-          </p>
-        </div>
-      )}
-
-      {/* ─── RESULT ─── */}
-      {phase === "result" && result && (
-        <div style={{ maxWidth: "720px", width: "100%" }}>
-          {/* Profile Hero Card */}
-          <div style={{
-            background: C.bgCard, border: `1px solid ${C.border}`,
-            padding: "0", marginBottom: "16px", overflow: "hidden",
-            animation: "fadeUp 0.7s ease both",
-          }}>
-            <div style={{ height: "4px", background: `linear-gradient(90deg, ${C.green}, ${C.greenDeep}, ${C.green})` }} />
-            <div style={{ padding: "36px 36px 32px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }}>
-                <div>
-                  <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "10px" }}>YOUR SLEEP PROFILE</div>
-                  <h3 style={{ fontFamily: jakarta, fontSize: "clamp(26px, 5vw, 34px)", fontWeight: 700, color: C.white, letterSpacing: "-0.02em", lineHeight: 1.1 }}>{result.profileType}</h3>
-                </div>
-                <div style={{
-                  width: "56px", height: "56px", background: `${C.green}15`,
-                  border: `1px solid ${C.green}30`,
-                  display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-                }}>
-                  <span style={{ fontSize: "28px" }}>
-                    {result.profileType.includes("Stress") && "⚡"}
-                    {result.profileType.includes("Circadian") && "🕐"}
-                    {result.profileType.includes("Metabolic") && "🔄"}
-                    {result.profileType.includes("Hypervigilant") && "🛡️"}
-                  </span>
-                </div>
-              </div>
-              <p style={{ fontFamily: outfit, fontSize: "16px", color: C.secondary, lineHeight: 1.7, marginBottom: "0" }}>{result.profileSummary}</p>
-              {result.personalNote && (
-                <div style={{ marginTop: "20px", padding: "16px 20px", background: `${C.green}08`, borderLeft: `3px solid ${C.green}` }}>
-                  <p style={{ fontFamily: outfit, fontSize: "14px", color: C.green, lineHeight: 1.6, margin: 0 }}>{result.personalNote}</p>
-                </div>
-              )}
+        {/* Q1 */}
+        {phase === "q1" && (
+          <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
+            <ProgressBar step={1} />
+            <div style={{ textAlign: "center", marginBottom: "36px" }}>
+              <Prompt>{DIAGNOSTIC_SCENARIOS[0].prompt}</Prompt>
             </div>
-          </div>
-
-          {/* Two-Column: Cannabinoid + Lifestyle */}
-          <div className="result-cols" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
-            <div style={{
-              background: C.bgCard, border: `1px solid ${C.border}`, padding: "28px",
-              display: "flex", flexDirection: "column", animation: "fadeUp 0.7s ease 0.2s both",
-            }}>
-              <div style={{ width: "40px", height: "40px", background: `${C.green}12`, border: `1px solid ${C.green}25`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
-                <span style={{ fontSize: "20px" }}>🧬</span>
-              </div>
-              <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "10px" }}>RECOMMENDED CANNABINOID</div>
-              <h4 style={{ fontFamily: jakarta, fontSize: "20px", fontWeight: 700, color: C.white, marginBottom: "12px", lineHeight: 1.2 }}>{result.cannabinoidName}</h4>
-              <p style={{ fontFamily: outfit, fontSize: "13px", color: C.secondary, lineHeight: 1.7, flex: 1 }}>{result.cannabinoidReasoning}</p>
-            </div>
-            <div style={{
-              background: C.bgCard, border: `1px solid ${C.border}`, padding: "28px",
-              display: "flex", flexDirection: "column", animation: "fadeUp 0.7s ease 0.35s both",
-            }}>
-              <div style={{ width: "40px", height: "40px", background: `${C.green}12`, border: `1px solid ${C.green}25`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
-                <span style={{ fontSize: "20px" }}>📋</span>
-              </div>
-              <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "10px" }}>LIFESTYLE ADJUSTMENTS</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "14px", flex: 1 }}>
-                {(result.lifestyleRecs || []).map((tip, i) => (
-                  <div key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                    <div style={{ fontFamily: jakarta, fontSize: "14px", fontWeight: 700, color: C.green, minWidth: "20px", marginTop: "1px" }}>{String(i + 1).padStart(2, "0")}</div>
-                    <p style={{ fontFamily: outfit, fontSize: "13px", color: C.secondary, lineHeight: 1.6, margin: 0 }}>{tip}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Avoidances Respected */}
-          {avoidances.length > 0 && (
-            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "24px", justifyContent: "center", animation: "fadeUp 0.7s ease 0.5s both" }}>
-              <span style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: "0.1em", alignSelf: "center", marginRight: "4px" }}>CONSTRAINTS RESPECTED:</span>
-              {avoidances.map(a => (
-                <span key={a} style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, background: `${C.green}12`, border: `1px solid ${C.green}20`, padding: "5px 12px", letterSpacing: "0.02em", display: "flex", alignItems: "center", gap: "6px" }}>✓ {a}</span>
+            <div className="diag-scenario-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+              {DIAGNOSTIC_SCENARIOS[0].options.map(opt => (
+                <ScenarioCard key={opt.id} opt={opt} onClick={() => handleQ1(opt.id)} />
               ))}
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Account Teaser */}
-          <div style={{ position: "relative", overflow: "hidden", padding: "40px 36px", textAlign: "center", animation: "fadeUp 0.7s ease 0.6s both" }}>
-            <div style={{ position: "absolute", top: "0", left: "50%", transform: "translateX(-50%)", width: "600px", height: "400px", background: `radial-gradient(ellipse at center, ${C.green}20 0%, transparent 65%)`, pointerEvents: "none", filter: "blur(60px)" }} />
-            <div style={{ position: "absolute", inset: 0, border: `1px solid ${C.green}20`, pointerEvents: "none" }} />
-            <div style={{ position: "relative" }}>
-              <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "16px" }}>THIS WAS THE SHORT VERSION</div>
-              <p style={{ fontFamily: jakarta, fontSize: "clamp(20px, 4vw, 26px)", fontWeight: 700, color: C.white, marginBottom: "8px", lineHeight: 1.3, letterSpacing: "-0.01em" }}>
-                You answered 4 questions.<br />The full diagnostic considers <span style={{ color: C.green }}>12+ variables.</span>
-              </p>
-              <p style={{ fontFamily: outfit, fontSize: "15px", color: C.secondary, lineHeight: 1.6, maxWidth: "460px", margin: "0 auto 28px" }}>
-                With an account, you get the specific product, exact dosing, timing protocol, and follow-up checkpoints calibrated to your profile.
-              </p>
-              <div className="teaser-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px", maxWidth: "480px", margin: "0 auto 28px" }}>
-                {[
-                  { icon: "🎯", label: "Specific products" },
-                  { icon: "⏱️", label: "Dosing & timing" },
-                  { icon: "🔄", label: "Follow-up plan" },
-                  { icon: "📈", label: "Adapts over time" },
-                  { icon: "🔒", label: "Completely private" },
-                  { icon: "🏷️", label: "Member pricing" },
-                ].map(item => (
-                  <div key={item.label} style={{ background: `${C.green}08`, border: `1px solid ${C.green}15`, padding: "14px 12px", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-                    <span style={{ fontSize: "18px" }}>{item.icon}</span>
-                    <span style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.secondary, textAlign: "center", letterSpacing: "0.02em" }}>{item.label}</span>
-                  </div>
-                ))}
-              </div>
-              <button style={{ fontFamily: outfit, fontSize: "15px", fontWeight: 700, color: C.bg, background: C.green, border: "none", padding: "16px 48px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.06em" }}>Get Your Full Protocol</button>
+        {/* Q2 */}
+        {phase === "q2" && (
+          <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
+            <ProgressBar step={2} />
+            <div style={{ textAlign: "center", marginBottom: "36px" }}>
+              <Prompt>{DIAGNOSTIC_SCENARIOS[1].prompt}</Prompt>
+            </div>
+            <div className="diag-scenario-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+              {(DIAGNOSTIC_SCENARIOS[1].options[q1] || []).map(opt => (
+                <ScenarioCard key={opt.id} opt={opt} onClick={() => handleQ2(opt.id)} />
+              ))}
             </div>
           </div>
+        )}
 
-          {/* Reset */}
-          <div style={{ textAlign: "center", marginTop: "24px" }}>
-            <button onClick={reset} style={{ fontFamily: outfit, fontSize: "13px", fontWeight: 500, color: C.muted, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Start over</button>
+        {/* Context */}
+        {phase === "context" && (
+          <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
+            <ProgressBar step={3} />
+            <div style={{ textAlign: "center", marginBottom: "36px" }}>
+              <p style={{
+                fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)",
+                fontWeight: 700, color: C.white,
+                lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: "8px",
+              }}>What have you tried, and what's your caffeine situation?</p>
+              <p style={{ fontFamily: outfit, fontSize: "15px", color: C.muted, lineHeight: 1.5 }}>
+                Any products, supplements, or prescriptions you've used for sleep. And how much caffeine you consume and when.
+              </p>
+            </div>
+            <textarea value={freeText} onChange={(e) => setFreeText(e.target.value)}
+              placeholder="e.g. I've tried melatonin but it makes me groggy. I tried CBD gummies once but didn't notice anything. I drink 3 cups of coffee, last one around 2pm..."
+              style={{
+                width: "100%", minHeight: "140px", background: C.bgCard,
+                border: `1px solid ${C.border}`, padding: "20px",
+                fontFamily: outfit, fontSize: "15px", color: C.white,
+                lineHeight: 1.6, resize: "vertical", transition: "border-color 0.2s ease",
+              }} />
+            {error && <p style={{ fontFamily: outfit, fontSize: "14px", color: "#f87171", marginTop: "12px", textAlign: "center" }}>{error}</p>}
+            <button onClick={handleContextNext} style={{
+              fontFamily: outfit, fontSize: "15px", fontWeight: 700,
+              color: C.bg, background: C.green, border: "none",
+              padding: "16px 32px", cursor: "pointer",
+              textTransform: "uppercase", letterSpacing: "0.06em",
+              width: "100%", marginTop: "24px",
+            }}>Continue</button>
+            <div style={{ textAlign: "center", marginTop: "12px" }}>
+              <button onClick={handleContextNext} style={{
+                fontFamily: outfit, fontSize: "13px", fontWeight: 500,
+                color: C.muted, background: "none", border: "none", cursor: "pointer",
+              }}>Skip this step →</button>
+            </div>
           </div>
-        </div>
-      )}
-    </section>
+        )}
+
+        {/* Avoid */}
+        {phase === "avoid" && (
+          <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
+            <ProgressBar step={4} />
+            <div style={{ textAlign: "center", marginBottom: "36px" }}>
+              <p style={{
+                fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)",
+                fontWeight: 700, color: C.white,
+                lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: "8px",
+              }}>What would make you stop using a product?</p>
+              <p style={{ fontFamily: outfit, fontSize: "15px", color: C.muted, lineHeight: 1.5 }}>
+                Select any that apply. These become hard constraints in your recommendation.
+              </p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "32px" }}>
+              {[
+                { id: "grogginess", label: "Morning grogginess or brain fog", desc: "I need to wake up sharp. Can't afford to feel sluggish." },
+                { id: "altered", label: 'Feeling "high" or altered in any way', desc: "I want to sleep better, not feel intoxicated." },
+                { id: "dependency", label: "Dependency or needing it every night", desc: "I don't want to trade one problem for another." },
+                { id: "digestive", label: "Digestive issues or stomach discomfort", desc: "I've had bad reactions to supplements before." },
+                { id: "drug-test", label: "Anything that affects drug testing", desc: "THC-free is non-negotiable for me." },
+              ].map(item => {
+                const selected = avoidances.includes(item.label);
+                return (
+                  <button key={item.id} onClick={() => toggleAvoidance(item.label)} style={{
+                    background: selected ? `${C.green}12` : C.bgCard,
+                    border: `1px solid ${selected ? `${C.green}40` : C.border}`,
+                    padding: "18px 20px", cursor: "pointer",
+                    textAlign: "left", transition: "all 0.2s ease",
+                    display: "flex", gap: "16px", alignItems: "flex-start",
+                  }}>
+                    <div style={{
+                      width: "20px", height: "20px", flexShrink: 0,
+                      border: `2px solid ${selected ? C.green : C.muted}`,
+                      background: selected ? C.green : "transparent",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      marginTop: "2px", transition: "all 0.2s ease",
+                    }}>
+                      {selected && <span style={{ color: C.bg, fontSize: "13px", fontWeight: 700 }}>✓</span>}
+                    </div>
+                    <div>
+                      <span style={{ fontFamily: jakarta, fontSize: "16px", fontWeight: 600, color: C.white, lineHeight: 1.3, display: "block", marginBottom: "4px" }}>{item.label}</span>
+                      <span style={{ fontFamily: outfit, fontSize: "13px", color: C.muted, lineHeight: 1.4 }}>{item.desc}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+            <button onClick={handleSubmitAvoid} style={{
+              fontFamily: outfit, fontSize: "15px", fontWeight: 700,
+              color: C.bg, background: C.green, border: "none",
+              padding: "16px 32px", cursor: "pointer",
+              textTransform: "uppercase", letterSpacing: "0.06em", width: "100%",
+            }}>Analyze My Sleep</button>
+            <div style={{ textAlign: "center", marginTop: "12px" }}>
+              <button onClick={handleSubmitAvoid} style={{
+                fontFamily: outfit, fontSize: "13px", fontWeight: 500,
+                color: C.muted, background: "none", border: "none", cursor: "pointer",
+              }}>Skip, no strong preferences →</button>
+            </div>
+          </div>
+        )}
+
+        {/* Analyzing */}
+        {phase === "analyzing" && (
+          <div style={{ textAlign: "center", animation: "fadeUp 0.4s ease both" }}>
+            <div style={{ display: "flex", gap: "8px", justifyContent: "center", marginBottom: "32px" }}>
+              {[0, 1, 2].map(i => (
+                <div key={i} style={{
+                  width: "10px", height: "10px", borderRadius: "50%",
+                  background: C.green,
+                  animation: `dotPulse 1.4s ease-in-out ${i * 0.2}s infinite`,
+                }} />
+              ))}
+            </div>
+            <p style={{ fontFamily: jakarta, fontSize: "22px", fontWeight: 600, color: C.white, marginBottom: "8px" }}>
+              Analyzing your sleep profile
+            </p>
+            <p style={{ fontFamily: outfit, fontSize: "14px", color: C.muted, lineHeight: 1.5, maxWidth: "360px", margin: "0 auto" }}>
+              Cross-referencing your responses against known sleep driver patterns...
+            </p>
+          </div>
+        )}
+
+        {/* Result */}
+        {phase === "result" && result && (
+          <div style={{ maxWidth: "720px", width: "100%" }}>
+            <div style={{
+              background: C.bgCard, border: `1px solid ${C.border}`,
+              padding: "0", marginBottom: "16px", overflow: "hidden",
+              animation: "fadeUp 0.7s ease both",
+            }}>
+              <div style={{ height: "4px", background: `linear-gradient(90deg, ${C.green}, ${C.greenDeep}, ${C.green})` }} />
+              <div style={{ padding: "36px 36px 32px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }}>
+                  <div>
+                    <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "10px" }}>YOUR SLEEP PROFILE</div>
+                    <h3 style={{ fontFamily: jakarta, fontSize: "clamp(26px, 5vw, 34px)", fontWeight: 700, color: C.white, letterSpacing: "-0.02em", lineHeight: 1.1 }}>{result.profileType}</h3>
+                  </div>
+                  <div style={{
+                    width: "56px", height: "56px", background: `${C.green}15`,
+                    border: `1px solid ${C.green}30`,
+                    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                  }}>
+                    <span style={{ fontSize: "28px" }}>
+                      {result.profileType.includes("Stress") && "⚡"}
+                      {result.profileType.includes("Circadian") && "🕐"}
+                      {result.profileType.includes("Metabolic") && "🔄"}
+                      {result.profileType.includes("Hypervigilant") && "🛡️"}
+                    </span>
+                  </div>
+                </div>
+                <p style={{ fontFamily: outfit, fontSize: "16px", color: C.secondary, lineHeight: 1.7, marginBottom: "0" }}>{result.profileSummary}</p>
+                {result.personalNote && (
+                  <div style={{ marginTop: "20px", padding: "16px 20px", background: `${C.green}08`, borderLeft: `3px solid ${C.green}` }}>
+                    <p style={{ fontFamily: outfit, fontSize: "14px", color: C.green, lineHeight: 1.6, margin: 0 }}>{result.personalNote}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="diag-result-cols" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
+              <div style={{
+                background: C.bgCard, border: `1px solid ${C.border}`, padding: "28px",
+                display: "flex", flexDirection: "column", animation: "fadeUp 0.7s ease 0.2s both",
+              }}>
+                <div style={{ width: "40px", height: "40px", background: `${C.green}12`, border: `1px solid ${C.green}25`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
+                  <span style={{ fontSize: "20px" }}>🧬</span>
+                </div>
+                <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "10px" }}>RECOMMENDED CANNABINOID</div>
+                <h4 style={{ fontFamily: jakarta, fontSize: "20px", fontWeight: 700, color: C.white, marginBottom: "12px", lineHeight: 1.2 }}>{result.cannabinoidName}</h4>
+                <p style={{ fontFamily: outfit, fontSize: "13px", color: C.secondary, lineHeight: 1.7, flex: 1 }}>{result.cannabinoidReasoning}</p>
+              </div>
+              <div style={{
+                background: C.bgCard, border: `1px solid ${C.border}`, padding: "28px",
+                display: "flex", flexDirection: "column", animation: "fadeUp 0.7s ease 0.35s both",
+              }}>
+                <div style={{ width: "40px", height: "40px", background: `${C.green}12`, border: `1px solid ${C.green}25`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
+                  <span style={{ fontSize: "20px" }}>📋</span>
+                </div>
+                <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "10px" }}>LIFESTYLE ADJUSTMENTS</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "14px", flex: 1 }}>
+                  {(result.lifestyleRecs || []).map((tip, i) => (
+                    <div key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                      <div style={{ fontFamily: jakarta, fontSize: "14px", fontWeight: 700, color: C.green, minWidth: "20px", marginTop: "1px" }}>{String(i + 1).padStart(2, "0")}</div>
+                      <p style={{ fontFamily: outfit, fontSize: "13px", color: C.secondary, lineHeight: 1.6, margin: 0 }}>{tip}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {avoidances.length > 0 && (
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "24px", justifyContent: "center", animation: "fadeUp 0.7s ease 0.5s both" }}>
+                <span style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: "0.1em", alignSelf: "center", marginRight: "4px" }}>CONSTRAINTS RESPECTED:</span>
+                {avoidances.map(a => (
+                  <span key={a} style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, background: `${C.green}12`, border: `1px solid ${C.green}20`, padding: "5px 12px", letterSpacing: "0.02em", display: "flex", alignItems: "center", gap: "6px" }}>✓ {a}</span>
+                ))}
+              </div>
+            )}
+
+            <div style={{ position: "relative", overflow: "hidden", padding: "40px 36px", textAlign: "center", animation: "fadeUp 0.7s ease 0.6s both" }}>
+              <div style={{ position: "absolute", top: "0", left: "50%", transform: "translateX(-50%)", width: "600px", height: "400px", background: `radial-gradient(ellipse at center, ${C.green}20 0%, transparent 65%)`, pointerEvents: "none", filter: "blur(60px)" }} />
+              <div style={{ position: "absolute", inset: 0, border: `1px solid ${C.green}20`, pointerEvents: "none" }} />
+              <div style={{ position: "relative" }}>
+                <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "16px" }}>THIS WAS THE SHORT VERSION</div>
+                <p style={{ fontFamily: jakarta, fontSize: "clamp(20px, 4vw, 26px)", fontWeight: 700, color: C.white, marginBottom: "8px", lineHeight: 1.3, letterSpacing: "-0.01em" }}>
+                  You answered 4 questions.<br />The full diagnostic considers <span style={{ color: C.green }}>12+ variables.</span>
+                </p>
+                <p style={{ fontFamily: outfit, fontSize: "15px", color: C.secondary, lineHeight: 1.6, maxWidth: "460px", margin: "0 auto 28px" }}>
+                  With an account, you get the specific product, exact dosing, timing protocol, and follow-up checkpoints calibrated to your profile.
+                </p>
+                <div className="diag-teaser-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px", maxWidth: "480px", margin: "0 auto 28px" }}>
+                  {[
+                    { icon: "🎯", label: "Specific products" },
+                    { icon: "⏱️", label: "Dosing & timing" },
+                    { icon: "🔄", label: "Follow-up plan" },
+                    { icon: "📈", label: "Adapts over time" },
+                    { icon: "🔒", label: "Completely private" },
+                    { icon: "🏷️", label: "Member pricing" },
+                  ].map(item => (
+                    <div key={item.label} style={{ background: `${C.green}08`, border: `1px solid ${C.green}15`, padding: "14px 12px", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
+                      <span style={{ fontSize: "18px" }}>{item.icon}</span>
+                      <span style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.secondary, textAlign: "center", letterSpacing: "0.02em" }}>{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <button style={{ fontFamily: outfit, fontSize: "15px", fontWeight: 700, color: C.bg, background: C.green, border: "none", padding: "16px 48px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.06em" }}>Get Your Full Protocol</button>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: "24px", justifyContent: "center", marginTop: "24px" }}>
+              <button onClick={reset} style={{ fontFamily: outfit, fontSize: "13px", fontWeight: 500, color: C.muted, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Start over</button>
+              <button onClick={goHome} style={{ fontFamily: outfit, fontSize: "13px", fontWeight: 500, color: C.muted, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Back to Apiverde Health</button>
+            </div>
+          </div>
+        )}
+      </section>
+    </div>
   );
 }
 
@@ -1664,8 +1732,8 @@ function ApiverdeDemo() {
       {/* ─── HOW IT WORKS ─── */}
       <HowItWorksSection />
 
-      {/* ─── DIAGNOSTIC ─── */}
-      <DiagnosticSection />
+      {/* ─── DIAGNOSTIC CTA ─── */}
+      <DiagnosticCTA />
 
       {/* ─── WHO IT'S FOR ─── */}
       <WhoItsForSection />
@@ -2068,6 +2136,10 @@ export default function App() {
       window.history.pushState({}, "", "/");
       setPath("/");
     }} />;
+  }
+
+  if (path === "/diagnostic" || path === "/diagnostic/") {
+    return <DiagnosticPage />;
   }
 
   return <ApiverdeDemo />;
