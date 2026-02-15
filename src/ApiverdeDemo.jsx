@@ -1070,12 +1070,10 @@ THINGS TO AVOID (hard constraints, recommendations must respect these):
 ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted."}`;
 
     try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      const response = await fetch("/api/diagnostic", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
           system: systemPrompt,
           messages: [{ role: "user", content: userMessage }],
         }),
@@ -1132,7 +1130,6 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
 
   return (
     <div style={{ background: C.bg, minHeight: "100vh", color: C.white, overflowX: "hidden" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       <style>{`
         * { margin: 0; padding: 0; box-sizing: border-box; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -1613,7 +1610,6 @@ function ApiverdeDemo() {
 
   return (
     <div style={{ background: C.bg, minHeight: "100vh", overflowX: "hidden" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       <style>{`
         * { margin: 0; padding: 0; box-sizing: border-box; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -1798,7 +1794,6 @@ function UFCWLanding({ onActivate }) {
 
   return (
     <div style={{ background: C.bg, minHeight: "100vh", overflowX: "hidden" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       <style>{`
         * { margin: 0; padding: 0; box-sizing: border-box; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -2139,16 +2134,18 @@ export default function App() {
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
+  const fontLink = <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet" />;
+
   if (path === "/ufcw" || path === "/ufcw/") {
-    return <UFCWLanding onActivate={(data) => {
+    return <>{fontLink}<UFCWLanding onActivate={(data) => {
       window.history.pushState({}, "", "/");
       setPath("/");
-    }} />;
+    }} /></>;
   }
 
   if (path === "/diagnostic" || path === "/diagnostic/") {
-    return <DiagnosticPage />;
+    return <>{fontLink}<DiagnosticPage /></>;
   }
 
-  return <ApiverdeDemo />;
+  return <>{fontLink}<ApiverdeDemo /></>;
 }
