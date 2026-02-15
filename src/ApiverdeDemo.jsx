@@ -1143,6 +1143,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
           .diag-scenario-grid { grid-template-columns: 1fr !important; }
           .diag-result-cols { grid-template-columns: 1fr !important; }
           .diag-teaser-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .diag-main { min-height: auto !important; justify-content: flex-start !important; }
         }
       `}</style>
 
@@ -1169,7 +1170,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
       </nav>
 
       {/* Full-screen diagnostic */}
-      <section style={{
+      <section className="diag-main" style={{
         minHeight: "100vh",
         display: "flex", flexDirection: "column",
         justifyContent: "center", alignItems: "center",
