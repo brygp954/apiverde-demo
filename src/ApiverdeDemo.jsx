@@ -1593,9 +1593,9 @@ function ApiverdeDemo() {
 
       {/* ─── HERO + Q1 ─── */}
       <section style={{
-        minHeight: "100vh", display: "flex", flexDirection: "column",
+        minHeight: "85vh", display: "flex", flexDirection: "column",
         justifyContent: "center", alignItems: "center",
-        padding: "120px 32px 60px", position: "relative",
+        padding: "100px 32px 60px", position: "relative",
         textAlign: "center", color: C.white,
       }}>
         {/* Ambient green glow - primary */}
