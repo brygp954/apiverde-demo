@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // ─── PALETTE ────────────────────────────────────────────────
 const C = {
@@ -11,6 +11,9 @@ const C = {
   greenDark: "#059669",
   greenDeep: "#047857",
   greenMuted: "#34D39955",
+  // Cyan accent (THV brand bridge)
+  cyan: "#22D3EE",
+  cyanDeep: "#0891B2",
   // Light tool section
   lightBg: "#F8FAFB",
   white: "#FFFFFF",
@@ -382,7 +385,7 @@ function ProblemSection({ headline, bg }) {
         <p style={{
           fontFamily: outfit, fontSize: "17px", color: C.secondary,
           maxWidth: "480px", margin: "20px auto 0", lineHeight: 1.6,
-        }}>It's worth trying again — with something you can actually trust.</p>
+        }}>It's worth trying again. With something you can actually trust.</p>
         <p style={{
           fontFamily: outfit, fontSize: "13px", color: C.muted,
           marginTop: "24px", letterSpacing: "0.04em",
@@ -639,82 +642,898 @@ function SmokePuff({ active }) {
   );
 }
 
-// ─── MAIN APP ───────────────────────────────────────────────
-function ApiverdeDemo() {
-  const [view, setView] = useState("landing");
-  const [heroReady, setHeroReady] = useState(false);
-  const [concern, setConcern] = useState(null);
-  const [q2, setQ2] = useState(null);
-  const [q3, setQ3] = useState(null);
-  const [expandedWhy, setExpandedWhy] = useState(null);
-  const [convoStep, setConvoStep] = useState(0);
-  const [convoHistory, setConvoHistory] = useState([]);
-  const [showCheckin, setShowCheckin] = useState(false);
-  const [checkinDone, setCheckinDone] = useState(false);
-  const [vibesHover, setVibesHover] = useState(false);
-  const [ackMessage, setAckMessage] = useState(null);
-  const toolRef = useRef(null);
+// ─── THE INSIGHT SECTION ────────────────────────────────────
+function InsightSection() {
+  return (
+    <section style={{
+      padding: "120px 32px", textAlign: "center", color: C.white,
+      borderTop: `1px solid ${C.border}`, background: C.bgAlt,
+      position: "relative", overflow: "hidden",
+    }}>
+      <div style={{
+        position: "absolute", top: "-10%", left: "50%", transform: "translateX(-50%)",
+        width: "800px", height: "600px",
+        background: `radial-gradient(ellipse at center, ${C.green}35 0%, ${C.greenDeep}18 40%, transparent 68%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+      <Reveal>
+        <SectionLabel>The Insight</SectionLabel>
+        <h2 style={{
+          fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
+          fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
+          maxWidth: "700px", margin: "0 auto 24px",
+        }}>Human beings refuse to be <span style={{ color: C.green }}>averaged.</span></h2>
+        <p style={{
+          fontFamily: outfit, fontSize: "18px", color: C.secondary,
+          maxWidth: "600px", margin: "0 auto 48px", lineHeight: 1.7,
+        }}>The same problem shows up differently in every person. Different body, different life, different root cause. What transforms one person's life may barely move the needle for another. This is predictable.</p>
+      </Reveal>
 
-  useEffect(() => { setTimeout(() => setHeroReady(true), 200); }, []);
+      <Reveal delay={0.2}>
+        <p style={{
+          fontFamily: jakarta, fontSize: "clamp(20px, 4vw, 28px)",
+          fontWeight: 600, color: C.white,
+          maxWidth: "600px", margin: "0 auto", lineHeight: 1.4,
+          letterSpacing: "-0.01em",
+        }}>The math is complex. <span style={{ color: C.green }}>Finding relief doesn't have to be.</span></p>
+      </Reveal>
+    </section>
+  );
+}
 
-  const scrollToTool = useCallback(() => {
-    setTimeout(() => {
-      toolRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
+// ─── SCIENCE MEETS PRECISION SECTION ────────────────────────
+function PrecisionSection() {
+  const cards = [
+    {
+      icon: "🧬",
+      title: "Diagnostic Intelligence",
+      desc: "The platform doesn't start with products. It starts with what's actually happening, identifying root causes before recommending solutions.",
+    },
+    {
+      icon: "🎯",
+      title: "Individual Calibration",
+      desc: "Body chemistry, schedule, lifestyle, constraints. Every recommendation is built around the individual, not the average.",
+    },
+    {
+      icon: "🚧",
+      title: "Constraint Awareness",
+      desc: "Drug testing, grogginess, dependency concerns. Your boundaries are hard limits, not preferences. The platform respects what you won't tolerate.",
+    },
+    {
+      icon: "📋",
+      title: "Protocol, Not Just Product",
+      desc: "Timing, dosing, duration. Members receive a plan built around how they'll actually use it, not just what to buy.",
+    },
+    {
+      icon: "🔄",
+      title: "Adaptive Follow-Up",
+      desc: "The platform checks in. If something isn't working, it adjusts. Protocols evolve as real-world data comes back.",
+    },
+    {
+      icon: "🔒",
+      title: "Completely Private",
+      desc: "Member data is never shared with employers, organizations, or anyone else. Privacy isn't a feature. It's a requirement.",
+    },
+  ];
+
+  return (
+    <section style={{
+      padding: "120px 32px", textAlign: "center", color: C.white,
+      borderTop: `1px solid ${C.border}`,
+      position: "relative", overflow: "hidden",
+    }}>
+      <div style={{
+        position: "absolute", top: "0%", left: "50%", transform: "translateX(-50%)",
+        width: "700px", height: "500px",
+        background: `radial-gradient(ellipse at center, ${C.green}35 0%, ${C.greenDeep}18 40%, transparent 70%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+      {/* Cyan accent glow - top left */}
+      <div style={{
+        position: "absolute", top: "-15%", left: "-18%",
+        width: "450px", height: "350px",
+        background: `radial-gradient(ellipse at center, ${C.cyan}35 0%, ${C.cyanDeep}18 40%, transparent 65%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+      <Reveal>
+        <SectionLabel>The Platform</SectionLabel>
+        <h2 style={{
+          fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
+          fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
+          maxWidth: "700px", margin: "0 auto 16px",
+        }}>Applied intelligence replaces <span style={{ color: C.green }}>trial and error.</span></h2>
+        <p style={{
+          fontFamily: outfit, fontSize: "18px", color: C.secondary,
+          maxWidth: "560px", margin: "0 auto 64px", lineHeight: 1.6,
+        }}>Apiverde Health doesn't start with products. It starts with why you need one, then builds a protocol around the answer.</p>
+      </Reveal>
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gap: "16px",
+        maxWidth: "900px",
+        margin: "0 auto",
+        textAlign: "left",
+      }}>
+        {cards.map((card, i) => (
+          <Reveal key={i} delay={i * 0.08}>
+            <div style={{
+              background: C.bgCard,
+              border: `1px solid ${C.border}`,
+              padding: "28px 24px",
+              height: "100%",
+              display: "flex", flexDirection: "column",
+            }}>
+              <div style={{ fontSize: "28px", marginBottom: "16px" }}>{card.icon}</div>
+              <div style={{
+                fontFamily: jakarta, fontSize: "18px", fontWeight: 700,
+                color: C.white, marginBottom: "10px", lineHeight: 1.3,
+              }}>{card.title}</div>
+              <div style={{
+                fontFamily: outfit, fontSize: "14px", color: C.secondary,
+                lineHeight: 1.6,
+              }}>{card.desc}</div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─── HOW IT WORKS SECTION ───────────────────────────────────
+function HowItWorksSection() {
+  const [step, setStep] = useState(0);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStep(1);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
-  const handleConcernSelect = (c) => {
-    setConcern(c);
-    setView("gate");
-    scrollToTool();
+  useEffect(() => {
+    if (step === 0) return;
+    const timers = [
+      setTimeout(() => setStep(2), 1200),
+      setTimeout(() => setStep(3), 2400),
+      setTimeout(() => setStep(4), 3600),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, [step >= 1]);
+
+  const stages = [
+    { num: "01", title: "Concern identified", desc: "Sleep, pain, stress, energy, recovery. Start with what's actually bothering you." },
+    { num: "02", title: "Context gathered", desc: "Schedule, history, sensitivities, constraints. The things that make your situation yours." },
+    { num: "03", title: "Variables analyzed", desc: "Cross-referencing your inputs against known driver patterns and research." },
+    { num: "04", title: "Protocol resolved", desc: "Product, timing, dosing, and follow-up. Calibrated to you, not the average." },
+  ];
+
+  return (
+    <section style={{
+      padding: "120px 32px", textAlign: "center", color: C.white,
+      borderTop: `1px solid ${C.border}`, background: C.bgAlt,
+      position: "relative", overflow: "hidden",
+    }}>
+      <div style={{
+        position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)",
+        width: "800px", height: "600px",
+        background: `radial-gradient(ellipse at center, ${C.green}35 0%, ${C.greenDeep}18 40%, transparent 68%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+      {/* Cyan accent glow - bottom right */}
+      <div style={{
+        position: "absolute", bottom: "-15%", right: "-18%",
+        width: "450px", height: "350px",
+        background: `radial-gradient(ellipse at center, ${C.cyan}35 0%, ${C.cyanDeep}18 40%, transparent 65%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+      <Reveal>
+        <SectionLabel>How It Works</SectionLabel>
+        <h2 style={{
+          fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
+          fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
+          maxWidth: "700px", margin: "0 auto 80px",
+        }}>From concern to protocol in <span style={{ color: C.green }}>under 3 minutes.</span></h2>
+      </Reveal>
+
+      <div ref={sectionRef} style={{
+        maxWidth: "720px", margin: "0 auto",
+        display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px",
+      }}>
+        {stages.map((s, i) => {
+          const active = step >= i + 1;
+          return (
+            <Reveal key={i} delay={i * 0.12}>
+              <div style={{
+                textAlign: "left",
+                opacity: active ? 1 : 0.2,
+                transform: active ? "translateY(0)" : "translateY(12px)",
+                transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+              }}>
+                <div style={{
+                  fontFamily: jakarta, fontSize: "clamp(48px, 8vw, 64px)",
+                  fontWeight: 700, color: `${C.green}30`,
+                  lineHeight: 1, letterSpacing: "-0.03em",
+                  marginBottom: "12px",
+                }}>{s.num}</div>
+                <div style={{
+                  fontFamily: jakarta, fontSize: "18px", fontWeight: 700,
+                  color: C.white, marginBottom: "8px", lineHeight: 1.3,
+                }}>{s.title}</div>
+                <div style={{
+                  fontFamily: outfit, fontSize: "14px", color: C.secondary,
+                  lineHeight: 1.6,
+                }}>{s.desc}</div>
+              </div>
+            </Reveal>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+// ─── DIAGNOSTIC SECTION DATA ─────────────────────────────────
+const DIAGNOSTIC_CONCERNS = [
+  { id: "sleep", label: "Sleep", icon: "🌙", active: true },
+  { id: "pain", label: "Pain", icon: "🔥", active: false },
+  { id: "stress", label: "Stress", icon: "😤", active: false },
+  { id: "energy", label: "Energy", icon: "⚡", active: false },
+  { id: "recovery", label: "Recovery", icon: "🏋️", active: false },
+];
+
+const DIAGNOSTIC_SCENARIOS = [
+  {
+    prompt: "Which sounds more like your night?",
+    options: [
+      { id: "a", title: "The racing mind", desc: "You're exhausted but your brain won't stop. Thoughts loop. You check the clock. You know you need to sleep and that makes it worse." },
+      { id: "b", title: "The wrong schedule", desc: "You're not sleepy when you should be. Or you crash at 8pm and wake at 3am. Your body seems to be on a different clock than your life." },
+      { id: "c", title: "The light sleeper", desc: "You fall asleep okay but everything wakes you up. A sound, a shift in temperature, your partner moving. You never feel like you got deep sleep." },
+      { id: "d", title: "The 3am wake-up", desc: "You fall asleep fine but wake up in the middle of the night, wide awake. Sometimes hungry, sometimes wired, sometimes for no reason at all." },
+    ],
+  },
+  {
+    prompt: "Which feels more familiar?",
+    options: {
+      a: [
+        { id: "a1", title: "Stress is constant", desc: "Work, life, responsibilities. The pressure never really lets up. Bedtime is when it all hits you at once." },
+        { id: "a2", title: "Physically wired", desc: "Your body feels tense at night. Jaw clenching, shoulders up, heart rate that won't come down. It's physical, not just mental." },
+      ],
+      b: [
+        { id: "b1", title: "Irregular schedule", desc: "Shift work, travel, inconsistent routines. Your body doesn't know what time zone it's in." },
+        { id: "b2", title: "Night owl trapped in an early world", desc: "You naturally come alive at night but life demands you be up early. You've been fighting this your whole life." },
+      ],
+      c: [
+        { id: "c1", title: "Always been this way", desc: "You've been a light sleeper as long as you can remember. You're a sentinel. Always a little bit on guard." },
+        { id: "c2", title: "It developed over time", desc: "You used to sleep fine. Something changed. Stress, a life event, a new environment. And now you can't get back to deep sleep." },
+      ],
+      d: [
+        { id: "d1", title: "I eat late or snack before bed", desc: "Dinner is late, or you graze in the evening. You might not connect it to sleep but the timing lines up." },
+        { id: "d2", title: "Caffeine is part of my identity", desc: "Coffee, energy drinks, pre-workout. You rely on stimulants to function and you're not sure you could stop." },
+      ],
+    },
+  },
+];
+
+function getDiagScenarioText(id) {
+  const opt = DIAGNOSTIC_SCENARIOS[0].options.find(o => o.id === id);
+  return opt ? `${opt.title}: ${opt.desc}` : id;
+}
+
+function getDiagQ2Text(q1Id, q2Id) {
+  const opts = DIAGNOSTIC_SCENARIOS[1].options[q1Id] || [];
+  const opt = opts.find(o => o.id === q2Id);
+  return opt ? `${opt.title}: ${opt.desc}` : q2Id;
+}
+
+// ─── DIAGNOSTIC SECTION ──────────────────────────────────────
+function DiagnosticSection() {
+  const [phase, setPhase] = useState("select");
+  const [q1, setQ1] = useState(null);
+  const [q2, setQ2] = useState(null);
+  const [freeText, setFreeText] = useState("");
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
+  const [avoidances, setAvoidances] = useState([]);
+
+  const handleConcernSelect = (id) => {
+    if (id === "sleep") setPhase("q1");
+  };
+  const handleQ1 = (id) => { setQ1(id); setPhase("q2"); };
+  const handleQ2 = (id) => { setQ2(id); setPhase("context"); };
+  const handleContextNext = () => { setPhase("avoid"); };
+  const toggleAvoidance = (item) => {
+    setAvoidances(prev => prev.includes(item) ? prev.filter(a => a !== item) : [...prev, item]);
   };
 
-  const handleQ3 = (val) => {
-    setQ3(val);
-    const flow = QUIZ_FLOWS[concern] || QUIZ_FLOWS.sleep;
-    const ack = flow.acks[val];
-    if (ack) {
-      setAckMessage(ack);
-      setTimeout(() => { setAckMessage(null); setView("results"); scrollToTool(); }, 2500);
-    } else {
-      setTimeout(() => { setView("results"); scrollToTool(); }, 300);
+  const handleSubmitAvoid = async () => {
+    setPhase("analyzing");
+    setError(null);
+    const q1Text = getDiagScenarioText(q1);
+    const q2Text = getDiagQ2Text(q1, q2);
+    const additional = freeText.trim() || "No additional context provided.";
+
+    const systemPrompt = `You are the diagnostic intelligence behind Apiverde Health, a science-backed cannabinoid wellness platform. You specialize in sleep system analysis.
+
+There are 4 primary sleep driver types:
+1. Stress-Dominant — cortisol-driven, racing mind, nervous system won't stand down
+2. Circadian-Misaligned — internal clock out of sync with life schedule
+3. Metabolic-Disrupted — blood sugar, late eating, stimulants affecting sleep architecture
+4. Cognitive-Hypervigilant — light sleeper, hyperarousal, brain treats sleep as vulnerability
+
+Based on the user's responses, determine their most likely sleep driver type and provide personalized guidance.
+
+IMPORTANT: This is an abbreviated public demo. The full diagnostic considers 12+ variables. You are working with limited data, so be confident in your assessment but acknowledge that the full version would be more precise.
+
+IMPORTANT: Reference their specific answers and free-text context directly. Do not give generic advice. Make the person feel like you actually listened.
+
+IMPORTANT: The user has specified things they want to avoid. These are hard constraints. Your cannabinoid recommendation and lifestyle recommendations MUST respect these constraints. If they want to avoid morning grogginess, don't recommend something that causes it. If they want to avoid feeling altered, don't recommend THC. Explicitly acknowledge their constraints in your reasoning.
+
+Respond ONLY in this exact JSON format with no preamble, no markdown backticks, and no other text:
+{
+  "profileType": "Stress-Dominant" or "Circadian-Misaligned" or "Metabolic-Disrupted" or "Cognitive-Hypervigilant",
+  "profileSummary": "2-3 sentences explaining their specific situation and why it maps to this driver type. Reference their actual answers.",
+  "cannabinoidName": "The recommended cannabinoid or combination",
+  "cannabinoidReasoning": "2-3 sentences explaining why this cannabinoid targets their specific driver type. Be mechanistic, not marketing.",
+  "lifestyleRecs": ["3 specific lifestyle recommendations tailored to their situation. Reference their context where possible. Each should be 1-2 sentences with the reasoning built in."],
+  "personalNote": "1 sentence that references something specific from their free-text input, connecting it to the assessment. If no additional context was provided, make a brief observation about their scenario selections instead."
+}`;
+
+    const userMessage = `Here are my sleep assessment responses:
+
+SCENARIO 1 — "Which sounds more like your night?"
+Selected: ${q1Text}
+
+SCENARIO 2 — "Which feels more familiar?"
+Selected: ${q2Text}
+
+ADDITIONAL CONTEXT:
+${additional}
+
+THINGS TO AVOID (hard constraints — recommendations must respect these):
+${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted."}`;
+
+    try {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          system: systemPrompt,
+          messages: [{ role: "user", content: userMessage }],
+        }),
+      });
+      const data = await response.json();
+      const text = data.content.map(item => (item.type === "text" ? item.text : "")).filter(Boolean).join("\n");
+      const clean = text.replace(/```json|```/g, "").trim();
+      setResult(JSON.parse(clean));
+      setPhase("result");
+    } catch (err) {
+      console.error("API error:", err);
+      setError("Something went wrong. Please try again.");
+      setPhase("avoid");
     }
   };
 
-  const startConversation = () => {
-    const flow = CONVERSATION_FLOWS[concern] || CONVERSATION_FLOWS.sleep;
-    setConvoHistory([flow[0]]);
-    setConvoStep(1);
-    setView("conversation");
-    scrollToTool();
+  const reset = () => {
+    setPhase("select"); setQ1(null); setQ2(null);
+    setFreeText(""); setAvoidances([]); setResult(null); setError(null);
   };
 
-  const handleConvoChoice = (choice) => {
-    const flow = CONVERSATION_FLOWS[concern] || CONVERSATION_FLOWS.sleep;
-    setConvoHistory(prev => [...prev, { role: "user", text: choice }]);
-    setTimeout(() => {
-      if (convoStep < flow.length) {
-        setConvoHistory(prev => [...prev, flow[convoStep]]);
-        setConvoStep(s => s + 1);
-      }
-    }, 800);
-  };
+  // ── Progress bar helper ──
+  const ProgressBar = ({ step }) => (
+    <div style={{ display: "flex", gap: "8px", marginBottom: "48px", justifyContent: "center" }}>
+      {[1, 2, 3, 4].map(i => (
+        <div key={i} style={{ width: "60px", height: "3px", background: i <= step ? C.green : C.faint }} />
+      ))}
+    </div>
+  );
 
-  const goReturning = () => { setView("returning"); scrollToTool(); };
+  // ── Prompt heading helper ──
+  const Prompt = ({ children }) => (
+    <p style={{
+      fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)",
+      fontWeight: 700, color: C.white,
+      lineHeight: 1.2, letterSpacing: "-0.02em",
+    }}>{children}</p>
+  );
 
-  const concerns = [
-    { id: "sleep", label: "Sleep", icon: "🌙" },
-    { id: "pain", label: "Pain", icon: "🔥" },
-    { id: "stress", label: "Stress", icon: "😤" },
-    { id: "energy", label: "Energy", icon: "⚡" },
-    { id: "vibes", label: "Vibes", icon: "✌️" },
+  // ── Scenario card helper ──
+  const ScenarioCard = ({ opt, onClick }) => (
+    <button onClick={onClick} style={{
+      background: C.bgCard, border: `1px solid ${C.border}`,
+      padding: "24px 20px", cursor: "pointer",
+      textAlign: "left", transition: "all 0.2s ease",
+      display: "flex", flexDirection: "column", gap: "8px",
+    }}>
+      <span style={{ fontFamily: jakarta, fontSize: "17px", fontWeight: 700, color: C.white, lineHeight: 1.3 }}>{opt.title}</span>
+      <span style={{ fontFamily: outfit, fontSize: "13px", color: C.secondary, lineHeight: 1.5 }}>{opt.desc}</span>
+    </button>
+  );
+
+  return (
+    <section style={{
+      padding: "120px 32px", color: C.white,
+      borderTop: `1px solid ${C.border}`,
+      position: "relative", overflow: "hidden",
+      display: "flex", flexDirection: "column", alignItems: "center",
+      minHeight: phase === "select" ? "auto" : "700px",
+      justifyContent: phase === "select" ? "flex-start" : "center",
+    }}>
+      <div style={{
+        position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)",
+        width: "800px", height: "600px",
+        background: `radial-gradient(ellipse at center, ${C.green}30 0%, ${C.greenDeep}15 40%, transparent 68%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+      {/* Cyan accent glow - bottom left */}
+      <div style={{
+        position: "absolute", bottom: "-15%", left: "-18%",
+        width: "450px", height: "350px",
+        background: `radial-gradient(ellipse at center, ${C.cyan}35 0%, ${C.cyanDeep}18 40%, transparent 65%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+
+      {/* ─── CONCERN SELECT ─── */}
+      {phase === "select" && (
+        <div style={{ textAlign: "center", maxWidth: "600px", animation: "fadeUp 0.6s ease both" }}>
+          <SectionLabel>See It In Action</SectionLabel>
+          <h2 style={{
+            fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
+            fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
+            maxWidth: "700px", margin: "0 auto 12px",
+          }}>Try the <span style={{ color: C.green }}>diagnostic.</span></h2>
+          <p style={{
+            fontFamily: outfit, fontSize: "16px", color: C.secondary,
+            maxWidth: "440px", margin: "0 auto 40px", lineHeight: 1.6,
+          }}>Select a concern to see how the platform thinks. This is an abbreviated version. The full diagnostic goes much deeper.</p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", justifyContent: "center" }}>
+            {DIAGNOSTIC_CONCERNS.map(c => (
+              <button key={c.id} onClick={() => handleConcernSelect(c.id)} style={{
+                fontFamily: outfit, fontSize: "15px", fontWeight: 600,
+                color: C.white, background: "transparent",
+                border: `1px solid ${c.active ? C.green : "rgba(255,255,255,0.15)"}`,
+                padding: "12px 24px", cursor: c.active ? "pointer" : "default",
+                display: "flex", alignItems: "center", gap: "8px",
+                transition: "all 0.2s ease",
+              }}>
+                {c.icon} {c.label}
+                {!c.active && <span style={{ fontSize: "14px", marginLeft: "2px" }}>🔒</span>}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ─── Q1 ─── */}
+      {phase === "q1" && (
+        <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
+          <ProgressBar step={1} />
+          <div style={{ textAlign: "center", marginBottom: "36px" }}>
+            <Prompt>{DIAGNOSTIC_SCENARIOS[0].prompt}</Prompt>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+            {DIAGNOSTIC_SCENARIOS[0].options.map(opt => (
+              <ScenarioCard key={opt.id} opt={opt} onClick={() => handleQ1(opt.id)} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ─── Q2 ─── */}
+      {phase === "q2" && (
+        <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
+          <ProgressBar step={2} />
+          <div style={{ textAlign: "center", marginBottom: "36px" }}>
+            <Prompt>{DIAGNOSTIC_SCENARIOS[1].prompt}</Prompt>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+            {(DIAGNOSTIC_SCENARIOS[1].options[q1] || []).map(opt => (
+              <ScenarioCard key={opt.id} opt={opt} onClick={() => handleQ2(opt.id)} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ─── CONTEXT ─── */}
+      {phase === "context" && (
+        <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
+          <ProgressBar step={3} />
+          <div style={{ textAlign: "center", marginBottom: "36px" }}>
+            <p style={{
+              fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)",
+              fontWeight: 700, color: C.white,
+              lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: "8px",
+            }}>What have you tried, and what's your caffeine situation?</p>
+            <p style={{ fontFamily: outfit, fontSize: "15px", color: C.muted, lineHeight: 1.5 }}>
+              Any products, supplements, or prescriptions you've used for sleep. And how much caffeine you consume and when.
+            </p>
+          </div>
+          <textarea value={freeText} onChange={(e) => setFreeText(e.target.value)}
+            placeholder="e.g. I've tried melatonin but it makes me groggy. I tried CBD gummies once but didn't notice anything. I drink 3 cups of coffee, last one around 2pm..."
+            style={{
+              width: "100%", minHeight: "140px", background: C.bgCard,
+              border: `1px solid ${C.border}`, padding: "20px",
+              fontFamily: outfit, fontSize: "15px", color: C.white,
+              lineHeight: 1.6, resize: "vertical", transition: "border-color 0.2s ease",
+            }} />
+          {error && <p style={{ fontFamily: outfit, fontSize: "14px", color: "#f87171", marginTop: "12px", textAlign: "center" }}>{error}</p>}
+          <button onClick={handleContextNext} style={{
+            fontFamily: outfit, fontSize: "15px", fontWeight: 700,
+            color: C.bg, background: C.green, border: "none",
+            padding: "16px 32px", cursor: "pointer",
+            textTransform: "uppercase", letterSpacing: "0.06em",
+            width: "100%", marginTop: "24px",
+          }}>Continue</button>
+          <div style={{ textAlign: "center", marginTop: "12px" }}>
+            <button onClick={handleContextNext} style={{
+              fontFamily: outfit, fontSize: "13px", fontWeight: 500,
+              color: C.muted, background: "none", border: "none", cursor: "pointer",
+            }}>Skip this step →</button>
+          </div>
+        </div>
+      )}
+
+      {/* ─── AVOID ─── */}
+      {phase === "avoid" && (
+        <div style={{ maxWidth: "640px", width: "100%", animation: "fadeUp 0.5s ease both" }}>
+          <ProgressBar step={4} />
+          <div style={{ textAlign: "center", marginBottom: "36px" }}>
+            <p style={{
+              fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)",
+              fontWeight: 700, color: C.white,
+              lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: "8px",
+            }}>What would make you stop using a product?</p>
+            <p style={{ fontFamily: outfit, fontSize: "15px", color: C.muted, lineHeight: 1.5 }}>
+              Select any that apply. These become hard constraints in your recommendation.
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "32px" }}>
+            {[
+              { id: "grogginess", label: "Morning grogginess or brain fog", desc: "I need to wake up sharp. Can't afford to feel sluggish." },
+              { id: "altered", label: 'Feeling "high" or altered in any way', desc: "I want to sleep better, not feel intoxicated." },
+              { id: "dependency", label: "Dependency or needing it every night", desc: "I don't want to trade one problem for another." },
+              { id: "digestive", label: "Digestive issues or stomach discomfort", desc: "I've had bad reactions to supplements before." },
+              { id: "drug-test", label: "Anything that affects drug testing", desc: "THC-free is non-negotiable for me." },
+            ].map(item => {
+              const selected = avoidances.includes(item.label);
+              return (
+                <button key={item.id} onClick={() => toggleAvoidance(item.label)} style={{
+                  background: selected ? `${C.green}12` : C.bgCard,
+                  border: `1px solid ${selected ? `${C.green}40` : C.border}`,
+                  padding: "18px 20px", cursor: "pointer",
+                  textAlign: "left", transition: "all 0.2s ease",
+                  display: "flex", gap: "16px", alignItems: "flex-start",
+                }}>
+                  <div style={{
+                    width: "20px", height: "20px", flexShrink: 0,
+                    border: `2px solid ${selected ? C.green : C.muted}`,
+                    background: selected ? C.green : "transparent",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    marginTop: "2px", transition: "all 0.2s ease",
+                  }}>
+                    {selected && <span style={{ color: C.bg, fontSize: "13px", fontWeight: 700 }}>✓</span>}
+                  </div>
+                  <div>
+                    <span style={{ fontFamily: jakarta, fontSize: "16px", fontWeight: 600, color: C.white, lineHeight: 1.3, display: "block", marginBottom: "4px" }}>{item.label}</span>
+                    <span style={{ fontFamily: outfit, fontSize: "13px", color: C.muted, lineHeight: 1.4 }}>{item.desc}</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+          <button onClick={handleSubmitAvoid} style={{
+            fontFamily: outfit, fontSize: "15px", fontWeight: 700,
+            color: C.bg, background: C.green, border: "none",
+            padding: "16px 32px", cursor: "pointer",
+            textTransform: "uppercase", letterSpacing: "0.06em", width: "100%",
+          }}>Analyze My Sleep</button>
+          <div style={{ textAlign: "center", marginTop: "12px" }}>
+            <button onClick={handleSubmitAvoid} style={{
+              fontFamily: outfit, fontSize: "13px", fontWeight: 500,
+              color: C.muted, background: "none", border: "none", cursor: "pointer",
+            }}>Skip, no strong preferences →</button>
+          </div>
+        </div>
+      )}
+
+      {/* ─── ANALYZING ─── */}
+      {phase === "analyzing" && (
+        <div style={{ textAlign: "center", animation: "fadeUp 0.4s ease both" }}>
+          <div style={{ display: "flex", gap: "8px", justifyContent: "center", marginBottom: "32px" }}>
+            {[0, 1, 2].map(i => (
+              <div key={i} style={{
+                width: "10px", height: "10px", borderRadius: "50%",
+                background: C.green,
+                animation: `dotPulse 1.4s ease-in-out ${i * 0.2}s infinite`,
+              }} />
+            ))}
+          </div>
+          <p style={{ fontFamily: jakarta, fontSize: "22px", fontWeight: 600, color: C.white, marginBottom: "8px" }}>
+            Analyzing your sleep profile
+          </p>
+          <p style={{ fontFamily: outfit, fontSize: "14px", color: C.muted, lineHeight: 1.5, maxWidth: "360px", margin: "0 auto" }}>
+            Cross-referencing your responses against known sleep driver patterns...
+          </p>
+        </div>
+      )}
+
+      {/* ─── RESULT ─── */}
+      {phase === "result" && result && (
+        <div style={{ maxWidth: "720px", width: "100%" }}>
+          {/* Profile Hero Card */}
+          <div style={{
+            background: C.bgCard, border: `1px solid ${C.border}`,
+            padding: "0", marginBottom: "16px", overflow: "hidden",
+            animation: "fadeUp 0.7s ease both",
+          }}>
+            <div style={{ height: "4px", background: `linear-gradient(90deg, ${C.green}, ${C.greenDeep}, ${C.green})` }} />
+            <div style={{ padding: "36px 36px 32px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }}>
+                <div>
+                  <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "10px" }}>YOUR SLEEP PROFILE</div>
+                  <h3 style={{ fontFamily: jakarta, fontSize: "clamp(26px, 5vw, 34px)", fontWeight: 700, color: C.white, letterSpacing: "-0.02em", lineHeight: 1.1 }}>{result.profileType}</h3>
+                </div>
+                <div style={{
+                  width: "56px", height: "56px", background: `${C.green}15`,
+                  border: `1px solid ${C.green}30`,
+                  display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                }}>
+                  <span style={{ fontSize: "28px" }}>
+                    {result.profileType.includes("Stress") && "⚡"}
+                    {result.profileType.includes("Circadian") && "🕐"}
+                    {result.profileType.includes("Metabolic") && "🔄"}
+                    {result.profileType.includes("Hypervigilant") && "🛡️"}
+                  </span>
+                </div>
+              </div>
+              <p style={{ fontFamily: outfit, fontSize: "16px", color: C.secondary, lineHeight: 1.7, marginBottom: "0" }}>{result.profileSummary}</p>
+              {result.personalNote && (
+                <div style={{ marginTop: "20px", padding: "16px 20px", background: `${C.green}08`, borderLeft: `3px solid ${C.green}` }}>
+                  <p style={{ fontFamily: outfit, fontSize: "14px", color: C.green, lineHeight: 1.6, margin: 0 }}>{result.personalNote}</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Two-Column: Cannabinoid + Lifestyle */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
+            <div style={{
+              background: C.bgCard, border: `1px solid ${C.border}`, padding: "28px",
+              display: "flex", flexDirection: "column", animation: "fadeUp 0.7s ease 0.2s both",
+            }}>
+              <div style={{ width: "40px", height: "40px", background: `${C.green}12`, border: `1px solid ${C.green}25`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
+                <span style={{ fontSize: "20px" }}>🧬</span>
+              </div>
+              <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "10px" }}>RECOMMENDED CANNABINOID</div>
+              <h4 style={{ fontFamily: jakarta, fontSize: "20px", fontWeight: 700, color: C.white, marginBottom: "12px", lineHeight: 1.2 }}>{result.cannabinoidName}</h4>
+              <p style={{ fontFamily: outfit, fontSize: "13px", color: C.secondary, lineHeight: 1.7, flex: 1 }}>{result.cannabinoidReasoning}</p>
+            </div>
+            <div style={{
+              background: C.bgCard, border: `1px solid ${C.border}`, padding: "28px",
+              display: "flex", flexDirection: "column", animation: "fadeUp 0.7s ease 0.35s both",
+            }}>
+              <div style={{ width: "40px", height: "40px", background: `${C.green}12`, border: `1px solid ${C.green}25`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
+                <span style={{ fontSize: "20px" }}>📋</span>
+              </div>
+              <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "10px" }}>LIFESTYLE ADJUSTMENTS</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "14px", flex: 1 }}>
+                {(result.lifestyleRecs || []).map((tip, i) => (
+                  <div key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                    <div style={{ fontFamily: jakarta, fontSize: "14px", fontWeight: 700, color: C.green, minWidth: "20px", marginTop: "1px" }}>{String(i + 1).padStart(2, "0")}</div>
+                    <p style={{ fontFamily: outfit, fontSize: "13px", color: C.secondary, lineHeight: 1.6, margin: 0 }}>{tip}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Avoidances Respected */}
+          {avoidances.length > 0 && (
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "24px", justifyContent: "center", animation: "fadeUp 0.7s ease 0.5s both" }}>
+              <span style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: "0.1em", alignSelf: "center", marginRight: "4px" }}>CONSTRAINTS RESPECTED:</span>
+              {avoidances.map(a => (
+                <span key={a} style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, background: `${C.green}12`, border: `1px solid ${C.green}20`, padding: "5px 12px", letterSpacing: "0.02em", display: "flex", alignItems: "center", gap: "6px" }}>✓ {a}</span>
+              ))}
+            </div>
+          )}
+
+          {/* Account Teaser */}
+          <div style={{ position: "relative", overflow: "hidden", padding: "40px 36px", textAlign: "center", animation: "fadeUp 0.7s ease 0.6s both" }}>
+            <div style={{ position: "absolute", top: "0", left: "50%", transform: "translateX(-50%)", width: "600px", height: "400px", background: `radial-gradient(ellipse at center, ${C.green}20 0%, transparent 65%)`, pointerEvents: "none", filter: "blur(60px)" }} />
+            <div style={{ position: "absolute", inset: 0, border: `1px solid ${C.green}20`, pointerEvents: "none" }} />
+            <div style={{ position: "relative" }}>
+              <div style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "16px" }}>THIS WAS THE SHORT VERSION</div>
+              <p style={{ fontFamily: jakarta, fontSize: "clamp(20px, 4vw, 26px)", fontWeight: 700, color: C.white, marginBottom: "8px", lineHeight: 1.3, letterSpacing: "-0.01em" }}>
+                You answered 4 questions.<br />The full diagnostic considers <span style={{ color: C.green }}>12+ variables.</span>
+              </p>
+              <p style={{ fontFamily: outfit, fontSize: "15px", color: C.secondary, lineHeight: 1.6, maxWidth: "460px", margin: "0 auto 28px" }}>
+                With an account, you get the specific product, exact dosing, timing protocol, and follow-up checkpoints calibrated to your profile.
+              </p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px", maxWidth: "480px", margin: "0 auto 28px" }}>
+                {[
+                  { icon: "🎯", label: "Specific products" },
+                  { icon: "⏱️", label: "Dosing & timing" },
+                  { icon: "🔄", label: "Follow-up plan" },
+                  { icon: "📈", label: "Adapts over time" },
+                  { icon: "🔒", label: "Completely private" },
+                  { icon: "🏷️", label: "Member pricing" },
+                ].map(item => (
+                  <div key={item.label} style={{ background: `${C.green}08`, border: `1px solid ${C.green}15`, padding: "14px 12px", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
+                    <span style={{ fontSize: "18px" }}>{item.icon}</span>
+                    <span style={{ fontFamily: outfit, fontSize: "11px", fontWeight: 600, color: C.secondary, textAlign: "center", letterSpacing: "0.02em" }}>{item.label}</span>
+                  </div>
+                ))}
+              </div>
+              <button style={{ fontFamily: outfit, fontSize: "15px", fontWeight: 700, color: C.bg, background: C.green, border: "none", padding: "16px 48px", cursor: "pointer", textTransform: "uppercase", letterSpacing: "0.06em" }}>Get Your Full Protocol</button>
+            </div>
+          </div>
+
+          {/* Reset */}
+          <div style={{ textAlign: "center", marginTop: "24px" }}>
+            <button onClick={reset} style={{ fontFamily: outfit, fontSize: "13px", fontWeight: 500, color: C.muted, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Start over</button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+// ─── WHO IT'S FOR SECTION ────────────────────────────────────
+function WhoItsForSection() {
+  const [tab, setTab] = useState("orgs");
+
+  const tabs = [
+    { id: "orgs", label: "Organizations" },
+    { id: "brands", label: "Brands" },
   ];
 
-  const products = concern
-    ? (PRODUCTS[concern] || PRODUCTS.sleep)
-    : PRODUCTS.sleep;
+  const content = {
+    orgs: {
+      headline: "A wellness benefit your members will actually use.",
+      points: [
+        "Turnkey cannabinoid wellness program. We handle everything.",
+        "Members get personalized calibration based on their specific situation, not bestseller lists.",
+        "Every product is third-party tested and verified. Member pricing included.",
+        "Completely private. Organizations never see individual member data.",
+        "Ongoing check-ins and protocol adjustments that adapt over time.",
+      ],
+      cta: "Bring This to Your Members",
+    },
+    brands: {
+      headline: "Put your products in front of the right people.",
+      points: [
+        "Your products connected to individuals who actually need them, not browsing shoppers.",
+        "Longitudinal efficacy data that proves your products work.",
+        "A credibility layer that separates you from the noise in the market.",
+        "Powered by The Human Variable. Real research, real evidence.",
+      ],
+      cta: "Become a Partner Brand",
+    },
+  };
 
-  const isLight = view !== "landing";
+  const c = content[tab];
+
+  return (
+    <section style={{
+      padding: "120px 32px", textAlign: "center", color: C.white,
+      borderTop: `1px solid ${C.border}`,
+      position: "relative", overflow: "hidden",
+    }}>
+      <div style={{
+        position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)",
+        width: "800px", height: "500px",
+        background: `radial-gradient(ellipse at center, ${C.green}35 0%, ${C.greenDeep}18 40%, transparent 68%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+      {/* Cyan accent glow - top right */}
+      <div style={{
+        position: "absolute", top: "-15%", right: "-18%",
+        width: "450px", height: "350px",
+        background: `radial-gradient(ellipse at center, ${C.cyan}35 0%, ${C.cyanDeep}18 40%, transparent 65%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+      <Reveal>
+        <SectionLabel>Who It's For</SectionLabel>
+        <h2 style={{
+          fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
+          fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
+          maxWidth: "700px", margin: "0 auto 64px",
+        }}>Two partners. One <span style={{ color: C.green }}>platform.</span></h2>
+      </Reveal>
+
+      <div style={{
+        maxWidth: "580px", margin: "0 auto",
+      }}>
+        {/* Tabs */}
+        <div style={{
+          display: "flex", gap: "2px", marginBottom: "0",
+        }}>
+          {tabs.map(t => (
+            <button key={t.id} onClick={() => setTab(t.id)} style={{
+              fontFamily: outfit, fontSize: "14px", fontWeight: 600,
+              color: tab === t.id ? C.white : C.muted,
+              background: tab === t.id ? C.bgCard : `rgba(255,255,255,0.04)`,
+              border: "none",
+              borderTop: tab === t.id ? `2px solid ${C.green}` : "2px solid transparent",
+              padding: "14px 24px", cursor: "pointer",
+              flex: 1,
+              transition: "all 0.2s ease",
+              letterSpacing: "0.03em",
+            }}>{t.label}</button>
+          ))}
+        </div>
+
+        {/* Card */}
+        <div style={{
+          background: C.bgCard,
+          border: `1px solid ${C.border}`,
+          borderTop: "none",
+          padding: "36px 32px",
+          textAlign: "left",
+        }}>
+          <div key={tab} style={{
+            animation: "fadeUp 0.4s ease both",
+          }}>
+            <h3 style={{
+              fontFamily: jakarta, fontSize: "clamp(22px, 4vw, 28px)",
+              fontWeight: 700, color: C.white,
+              lineHeight: 1.2, marginBottom: "28px",
+              letterSpacing: "-0.02em",
+            }}>{c.headline}</h3>
+
+            <div style={{
+              display: "flex", flexDirection: "column", gap: "18px",
+              marginBottom: "32px",
+            }}>
+              {c.points.map((point, i) => (
+                <div key={i} style={{
+                  display: "flex", gap: "14px", alignItems: "flex-start",
+                }}>
+                  <div style={{
+                    width: "8px", height: "8px", borderRadius: "50%",
+                    background: C.green, flexShrink: 0, marginTop: "6px",
+                  }} />
+                  <span style={{
+                    fontFamily: outfit, fontSize: "15px", color: C.secondary,
+                    lineHeight: 1.6,
+                  }}>{point}</span>
+                </div>
+              ))}
+            </div>
+
+            <button style={{
+              fontFamily: outfit, fontSize: "15px", fontWeight: 700,
+              color: C.bg, background: C.green,
+              border: "none", padding: "16px 32px", cursor: "pointer",
+              textTransform: "uppercase", letterSpacing: "0.06em",
+              width: "100%",
+            }}>{c.cta}</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── MAIN APP ───────────────────────────────────────────────
+function ApiverdeDemo() {
+  const [heroReady, setHeroReady] = useState(false);
+
+  useEffect(() => { setTimeout(() => setHeroReady(true), 200); }, []);
 
   return (
     <div style={{ background: C.bg, minHeight: "100vh", overflowX: "hidden" }}>
@@ -723,6 +1542,9 @@ function ApiverdeDemo() {
         * { margin: 0; padding: 0; box-sizing: border-box; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        @keyframes dotPulse { 0%, 80%, 100% { opacity: 0.2; } 40% { opacity: 1; } }
+        textarea::placeholder { color: rgba(255,255,255,0.25); }
+        textarea:focus { outline: none; border-color: rgba(52,211,153,0.3) !important; }
         @keyframes smokePuff {
           0% { opacity: 0.5; transform: translateY(0) scale(0.8); }
           100% { opacity: 0; transform: translateY(-50px) scale(1.4); }
@@ -734,38 +1556,25 @@ function ApiverdeDemo() {
       {/* ─── NAV ─── */}
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        background: isLight ? "rgba(248,250,251,0.92)" : "rgba(8,11,17,0.85)",
+        background: "rgba(8,11,17,0.85)",
         backdropFilter: "blur(20px)",
-        borderBottom: isLight ? `1px solid ${C.cardBorder}` : `2px solid ${C.green}`,
-        transition: "all 0.5s ease",
+        borderBottom: `1px solid ${C.green}`,
       }}>
         <div style={{
           maxWidth: "1200px", margin: "0 auto", padding: "14px 32px",
           display: "flex", justifyContent: "space-between", alignItems: "center",
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <span style={{
-              fontFamily: jakarta, fontSize: "18px", fontWeight: 700,
-              color: isLight ? C.textDark : C.white, letterSpacing: "-0.01em",
-            }}>Apiverde <span style={{ color: C.green }}>Health</span></span>
-
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            {isLight && (
-              <button onClick={() => { setView("landing"); setConcern(null); setQ2(null); setQ3(null); setAckMessage(null); setConvoHistory([]); setConvoStep(0); setCheckinDone(false); setShowCheckin(false); window.scrollTo({ top: 0, behavior: "smooth" }); }} style={{
-                fontFamily: outfit, fontSize: "13px", fontWeight: 600,
-                color: C.greenDark, background: "none", border: `1px solid ${C.greenDark}`,
-                padding: "8px 20px", cursor: "pointer", letterSpacing: "0.04em",
-              }}>← Start Over</button>
-            )}
-            <span onClick={() => { window.location.href = "/ufcw"; }} style={{
-              fontFamily: outfit, fontSize: "10px", fontWeight: 600,
-              color: isLight ? C.greenDark : C.green,
-              textTransform: "uppercase", letterSpacing: "0.12em",
-              border: `1px solid ${isLight ? C.greenDark : C.green}`,
-              padding: "5px 12px", cursor: "pointer",
-            }}>Member Benefit</span>
-          </div>
+          <span style={{
+            fontFamily: jakarta, fontSize: "18px", fontWeight: 700,
+            color: C.white, letterSpacing: "-0.01em",
+          }}>Apiverde <span style={{ color: C.green }}>Health</span></span>
+          <span onClick={() => { window.location.href = "/ufcw"; }} style={{
+            fontFamily: outfit, fontSize: "10px", fontWeight: 600,
+            color: C.green,
+            textTransform: "uppercase", letterSpacing: "0.12em",
+            border: `1px solid ${C.green}`,
+            padding: "5px 12px", cursor: "pointer",
+          }}>Member Login</span>
         </div>
       </nav>
 
@@ -787,9 +1596,16 @@ function ApiverdeDemo() {
         }} />
         {/* Ambient green glow - secondary (offset for depth) */}
         <div style={{
-          position: "absolute", top: "30%", left: "35%", transform: "translateX(-50%)",
+          position: "absolute", top: "30%", left: "50%", transform: "translateX(-50%)",
           width: "600px", height: "500px",
           background: `radial-gradient(ellipse at center, ${C.green}28 0%, transparent 65%)`,
+          pointerEvents: "none", filter: "blur(80px)",
+        }} />
+        {/* Cyan accent glow - bottom right */}
+        <div style={{
+          position: "absolute", bottom: "-10%", right: "-15%",
+          width: "500px", height: "400px",
+          background: `radial-gradient(ellipse at center, ${C.cyan}40 0%, ${C.cyanDeep}20 40%, transparent 65%)`,
           pointerEvents: "none", filter: "blur(80px)",
         }} />
 
@@ -798,14 +1614,13 @@ function ApiverdeDemo() {
           transform: heroReady ? "translateY(0)" : "translateY(30px)",
           transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1)",
         }}>
-          <SectionLabel>Wellness That Works</SectionLabel>
+          <SectionLabel>Cannabinoid Intelligence</SectionLabel>
           <h1 style={{
             fontFamily: jakarta, fontSize: "clamp(40px, 8vw, 80px)",
             fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em",
             margin: "0 0 24px 0", maxWidth: "800px",
           }}>
-            Reliable products. Better prices.{" "}
-            <span style={{ fontStyle: "italic", color: C.green }}>Picked&nbsp;for&nbsp;you.</span>
+            Human beings refuse to be <span style={{ color: C.green }}>averaged.</span>
           </h1>
         </div>
 
@@ -816,723 +1631,53 @@ function ApiverdeDemo() {
         }}>
           <p style={{
             fontFamily: outfit, fontSize: "18px", color: C.secondary,
-            maxWidth: "520px", margin: "0 auto 48px", lineHeight: 1.6,
-          }}>Cannabinoid products you can trust, matched to how your body works.</p>
+            maxWidth: "560px", margin: "0 auto 48px", lineHeight: 1.6,
+          }}>Apiverde Health is a cannabinoid wellness platform that starts with what makes each person unique, and builds from there.</p>
 
-          <p style={{
-            fontFamily: outfit, fontSize: "15px", fontWeight: 500,
-            color: C.muted, marginBottom: "20px",
-            textTransform: "uppercase", letterSpacing: "0.08em",
-          }}>What's bothering you? <span style={{ color: C.green }}>Let's fix it.</span></p>
-          <div style={{
-            display: "flex", flexWrap: "wrap", gap: "10px",
-            justifyContent: "center", maxWidth: "600px", margin: "0 auto",
-          }}>
-            {concerns.map((c) => (
-              <div key={c.id} style={{ position: "relative", display: "inline-flex" }}
-                onMouseEnter={() => c.id === "vibes" && setVibesHover(true)}
-                onMouseLeave={() => c.id === "vibes" && setVibesHover(false)}
-              >
-                {c.id === "vibes" && <SmokePuff active={vibesHover} />}
-                <button onClick={() => handleConcernSelect(c.id)} style={{
-                  fontFamily: outfit, fontSize: "15px", fontWeight: 600,
-                  color: concern === c.id ? C.bg : C.white,
-                  background: concern === c.id ? C.green : "transparent",
-                  border: `1px solid ${concern === c.id ? C.green : "rgba(255,255,255,0.15)"}`,
-                  padding: "12px 24px", cursor: "pointer",
-                  transition: "all 0.2s ease",
-                  display: "flex", alignItems: "center", gap: "8px",
-                }}>{c.icon} {c.label}</button>
-              </div>
-            ))}
-          </div>
         </div>
 
-        {view === "landing" && (
+        <div style={{
+          position: "absolute", bottom: "32px", left: "50%", transform: "translateX(-50%)",
+          animation: "pulse 2s infinite",
+        }}>
           <div style={{
-            position: "absolute", bottom: "32px", left: "50%", transform: "translateX(-50%)",
-            animation: "pulse 2s infinite",
-          }}>
-            <div style={{
-              fontFamily: outfit, fontSize: "12px", color: C.muted,
-              textTransform: "uppercase", letterSpacing: "0.15em",
-            }}>Scroll</div>
-          </div>
-        )}
+            fontFamily: outfit, fontSize: "12px", color: C.muted,
+            textTransform: "uppercase", letterSpacing: "0.15em",
+          }}>Scroll</div>
+        </div>
       </section>
 
-      {/* ─── PROBLEM ─── */}
-      {view === "landing" && <ProblemSection />}
+      {/* ─── SCIENCE MEETS PRECISION ─── */}
+      <PrecisionSection />
 
-      {/* ─── SOLUTION ─── */}
-      {view === "landing" && (
-        <section style={{
-          padding: "120px 32px", textAlign: "center", color: C.white,
-          borderTop: `1px solid ${C.border}`,
-          position: "relative", overflow: "hidden",
-        }}>
-          {/* Ambient glow */}
-          <div style={{
-            position: "absolute", top: "0%", left: "50%", transform: "translateX(-50%)",
-            width: "700px", height: "500px",
-            background: `radial-gradient(ellipse at center, ${C.green}35 0%, ${C.greenDeep}18 40%, transparent 70%)`,
-            pointerEvents: "none", filter: "blur(80px)",
-          }} />
-          <Reveal>
-            <SectionLabel>The Solution</SectionLabel>
-            <h2 style={{
-              fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
-              fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
-              maxWidth: "700px", margin: "0 auto 48px",
-            }}>We only carry what's <span style={{ color: C.green }}>real.</span></h2>
-          </Reveal>
-          <div style={{
-            display: "flex", gap: "48px", justifyContent: "center", flexWrap: "wrap",
-            maxWidth: "700px", margin: "0 auto",
-          }}>
-            {[
-              { num: "100%", label: "third-party tested" },
-              { num: "10–50%", label: "member savings" },
-              { num: "Zero", label: "guesswork" },
-            ].map((stat, i) => (
-              <Reveal key={i} delay={i * 0.12}>
-                <div style={{ textAlign: "center", minWidth: "140px" }}>
-                  <div style={{
-                    fontFamily: jakarta, fontSize: "clamp(36px, 6vw, 48px)",
-                    fontWeight: 700, color: C.green,
-                    lineHeight: 1, marginBottom: "8px", letterSpacing: "-0.03em",
-                  }}>{stat.num}</div>
-                  <div style={{
-                    fontFamily: outfit, fontSize: "14px", color: C.secondary,
-                    textTransform: "uppercase", letterSpacing: "0.08em",
-                  }}>{stat.label}</div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-      )}
+      {/* ─── HOW IT WORKS ─── */}
+      <HowItWorksSection />
 
-      {/* ─── PERSONALIZED MATCHING ─── */}
-      {view === "landing" && <MatchingSection />}
+      {/* ─── DIAGNOSTIC ─── */}
+      <DiagnosticSection />
 
-      {/* ─── BOTTOM CTA ─── */}
-      {view === "landing" && (
-        <section style={{
-          padding: "120px 32px", textAlign: "center", color: C.white,
-          borderTop: `1px solid ${C.border}`,
-          background: C.bg, position: "relative", overflow: "hidden",
-        }}>
-          {/* Ambient glow */}
-          <div style={{
-            position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)",
-            width: "800px", height: "500px",
-            background: `radial-gradient(ellipse at center, ${C.green}38 0%, ${C.greenDeep}1A 40%, transparent 65%)`,
-            pointerEvents: "none", filter: "blur(80px)",
-          }} />
-          <Reveal>
-            <SectionLabel>Ready?</SectionLabel>
-            <h2 style={{
-              fontFamily: jakarta, fontSize: "clamp(36px, 8vw, 56px)",
-              fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em",
-              marginBottom: "32px",
-            }}>What's bothering you?<br /><span style={{ color: C.green }}>Let's fix it.</span></h2>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <div style={{
-              display: "flex", flexWrap: "wrap", gap: "10px",
-              justifyContent: "center", maxWidth: "600px", margin: "0 auto",
-            }}>
-              {concerns.map((c) => (
-                <div key={c.id} style={{ position: "relative", display: "inline-flex" }}
-                  onMouseEnter={() => c.id === "vibes" && setVibesHover(true)}
-                  onMouseLeave={() => c.id === "vibes" && setVibesHover(false)}
-                >
-                  {c.id === "vibes" && <SmokePuff active={vibesHover} />}
-                  <button onClick={() => handleConcernSelect(c.id)} style={{
-                    fontFamily: outfit, fontSize: "15px", fontWeight: 600,
-                    color: C.white, background: "transparent",
-                    border: `1px solid rgba(255,255,255,0.15)`,
-                    padding: "14px 28px", cursor: "pointer",
-                    transition: "all 0.2s ease",
-                    display: "flex", alignItems: "center", gap: "8px",
-                  }}>{c.icon} {c.label}</button>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </section>
-      )}
+      {/* ─── WHO IT'S FOR ─── */}
+      <WhoItsForSection />
 
       {/* ─── FOOTER ─── */}
-      {view === "landing" && (
-        <footer style={{
-          borderTop: `2px solid ${C.green}`, padding: "40px 32px",
-          textAlign: "center", color: C.white, background: C.bg,
-        }}>
-          <div style={{
-            fontFamily: outfit, fontSize: "13px", fontWeight: 700,
-            textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "16px",
-          }}>Wellness that works.</div>
-          <div style={{ height: "1px", background: C.border, maxWidth: "200px", margin: "0 auto 16px" }} />
-          <p style={{
-            fontFamily: outfit, fontSize: "13px",
-            color: "rgba(255,255,255,0.5)", letterSpacing: "0.05em",
-          }}>A project of Apiverde Health · Powered by The Human Variable</p>
-        </footer>
-      )}
-
-      {/* ═══════════════ LIGHT TOOL SECTION ═══════════════ */}
-
-      <div ref={toolRef}>
-
-        {/* ─── VERIFICATION GATE ─── */}
-        {view === "gate" && (
-          <section style={{
-            minHeight: "100vh", background: C.lightBg,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "100px 32px 60px",
-          }}>
-            <div style={{ maxWidth: "580px", width: "100%", animation: "fadeUp 0.5s ease" }}>
-
-              {/* Header */}
-              <div style={{ textAlign: "center", marginBottom: "48px" }}>
-                <div style={{
-                  fontFamily: outfit, fontSize: "12px", fontWeight: 600,
-                  color: C.greenDark, textTransform: "uppercase",
-                  letterSpacing: "0.15em", marginBottom: "16px",
-                }}>MEMBER ACCESS</div>
-                <h2 style={{
-                  fontFamily: jakarta, fontSize: "clamp(28px, 5vw, 40px)", fontWeight: 700,
-                  color: C.textDark, letterSpacing: "-0.02em", marginBottom: "12px", lineHeight: 1.1,
-                }}>This is where it gets <span style={{ color: C.greenDark }}>personal.</span></h2>
-                <p style={{
-                  fontFamily: outfit, fontSize: "16px", color: C.textMid,
-                  lineHeight: 1.6, maxWidth: "460px", margin: "0 auto",
-                }}>You tapped <strong>{concerns.find(c => c.id === concern)?.icon} {concerns.find(c => c.id === concern)?.label}</strong>. To give you real guidance — not generic marketing — we verify your membership first. Here's what you're unlocking:</p>
-              </div>
-
-              {/* Benefits */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "40px" }}>
-                {[
-                  {
-                    icon: "🎯",
-                    title: "Personalized Matching",
-                    desc: "Products matched to your specific situation — not bestseller lists. We ask the right questions so you get the right product.",
-                  },
-                  {
-                    icon: "📋",
-                    title: "Protocol Guidance",
-                    desc: "You don't just get a product. You get timing, dosing, and a plan that's built around how you'll actually use it.",
-                  },
-                  {
-                    icon: "💰",
-                    title: "Member Pricing",
-                    desc: "10–50% off retail on every product. Third-party tested, verified products only.",
-                  },
-                  {
-                    icon: "🔄",
-                    title: "Check-ins & Adjustments",
-                    desc: "We follow up. If something's not working, we adjust. Your protocol evolves with you.",
-                  },
-                  {
-                    icon: "🧠",
-                    title: "Education",
-                    desc: "Learn what cannabinoids actually do, how they work differently in different people, and why most of what's on the shelf doesn't work.",
-                  },
-                ].map((b, i) => (
-                  <div key={i} style={{
-                    background: C.white, border: `1px solid ${C.cardBorder}`,
-                    borderLeft: `4px solid ${C.greenDark}`,
-                    padding: "20px 24px",
-                    display: "flex", gap: "16px", alignItems: "flex-start",
-                    animation: `fadeUp 0.5s ease ${i * 0.08}s both`,
-                  }}>
-                    <div style={{ fontSize: "24px", lineHeight: 1, flexShrink: 0, marginTop: "2px" }}>{b.icon}</div>
-                    <div>
-                      <div style={{
-                        fontFamily: jakarta, fontSize: "16px", fontWeight: 700,
-                        color: C.textDark, marginBottom: "4px",
-                      }}>{b.title}</div>
-                      <div style={{
-                        fontFamily: outfit, fontSize: "14px", color: C.textMid, lineHeight: 1.5,
-                      }}>{b.desc}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Verify button */}
-              <div style={{ textAlign: "center" }}>
-                <button onClick={() => { setView("quiz"); scrollToTool(); }} style={{
-                  fontFamily: outfit, fontSize: "16px", fontWeight: 700,
-                  color: C.white, background: C.greenDark,
-                  border: "none", padding: "18px 48px", cursor: "pointer",
-                  textTransform: "uppercase", letterSpacing: "0.06em",
-                  width: "100%", maxWidth: "400px",
-                }}>Verify Membership</button>
-                <p style={{
-                  fontFamily: outfit, fontSize: "13px", color: C.textLight,
-                  marginTop: "16px",
-                }}>Your information stays private. We only verify your membership status.</p>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* ─── QUIZ ─── */}
-        {view === "quiz" && (
-          <section style={{
-            minHeight: "100vh", background: C.lightBg,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "100px 32px 60px",
-          }}>
-            <div style={{ maxWidth: "520px", width: "100%", textAlign: "center", animation: "fadeUp 0.5s ease" }}>
-              <div style={{ display: "flex", gap: "8px", marginBottom: "48px", justifyContent: "center" }}>
-                {[1, 2, 3].map(i => (
-                  <div key={i} style={{
-                    width: "60px", height: "4px",
-                    background: i <= (q2 ? (q3 ? 3 : 2) : 1) ? C.greenDark : "#E2E8F0",
-                    borderRadius: "2px", transition: "all 0.3s ease",
-                  }} />
-                ))}
-              </div>
-
-              {ackMessage ? (
-                <div style={{ animation: "fadeUp 0.5s ease" }}>
-                  <div style={{
-                    width: "48px", height: "48px", borderRadius: "50%",
-                    background: `${C.green}18`, border: `2px solid ${C.greenDark}`,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    margin: "0 auto 24px", fontSize: "20px",
-                  }}>✓</div>
-                  <p style={{
-                    fontFamily: jakarta, fontSize: "22px", fontWeight: 600,
-                    color: C.textDark, lineHeight: 1.5, maxWidth: "440px", margin: "0 auto",
-                  }}>{ackMessage}</p>
-                </div>
-              ) : !q2 ? (
-                <>
-                  <h2 style={{
-                    fontFamily: jakarta, fontSize: "32px", fontWeight: 700,
-                    color: C.textDark, letterSpacing: "-0.02em", marginBottom: "8px",
-                  }}>{(QUIZ_FLOWS[concern] || QUIZ_FLOWS.sleep).q2.question}</h2>
-                  <p style={{ fontFamily: outfit, fontSize: "15px", color: C.textMid, marginBottom: "32px" }}>{(QUIZ_FLOWS[concern] || QUIZ_FLOWS.sleep).q2.sub}</p>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                    {(QUIZ_FLOWS[concern] || QUIZ_FLOWS.sleep).q2.options.map(opt => (
-                      <button key={opt} onClick={() => setQ2(opt)} style={{
-                        fontFamily: outfit, fontSize: "16px", fontWeight: 500,
-                        color: C.textDark, background: C.white,
-                        border: `1px solid ${C.cardBorder}`, padding: "16px 24px",
-                        cursor: "pointer", textAlign: "left", transition: "all 0.15s ease",
-                      }}>{opt}</button>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <div style={{ animation: "fadeUp 0.4s ease" }}>
-                  <h2 style={{
-                    fontFamily: jakarta, fontSize: "32px", fontWeight: 700,
-                    color: C.textDark, letterSpacing: "-0.02em", marginBottom: "8px",
-                  }}>{(QUIZ_FLOWS[concern] || QUIZ_FLOWS.sleep).q3.question}</h2>
-                  <p style={{ fontFamily: outfit, fontSize: "15px", color: C.textMid, marginBottom: "32px" }}>{(QUIZ_FLOWS[concern] || QUIZ_FLOWS.sleep).q3.sub}</p>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                    {(QUIZ_FLOWS[concern] || QUIZ_FLOWS.sleep).q3.options.map(opt => (
-                      <button key={opt} onClick={() => handleQ3(opt)} style={{
-                        fontFamily: outfit, fontSize: "16px", fontWeight: 500,
-                        color: C.textDark, background: C.white,
-                        border: `1px solid ${C.cardBorder}`, padding: "16px 24px",
-                        cursor: "pointer", textAlign: "left", transition: "all 0.15s ease",
-                      }}>{opt}</button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {/* ─── RESULTS ─── */}
-        {view === "results" && (
-          <section style={{ minHeight: "100vh", background: C.lightBg, padding: "100px 32px 60px" }}>
-            <div style={{ maxWidth: "720px", margin: "0 auto", animation: "fadeUp 0.5s ease" }}>
-              {/* Insight */}
-              <div style={{
-                background: C.white, border: `1px solid ${C.cardBorder}`,
-                borderLeft: `4px solid ${C.greenDark}`,
-                padding: "24px 28px", marginBottom: "24px",
-              }}>
-                <div style={{
-                  fontFamily: outfit, fontSize: "12px", fontWeight: 600,
-                  color: C.greenDark, textTransform: "uppercase",
-                  letterSpacing: "0.12em", marginBottom: "8px",
-                }}>{products.length} PRODUCTS MATCHED</div>
-                <p style={{
-                  fontFamily: jakarta, fontSize: "18px", fontWeight: 600,
-                  color: C.textDark, lineHeight: 1.5, margin: 0,
-                }}>
-                  {concern === "sleep" && "For sleep issues that have been going on a while — the most common mistake is wrong product, wrong timing. Here's what actually works."}
-                  {concern === "pain" && "Pain management works best as a system, not a single product. Here's what we'd recommend based on your situation."}
-                  {concern === "stress" && "Stress responds well to consistent daily support rather than as-needed use. Here's what matches your situation."}
-                  {concern === "energy" && "Most energy products are just stimulants in disguise. This is different — clarity without the crash."}
-                  {concern === "vibes" && "The right vibe starts with the right ratio. These are dialed in for enjoyment — not sedation, not intensity, just right."}
-                </p>
-              </div>
-
-              {/* Product Cards */}
-              {products.map((p, i) => (
-                <div key={p.id} style={{
-                  background: C.white, border: `1px solid ${C.cardBorder}`,
-                  borderLeft: `4px solid ${C.greenDark}`,
-                  padding: "24px 28px", marginBottom: "16px",
-                  animation: `fadeUp 0.5s ease ${i * 0.1}s both`,
-                  display: "flex", gap: "20px",
-                }}>
-                  {/* Product image placeholder */}
-                  <div style={{
-                    width: "100px", minWidth: "100px", height: "100px",
-                    background: "#F1F5F9",
-                    border: `1px dashed ${C.cardBorder}`,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    flexDirection: "column", gap: "4px",
-                  }}>
-                    <div style={{
-                      width: "32px", height: "32px", borderRadius: "50%",
-                      border: `2px solid ${C.cardBorder}`,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                    }}>
-                      <div style={{
-                        width: "0", height: "0",
-                        borderTop: "5px solid transparent",
-                        borderBottom: "5px solid transparent",
-                        borderLeft: `8px solid ${C.textLight}`,
-                        marginLeft: "2px",
-                      }} />
-                    </div>
-                    <span style={{
-                      fontFamily: outfit, fontSize: "9px", fontWeight: 600,
-                      color: C.textLight, textTransform: "uppercase",
-                      letterSpacing: "0.06em",
-                    }}>Product</span>
-                  </div>
-
-                  {/* Card content */}
-                  <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
-                    <div>
-                      <h3 style={{ fontFamily: jakarta, fontSize: "20px", fontWeight: 700, color: C.textDark, margin: "0 0 4px 0" }}>{p.name}</h3>
-                      <span style={{ fontFamily: outfit, fontSize: "14px", color: C.textMid }}>{p.brand}</span>
-                    </div>
-                    <div style={{
-                      fontFamily: jakarta, fontSize: "14px", fontWeight: 700,
-                      color: C.greenDark, background: `${C.green}18`, padding: "4px 12px",
-                    }}>{p.match}% match</div>
-                  </div>
-
-                  <div style={{ display: "flex", gap: "8px", marginBottom: "12px", flexWrap: "wrap" }}>
-                    {p.tags.map(tag => (
-                      <span key={tag} style={{
-                        fontFamily: outfit, fontSize: "11px", fontWeight: 600,
-                        color: C.textMid, background: "#F1F5F9",
-                        padding: "4px 10px", textTransform: "uppercase", letterSpacing: "0.06em",
-                      }}>{tag}</span>
-                    ))}
-                  </div>
-
-                  <p style={{ fontFamily: outfit, fontSize: "15px", color: C.textMid, lineHeight: 1.6, marginBottom: "16px" }}>{p.desc}</p>
-
-                  <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
-                    <span style={{
-                      fontFamily: jakarta, fontSize: "18px", fontWeight: 700,
-                      color: C.greenDark,
-                    }}>Members save ${(p.retail - p.member).toFixed(2)} on this product</span>
-                  </div>
-
-                  <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
-                    <button style={{
-                      fontFamily: outfit, fontSize: "14px", fontWeight: 700,
-                      color: C.white, background: C.greenDark,
-                      border: "none", padding: "14px 32px", cursor: "pointer",
-                      textTransform: "uppercase", letterSpacing: "0.06em",
-                    }}>Verify Membership to See Your Price</button>
-                    <button onClick={() => setExpandedWhy(expandedWhy === p.id ? null : p.id)} style={{
-                      fontFamily: outfit, fontSize: "14px", fontWeight: 600,
-                      color: C.greenDark, background: "none",
-                      border: `1px solid ${C.greenDark}`, padding: "14px 24px", cursor: "pointer",
-                    }}>{expandedWhy === p.id ? "Hide" : "Why this?"}</button>
-                  </div>
-
-                  {expandedWhy === p.id && (
-                    <div style={{
-                      marginTop: "16px", padding: "16px",
-                      background: "#F8FAFB", borderLeft: `3px solid ${C.green}`,
-                      animation: "fadeUp 0.3s ease",
-                    }}>
-                      <p style={{ fontFamily: outfit, fontSize: "14px", color: C.textMid, lineHeight: 1.6, margin: 0 }}>{p.why}</p>
-                    </div>
-                  )}
-                  </div>
-                </div>
-              ))}
-
-              {/* Conversation CTA */}
-              {concern && (
-                <div style={{
-                  background: C.white, border: `1px solid ${C.cardBorder}`,
-                  padding: "28px", textAlign: "center", marginTop: "8px",
-                }}>
-                  <p style={{ fontFamily: jakarta, fontSize: "18px", fontWeight: 600, color: C.textDark, marginBottom: "4px" }}>Want help picking the right one?</p>
-                  <p style={{ fontFamily: outfit, fontSize: "15px", color: C.textMid, marginBottom: "20px" }}>A few more questions and I can get more specific.</p>
-                  <button onClick={startConversation} style={{
-                    fontFamily: outfit, fontSize: "14px", fontWeight: 700,
-                    color: C.greenDark, background: "none",
-                    border: `1px solid ${C.greenDark}`,
-                    padding: "14px 32px", cursor: "pointer",
-                    textTransform: "uppercase", letterSpacing: "0.06em",
-                  }}>Yes, help me choose</button>
-                </div>
-              )}
-
-              <div style={{ textAlign: "center", marginTop: "32px" }}>
-                <button onClick={goReturning} style={{
-                  fontFamily: outfit, fontSize: "13px", fontWeight: 500,
-                  color: C.textLight, background: "none", border: "none",
-                  cursor: "pointer", textDecoration: "underline",
-                }}>Demo: Skip to return visit →</button>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* ─── CONVERSATION ─── */}
-        {view === "conversation" && (
-          <section style={{ minHeight: "100vh", background: C.lightBg, padding: "100px 32px 60px" }}>
-            <div style={{ maxWidth: "640px", margin: "0 auto", animation: "fadeUp 0.5s ease" }}>
-              <div style={{
-                fontFamily: outfit, fontSize: "12px", fontWeight: 600,
-                color: C.greenDark, textTransform: "uppercase",
-                letterSpacing: "0.12em", marginBottom: "24px", textAlign: "center",
-              }}>PERSONALIZED CONSULTATION</div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                {convoHistory.map((msg, i) => {
-                  if (msg.role === "ai") return (
-                    <div key={i} style={{
-                      background: C.white, border: `1px solid ${C.cardBorder}`,
-                      borderLeft: `4px solid ${C.greenDark}`,
-                      padding: "20px 24px", animation: "fadeUp 0.4s ease",
-                    }}>
-                      <div style={{
-                        fontFamily: outfit, fontSize: "11px", fontWeight: 600,
-                        color: C.greenDark, textTransform: "uppercase",
-                        letterSpacing: "0.1em", marginBottom: "8px",
-                      }}>APIVERDE</div>
-                      <p style={{
-                        fontFamily: outfit, fontSize: "15px", color: C.textDark,
-                        lineHeight: 1.7, margin: 0, whiteSpace: "pre-line",
-                      }}>{msg.text}</p>
-                    </div>
-                  );
-                  if (msg.role === "user") return (
-                    <div key={i} style={{
-                      alignSelf: "flex-end", background: C.greenDark,
-                      padding: "14px 20px", maxWidth: "80%", animation: "fadeUp 0.3s ease",
-                    }}>
-                      <p style={{ fontFamily: outfit, fontSize: "15px", color: C.white, margin: 0 }}>{msg.text}</p>
-                    </div>
-                  );
-                  if (msg.role === "options") return (
-                    <div key={i} style={{ display: "flex", flexWrap: "wrap", gap: "8px", animation: "fadeUp 0.4s ease" }}>
-                      {msg.choices.map(choice => (
-                        <button key={choice} onClick={() => handleConvoChoice(choice)} style={{
-                          fontFamily: outfit, fontSize: "14px", fontWeight: 500,
-                          color: C.textDark, background: C.white,
-                          border: `1px solid ${C.cardBorder}`,
-                          padding: "12px 20px", cursor: "pointer", transition: "all 0.15s ease",
-                        }}>{choice}</button>
-                      ))}
-                    </div>
-                  );
-                  return null;
-                })}
-              </div>
-
-              {convoStep >= (CONVERSATION_FLOWS[concern]?.length || 3) && (
-                <div style={{ marginTop: "32px" }}>
-                  <div style={{
-                    background: C.white, border: `1px solid ${C.cardBorder}`,
-                    borderLeft: `4px solid ${C.greenDark}`, padding: "24px 28px",
-                  }}>
-                    <div style={{
-                      fontFamily: outfit, fontSize: "12px", fontWeight: 600,
-                      color: C.greenDark, textTransform: "uppercase",
-                      letterSpacing: "0.12em", marginBottom: "12px",
-                    }}>YOUR MATCH</div>
-                    <h3 style={{ fontFamily: jakarta, fontSize: "22px", fontWeight: 700, color: C.textDark, margin: "0 0 4px 0" }}>{products[0]?.name}</h3>
-                    <span style={{ fontFamily: outfit, fontSize: "14px", color: C.textMid }}>{products[0]?.brand}</span>
-                    <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "16px 0" }}>
-                      <span style={{
-                        fontFamily: jakarta, fontSize: "18px", fontWeight: 700,
-                        color: C.greenDark,
-                      }}>Members save ${(products[0]?.retail - products[0]?.member).toFixed(2)} on this product</span>
-                    </div>
-                    <button style={{
-                      fontFamily: outfit, fontSize: "14px", fontWeight: 700,
-                      color: C.white, background: C.greenDark,
-                      border: "none", padding: "14px 32px", cursor: "pointer",
-                      textTransform: "uppercase", letterSpacing: "0.06em", width: "100%",
-                    }}>Verify Membership to See Your Price</button>
-                  </div>
-                  <div style={{ textAlign: "center", marginTop: "32px" }}>
-                    <button onClick={goReturning} style={{
-                      fontFamily: outfit, fontSize: "13px", fontWeight: 500,
-                      color: C.textLight, background: "none", border: "none",
-                      cursor: "pointer", textDecoration: "underline",
-                    }}>Demo: Skip to return visit →</button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {/* ─── RETURN VISIT ─── */}
-        {view === "returning" && (
-          <section style={{ minHeight: "100vh", background: C.lightBg, padding: "100px 32px 60px" }}>
-            <div style={{ maxWidth: "720px", margin: "0 auto", animation: "fadeUp 0.5s ease" }}>
-
-              <div style={{
-                background: C.white, border: `1px solid ${C.cardBorder}`,
-                borderLeft: `4px solid ${C.greenDark}`, padding: "24px 28px", marginBottom: "24px",
-              }}>
-                <div style={{
-                  fontFamily: outfit, fontSize: "12px", fontWeight: 600,
-                  color: C.greenDark, textTransform: "uppercase",
-                  letterSpacing: "0.12em", marginBottom: "4px",
-                }}>WELCOME BACK</div>
-                <h2 style={{ fontFamily: jakarta, fontSize: "24px", fontWeight: 700, color: C.textDark, margin: 0 }}>Your Protocol</h2>
-              </div>
-
-              {/* Current product */}
-              <div style={{
-                background: C.white, border: `1px solid ${C.cardBorder}`,
-                borderLeft: `4px solid ${C.greenDark}`, padding: "24px 28px", marginBottom: "16px",
-              }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                  <div>
-                    <h3 style={{ fontFamily: jakarta, fontSize: "20px", fontWeight: 700, color: C.textDark, margin: "0 0 4px 0" }}>CBN Night Caps</h3>
-                    <span style={{ fontFamily: outfit, fontSize: "14px", color: C.textMid }}>CBDistillery</span>
-                  </div>
-                  <span style={{
-                    fontFamily: outfit, fontSize: "12px", fontWeight: 600,
-                    color: C.textLight, textTransform: "uppercase", letterSpacing: "0.08em",
-                  }}>Day 12</span>
-                </div>
-
-                <p style={{ fontFamily: outfit, fontSize: "14px", color: C.textMid, lineHeight: 1.6, margin: "12px 0 16px" }}>
-                  Take 1 capsule 90 minutes before bed. You should be noticing a difference by now.
-                </p>
-
-                {!showCheckin && !checkinDone && (
-                  <button onClick={() => setShowCheckin(true)} style={{
-                    fontFamily: outfit, fontSize: "14px", fontWeight: 600,
-                    color: C.greenDark, background: `${C.green}12`,
-                    border: `1px solid ${C.greenDark}`,
-                    padding: "12px 24px", cursor: "pointer", width: "100%", marginBottom: "12px",
-                  }}>How's it going? Check in →</button>
-                )}
-                {showCheckin && !checkinDone && (
-                  <div style={{ animation: "fadeUp 0.3s ease", marginBottom: "12px" }}>
-                    <p style={{ fontFamily: outfit, fontSize: "14px", fontWeight: 500, color: C.textDark, marginBottom: "12px" }}>How's it going with the Night Caps?</p>
-                    <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                      {["Great", "Helping some", "Not really", "Haven't tried it"].map(opt => (
-                        <button key={opt} onClick={() => { setCheckinDone(true); setShowCheckin(false); }} style={{
-                          fontFamily: outfit, fontSize: "13px", fontWeight: 500,
-                          color: C.textDark, background: C.white,
-                          border: `1px solid ${C.cardBorder}`,
-                          padding: "10px 16px", cursor: "pointer",
-                        }}>{opt}</button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {checkinDone && (
-                  <div style={{
-                    fontFamily: outfit, fontSize: "14px", color: C.greenDark,
-                    fontWeight: 600, animation: "fadeUp 0.3s ease", marginBottom: "12px",
-                  }}>✓ Logged. We'll use this to refine your recommendations.</div>
-                )}
-
-                <button style={{
-                  fontFamily: outfit, fontSize: "14px", fontWeight: 700,
-                  color: C.white, background: C.greenDark,
-                  border: "none", padding: "14px 32px", cursor: "pointer",
-                  textTransform: "uppercase", letterSpacing: "0.06em", width: "100%",
-                }}>Reorder — $38.49 →</button>
-              </div>
-
-              {/* Recommended */}
-              <div style={{
-                fontFamily: outfit, fontSize: "12px", fontWeight: 600,
-                color: C.greenDark, textTransform: "uppercase",
-                letterSpacing: "0.12em", margin: "32px 0 16px",
-              }}>RECOMMENDED FOR YOU</div>
-
-              {PRODUCTS.sleep.slice(1).concat(PRODUCTS.stress).map((p) => (
-                <div key={p.id} style={{
-                  background: C.white, border: `1px solid ${C.cardBorder}`,
-                  borderLeft: `4px solid ${C.greenDark}`,
-                  padding: "20px 24px", marginBottom: "12px",
-                }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                    <div>
-                      <h3 style={{ fontFamily: jakarta, fontSize: "18px", fontWeight: 700, color: C.textDark, margin: "0 0 2px 0" }}>{p.name}</h3>
-                      <span style={{ fontFamily: outfit, fontSize: "13px", color: C.textMid }}>{p.brand}</span>
-                    </div>
-                    <span style={{ fontFamily: outfit, fontSize: "14px", fontWeight: 600, color: C.greenDark }}>Save ${(p.retail - p.member).toFixed(2)}</span>
-                  </div>
-                  <div style={{ display: "flex", gap: "8px", margin: "8px 0", flexWrap: "wrap" }}>
-                    {p.tags.map(tag => (
-                      <span key={tag} style={{
-                        fontFamily: outfit, fontSize: "11px", fontWeight: 600,
-                        color: C.textMid, background: "#F1F5F9",
-                        padding: "3px 8px", textTransform: "uppercase", letterSpacing: "0.06em",
-                      }}>{tag}</span>
-                    ))}
-                  </div>
-                  <p style={{ fontFamily: outfit, fontSize: "14px", color: C.textMid, lineHeight: 1.5, margin: "8px 0 12px" }}>{p.desc}</p>
-                  <button style={{
-                    fontFamily: outfit, fontSize: "13px", fontWeight: 700,
-                    color: C.white, background: C.greenDark,
-                    border: "none", padding: "12px 24px", cursor: "pointer",
-                    textTransform: "uppercase", letterSpacing: "0.06em",
-                  }}>Get This Deal →</button>
-                </div>
-              ))}
-
-              {/* AMA */}
-              <div style={{
-                background: C.white, border: `1px solid ${C.cardBorder}`,
-                padding: "24px 28px", marginTop: "24px", textAlign: "center",
-              }}>
-                <h3 style={{ fontFamily: jakarta, fontSize: "18px", fontWeight: 700, color: C.textDark, marginBottom: "8px" }}>Questions about your protocol?</h3>
-                <p style={{ fontFamily: outfit, fontSize: "14px", color: C.textMid, marginBottom: "16px" }}>Ask anything about your products, timing, or next steps.</p>
-                <div style={{ display: "flex", border: `1px solid ${C.cardBorder}`, overflow: "hidden" }}>
-                  <input type="text" placeholder="Ask me anything..." style={{
-                    flex: 1, padding: "14px 16px", border: "none", outline: "none",
-                    fontFamily: outfit, fontSize: "15px", color: C.textDark, background: C.lightBg,
-                  }} />
-                  <button style={{
-                    fontFamily: outfit, fontSize: "14px", fontWeight: 700,
-                    color: C.white, background: C.greenDark,
-                    border: "none", padding: "14px 24px", cursor: "pointer",
-                  }}>Ask</button>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-      </div>
+      <footer style={{
+        borderTop: `1px solid ${C.green}`, padding: "40px 32px",
+        textAlign: "center", color: C.white, background: C.bg,
+      }}>
+        <div style={{
+          fontFamily: outfit, fontSize: "13px", fontWeight: 700,
+          textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "16px",
+        }}>Cannabinoid Intelligence.</div>
+        <div style={{ height: "1px", background: C.border, maxWidth: "200px", margin: "0 auto 16px" }} />
+        <p style={{
+          fontFamily: outfit, fontSize: "13px",
+          color: "rgba(255,255,255,0.5)", letterSpacing: "0.05em", marginBottom: "12px",
+        }}>Apiverde Health in partnership with The Human Variable [ x = human ]</p>
+        <p style={{
+          fontFamily: outfit, fontSize: "12px",
+          color: "rgba(255,255,255,0.3)", letterSpacing: "0.05em",
+        }}>© 2026</p>
+      </footer>
     </div>
   );
 }
@@ -1579,7 +1724,7 @@ function UFCWLanding({ onActivate }) {
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         background: "rgba(8,11,17,0.85)", backdropFilter: "blur(20px)",
-        borderBottom: `2px solid ${C.green}`,
+        borderBottom: `1px solid ${C.green}`,
       }}>
         <div style={{
           maxWidth: "1200px", margin: "0 auto", padding: "14px 32px",
@@ -1655,7 +1800,7 @@ function UFCWLanding({ onActivate }) {
               <p style={{
                 fontFamily: outfit, fontSize: "17px", color: C.secondary,
                 lineHeight: 1.7, marginBottom: "32px",
-              }}>A wellness platform with tested cannabinoid products, personalized matching, and member pricing — at no cost to you.</p>
+              }}>A wellness platform with tested cannabinoid products, personalized matching, and member pricing. At no cost to you.</p>
 
               {/* Benefits */}
               <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -1677,7 +1822,7 @@ function UFCWLanding({ onActivate }) {
                       }}>{b.title}</span>
                       <span style={{
                         fontFamily: outfit, fontSize: "14px", color: C.secondary, marginLeft: "6px",
-                      }}>— {b.desc}</span>
+                      }}>{b.desc}</span>
                     </div>
                   </div>
                 ))}
@@ -1805,7 +1950,7 @@ function UFCWLanding({ onActivate }) {
             <p style={{
               fontFamily: outfit, fontSize: "18px", color: C.secondary,
               maxWidth: "520px", margin: "0 auto 56px", lineHeight: 1.6,
-            }}>Cannabinoid products are changing how people manage the things that wear them down — naturally, without a prescription, on their own terms.</p>
+            }}>Cannabinoid products are changing how people manage the things that wear them down. Naturally, without a prescription, on their own terms.</p>
           </Reveal>
 
           <div style={{
@@ -1880,7 +2025,7 @@ function UFCWLanding({ onActivate }) {
 
       {/* Footer */}
       <footer style={{
-        borderTop: `2px solid ${C.green}`, padding: "40px 32px",
+        borderTop: `1px solid ${C.green}`, padding: "40px 32px",
         textAlign: "center", color: C.white, background: C.bg,
       }}>
         <div style={{
