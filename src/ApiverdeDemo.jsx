@@ -1145,7 +1145,7 @@ ${avoidances.length > 0 ? avoidances.join(", ") : "No specific avoidances noted.
           .diag-scenario-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
           .diag-result-cols { grid-template-columns: 1fr !important; }
           .diag-teaser-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .diag-main { min-height: auto !important; justify-content: flex-start !important; padding-top: 80px !important; padding-bottom: 40px !important; }
+          .diag-main { min-height: auto !important; justify-content: flex-start !important; padding-top: 120px !important; padding-bottom: 40px !important; }
           .diag-scenario-grid button { padding: 14px 16px !important; }
           .diag-prompt { font-size: 22px !important; margin-bottom: 20px !important; }
           .diag-progress { margin-bottom: 24px !important; }
