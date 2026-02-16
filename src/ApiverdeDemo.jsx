@@ -1715,7 +1715,7 @@ function ApiverdeDemo() {
           <p style={{
             fontFamily: outfit, fontSize: "18px", color: C.secondary,
             maxWidth: "560px", margin: "0 auto 48px", lineHeight: 1.6,
-          }}>Apiverde Health is a cannabinoid wellness platform that starts with what makes each person unique, and builds from there.</p>
+          }}>Sleep, stress, pain, and energy. Different body, different life, different root cause. What works for one person won't work for another. Apiverde Health helps each person find what actually works for them.</p>
 
         </div>
 
