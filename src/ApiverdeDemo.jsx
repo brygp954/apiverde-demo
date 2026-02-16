@@ -1520,12 +1520,7 @@ function WhoItsForSection() {
         pointerEvents: "none", filter: "blur(80px)",
       }} />
       <Reveal>
-        <SectionLabel>Who It's For</SectionLabel>
-        <h2 style={{
-          fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
-          fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
-          maxWidth: "700px", margin: "0 auto 64px",
-        }}>Two partners. One <span style={{ color: C.green }}>platform.</span></h2>
+        <div style={{ marginBottom: "48px" }}><SectionLabel>Who It's For</SectionLabel></div>
       </Reveal>
 
       <div style={{
