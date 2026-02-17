@@ -710,21 +710,6 @@ function StackSection() {
       items: ["Deadlines", "Trauma", "Hormones", "Chronic pain", "Menopause", "Grief", "Medications", "Cortisol", "Blood sugar", "Sleep apnea", "Parenthood", "Perfectionism", "Anxiety", "Depression", "Thyroid", "Inflammation", "PTSD", "ADHD"] },
   ];
 
-  function FlowArrow({ delay }) {
-    return (
-      <div style={{
-        display: "flex", alignItems: "flex-start", flexShrink: 0,
-        paddingTop: "28px",
-        opacity: show ? 0.5 : 0,
-        transition: `all 0.4s ease ${delay}s`,
-      }}>
-        <svg width="28" height="14" viewBox="0 0 28 14" fill="none">
-          <path d="M0 7H22M22 7L16 1.5M22 7L16 12.5" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </div>
-    );
-  }
-
   return (
     <section ref={sectionRef} style={{
       padding: "120px 32px", textAlign: "center", color: C.white,
@@ -758,78 +743,43 @@ function StackSection() {
         </Reveal>
       </div>
 
-      <style>{`
-        .flow-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .flow-scroll::-webkit-scrollbar { display: none; }
-        .flow-desktop { display: flex; }
-        .flow-mobile { display: none; }
-        @media (max-width: 768px) {
-          .flow-desktop { display: none !important; }
-          .flow-mobile { display: flex !important; }
-        }
-      `}</style>
-
-      {/* Desktop: horizontal flowchart */}
-      <div className="flow-scroll flow-desktop" style={{ width: "100%", maxWidth: "1100px" }}>
-        <div style={{
-          display: "flex", alignItems: "flex-start", justifyContent: "center",
-          gap: "0px", minWidth: "940px", padding: "16px 0",
-        }}>
-          {nodes.map((node, i) => {
-            return (
-            <div key={node.label} style={{ display: "flex", alignItems: "flex-start" }}>
-              <div style={{
-                background: `${node.color}08`,
-                border: `1px solid ${node.color}20`,
-                padding: "14px 14px",
-                display: "flex", flexDirection: "column", alignItems: "center",
-                gap: "8px",
-                minWidth: "110px", maxWidth: "140px",
-                opacity: show ? 1 : 0,
-                transform: show ? "translateX(0)" : "translateX(-12px)",
-                transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${node.delay}s`,
-              }}>
-                <div style={{
-                  fontFamily: outfit, fontSize: "9px", fontWeight: 600,
-                  color: `${node.color}90`,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.12em", textAlign: "center",
-                }}>{node.label}</div>
-                <div style={{
-                  width: "100%", height: "1px",
-                  background: `${node.color}20`,
-                }} />
-                <div style={{
-                  display: "flex", flexDirection: "column", gap: "3px",
-                  alignItems: "center", width: "100%",
-                }}>
-                  {node.items.map((item, j) => (
-                    <div key={item} style={{
-                      fontFamily: outfit,
-                      fontSize: "11px",
-                      fontWeight: 500,
-                      color: `${node.color}cc`,
-                      opacity: show ? 1 : 0,
-                      transition: `all 0.4s ease ${node.delay + 0.05 + j * 0.03}s`,
-                      whiteSpace: "nowrap",
-                    }}>{item}</div>
-                  ))}
-                </div>
-              </div>
-              {i < nodes.length - 1 && (
-                <FlowArrow delay={node.delay + 0.08} />
-              )}
-            </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Mobile: vertical stack with pill tags */}
-      <div className="flow-mobile" style={{
-        flexDirection: "column", gap: "0px",
-        width: "100%", maxWidth: "400px",
+      {/* Vertical pill flow — all screen sizes */}
+      <div style={{
+        display: "flex", flexDirection: "column", gap: "0px",
+        width: "100%", maxWidth: "560px",
       }}>
+        {/* Complaint pill */}
+        <div style={{
+          display: "flex", flexDirection: "column", alignItems: "center", padding: "16px 0",
+          opacity: show ? 1 : 0,
+          transform: show ? "translateY(0)" : "translateY(12px)",
+          transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0s",
+        }}>
+          <div style={{
+            fontFamily: outfit, fontSize: "10px", fontWeight: 600,
+            color: `${C.white}70`, textTransform: "uppercase",
+            letterSpacing: "0.14em", marginBottom: "8px",
+          }}>COMPLAINT</div>
+          <div style={{
+            fontFamily: outfit, fontSize: "15px", fontWeight: 600,
+            color: C.white,
+            background: `${C.white}10`,
+            border: `1px solid ${C.white}25`,
+            padding: "8px 28px",
+            borderRadius: "100px",
+          }}>Sleep</div>
+        </div>
+        <div style={{
+          display: "flex", justifyContent: "center", padding: "4px 0",
+          opacity: show ? 0.4 : 0,
+          transition: "all 0.4s ease 0.08s",
+        }}>
+          <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
+            <path d="M7 0V16M7 16L1.5 10.5M7 16L12.5 10.5" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+
+        {/* Middle complexity */}
         {nodes.map((node, i) => (
           <div key={node.label}>
             <div style={{
@@ -841,20 +791,20 @@ function StackSection() {
               <div style={{
                 fontFamily: outfit, fontSize: "10px", fontWeight: 600,
                 color: `${node.color}99`, textTransform: "uppercase",
-                letterSpacing: "0.14em", marginBottom: "10px",
+                letterSpacing: "0.14em", marginBottom: "12px",
                 textAlign: "center",
               }}>{node.label}</div>
               <div style={{
-                display: "flex", flexWrap: "wrap", gap: "6px",
+                display: "flex", flexWrap: "wrap", gap: "8px",
                 justifyContent: "center",
               }}>
                 {node.items.map((item, j) => (
                   <div key={item} style={{
-                    fontFamily: outfit, fontSize: "12px", fontWeight: 500,
+                    fontFamily: outfit, fontSize: "13px", fontWeight: 500,
                     color: `${node.color}dd`,
                     background: `${node.color}10`,
                     border: `1px solid ${node.color}20`,
-                    padding: "5px 12px",
+                    padding: "6px 16px",
                     borderRadius: "100px",
                     opacity: show ? 1 : 0,
                     transition: `all 0.3s ease ${node.delay + 0.03 + j * 0.02}s`,
@@ -875,6 +825,37 @@ function StackSection() {
             )}
           </div>
         ))}
+
+        {/* Solution pill */}
+        <div style={{
+          display: "flex", justifyContent: "center", padding: "4px 0",
+          opacity: show ? 0.4 : 0,
+          transition: "all 0.4s ease 0.5s",
+        }}>
+          <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
+            <path d="M7 0V16M7 16L1.5 10.5M7 16L12.5 10.5" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+        <div style={{
+          display: "flex", flexDirection: "column", alignItems: "center", padding: "16px 0",
+          opacity: show ? 1 : 0,
+          transform: show ? "translateY(0)" : "translateY(12px)",
+          transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s",
+        }}>
+          <div style={{
+            fontFamily: outfit, fontSize: "10px", fontWeight: 600,
+            color: `${C.green}99`, textTransform: "uppercase",
+            letterSpacing: "0.14em", marginBottom: "8px",
+          }}>PROTOCOL</div>
+          <div style={{
+            fontFamily: outfit, fontSize: "15px", fontWeight: 600,
+            color: C.green,
+            background: `${C.green}12`,
+            border: `1px solid ${C.green}35`,
+            padding: "8px 28px",
+            borderRadius: "100px",
+          }}>Your solution</div>
+        </div>
       </div>
 
       <div style={{
@@ -882,9 +863,9 @@ function StackSection() {
         opacity: show ? 1 : 0, transition: "all 0.6s ease 1s",
       }}>
         <p style={{
-          fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)", color: C.green, fontWeight: 700,
+          fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)", color: C.white, fontWeight: 700,
           lineHeight: 1.6, maxWidth: "520px", margin: "0 auto",
-        }}>One solution that's yours.</p>
+        }}>This is what average misses.</p>
       </div>
     </section>
   );
