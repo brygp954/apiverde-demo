@@ -772,12 +772,12 @@ function StackSection() {
 
       <div style={{ textAlign: "center", marginBottom: "36px", position: "relative" }}>
         <Reveal>
-          <SectionLabel>Under the Surface</SectionLabel>
+          <SectionLabel>Why It's Personal</SectionLabel>
           <h2 style={{
             fontFamily: jakarta, fontSize: "clamp(28px, 5vw, 48px)",
             fontWeight: 700, color: C.white, lineHeight: 1.1,
             letterSpacing: "-0.03em",
-          }}>This is what <span style={{ color: C.green }}>average misses.</span></h2>
+          }}>One complaint. Thousands of variables. <span style={{ color: C.green }}>One solution that's yours.</span></h2>
         </Reveal>
       </div>
 
@@ -786,7 +786,7 @@ function StackSection() {
         width: "100%", maxWidth: "420px",
       }}>
         <div style={{
-          background: `${C.green}15`, border: `1px solid ${C.green}35`,
+          background: `${C.white}10`, border: `1px solid ${C.white}25`,
           padding: "10px 40px",
           display: "flex", flexDirection: "column", alignItems: "center", gap: "2px",
           opacity: show ? 1 : 0,
@@ -795,10 +795,10 @@ function StackSection() {
         }}>
           <div style={{
             fontFamily: outfit, fontSize: "10px", fontWeight: 600,
-            color: `${C.green}99`, textTransform: "uppercase", letterSpacing: "0.14em",
+            color: `${C.white}70`, textTransform: "uppercase", letterSpacing: "0.14em",
           }}>COMPLAINT</div>
           <div style={{
-            fontFamily: jakarta, fontSize: "22px", fontWeight: 700, color: C.green,
+            fontFamily: jakarta, fontSize: "22px", fontWeight: 700, color: C.white,
           }}>Sleep</div>
         </div>
 
@@ -853,7 +853,7 @@ function StackSection() {
         <p style={{
           fontFamily: outfit, fontSize: "22px", color: C.white, fontWeight: 500,
           lineHeight: 1.6, maxWidth: "520px", margin: "0 auto",
-        }}>Average gives everyone the same answer. You're not everyone.</p>
+        }}>This is what average misses.</p>
       </div>
     </section>
   );
@@ -992,10 +992,10 @@ function HowItWorksSection() {
   }, [step >= 1]);
 
   const stages = [
-    { num: "01", title: "Concern identified", desc: "Sleep, pain, stress, energy, recovery. Start with what's actually bothering you." },
-    { num: "02", title: "Context gathered", desc: "Schedule, history, sensitivities, constraints. The things that make your situation yours." },
-    { num: "03", title: "Variables analyzed", desc: "Cross-referencing your inputs against known driver patterns and research." },
-    { num: "04", title: "Protocol resolved", desc: "Product, timing, dosing, and follow-up. Calibrated to you, not the average." },
+    { num: "01", title: "Concern identified", desc: "Sleep, pain, stress, energy, recovery. Start with what's actually bothering you.", color: C.white },
+    { num: "02", title: "Context gathered", desc: "Chronotype, sleep patterns, lifestyle, history. The context that makes your situation yours.", color: "#60a5fa" },
+    { num: "03", title: "Variables analyzed", desc: "Variables, drivers, and interactions. Cross-referenced against research to find what matters most.", color: "#fbbf24" },
+    { num: "04", title: "Protocol resolved", desc: "Product, timing, dosing, and follow-up. Calibrated to you, not the average.", color: C.green },
   ];
 
   return (
@@ -1042,7 +1042,7 @@ function HowItWorksSection() {
               }}>
                 <div style={{
                   fontFamily: jakarta, fontSize: "clamp(48px, 8vw, 64px)",
-                  fontWeight: 700, color: `${C.green}30`,
+                  fontWeight: 700, color: `${s.color}30`,
                   lineHeight: 1, letterSpacing: "-0.03em",
                   marginBottom: "12px",
                 }}>{s.num}</div>
