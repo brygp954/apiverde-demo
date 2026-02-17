@@ -1836,13 +1836,6 @@ function ApiverdeDemo() {
             fontFamily: jakarta, fontSize: "18px", fontWeight: 700,
             color: C.white, letterSpacing: "-0.01em",
           }}>Apiverde <span style={{ color: C.green }}>Health</span></span>
-          <span onClick={() => { window.location.href = "/ufcw"; }} style={{
-            fontFamily: outfit, fontSize: "10px", fontWeight: 600,
-            color: C.green,
-            textTransform: "uppercase", letterSpacing: "0.12em",
-            border: `1px solid ${C.green}`,
-            padding: "5px 12px", cursor: "pointer",
-          }}>Member Login</span>
         </div>
       </nav>
 
@@ -1935,9 +1928,10 @@ function ApiverdeDemo() {
         borderTop: `1px solid ${C.green}30`, padding: "40px 32px",
         textAlign: "center", color: C.white, background: C.bg,
       }}>
-        <div style={{
+        <div onClick={() => { window.location.href = "/ufcw"; }} style={{
           fontFamily: outfit, fontSize: "13px", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "16px",
+          cursor: "pointer",
         }}>Cannabinoid Intelligence Platform.</div>
         <div style={{ height: "1px", background: C.border, maxWidth: "200px", margin: "0 auto 16px" }} />
         <p style={{
