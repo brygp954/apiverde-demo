@@ -750,9 +750,10 @@ function StackSection() {
         <Reveal>
           <SectionLabel>Why It's Personal</SectionLabel>
           <h2 style={{
-            fontFamily: jakarta, fontSize: "clamp(28px, 5vw, 48px)",
+            fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
             fontWeight: 700, color: C.white, lineHeight: 1.1,
             letterSpacing: "-0.03em",
+            maxWidth: "700px", margin: "0 auto 0",
           }}>One complaint, sleep. <span style={{ color: C.green }}>12,960 combinations.</span></h2>
         </Reveal>
       </div>
