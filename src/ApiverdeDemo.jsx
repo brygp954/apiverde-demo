@@ -923,7 +923,7 @@ function PrecisionSection() {
         <p style={{
           fontFamily: outfit, fontSize: "18px", color: C.secondary,
           maxWidth: "560px", margin: "0 auto 64px", lineHeight: 1.6,
-        }}>Apiverde Health doesn't start with products. It starts with why you need one, then builds a protocol around the answer.</p>
+        }}>Most platforms match you to a product. We match a protocol to your problem.</p>
       </Reveal>
 
       <div className="capability-grid" style={{
