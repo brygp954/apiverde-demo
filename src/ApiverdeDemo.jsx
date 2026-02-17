@@ -761,9 +761,16 @@ function StackSection() {
       <style>{`
         .flow-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .flow-scroll::-webkit-scrollbar { display: none; }
+        .flow-desktop { display: flex; }
+        .flow-mobile { display: none; }
+        @media (max-width: 768px) {
+          .flow-desktop { display: none !important; }
+          .flow-mobile { display: flex !important; }
+        }
       `}</style>
 
-      <div className="flow-scroll" style={{ width: "100%", maxWidth: "1100px" }}>
+      {/* Desktop: horizontal flowchart */}
+      <div className="flow-scroll flow-desktop" style={{ width: "100%", maxWidth: "1100px" }}>
         <div style={{
           display: "flex", alignItems: "flex-start", justifyContent: "center",
           gap: "0px", minWidth: "940px", padding: "16px 0",
@@ -816,6 +823,58 @@ function StackSection() {
             );
           })}
         </div>
+      </div>
+
+      {/* Mobile: vertical stack with pill tags */}
+      <div className="flow-mobile" style={{
+        flexDirection: "column", gap: "0px",
+        width: "100%", maxWidth: "400px",
+      }}>
+        {nodes.map((node, i) => (
+          <div key={node.label}>
+            <div style={{
+              opacity: show ? 1 : 0,
+              transform: show ? "translateY(0)" : "translateY(12px)",
+              transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${node.delay}s`,
+              padding: "16px 0",
+            }}>
+              <div style={{
+                fontFamily: outfit, fontSize: "10px", fontWeight: 600,
+                color: `${node.color}99`, textTransform: "uppercase",
+                letterSpacing: "0.14em", marginBottom: "10px",
+                textAlign: "center",
+              }}>{node.label}</div>
+              <div style={{
+                display: "flex", flexWrap: "wrap", gap: "6px",
+                justifyContent: "center",
+              }}>
+                {node.items.map((item, j) => (
+                  <div key={item} style={{
+                    fontFamily: outfit, fontSize: "12px", fontWeight: 500,
+                    color: `${node.color}dd`,
+                    background: `${node.color}10`,
+                    border: `1px solid ${node.color}20`,
+                    padding: "5px 12px",
+                    borderRadius: "100px",
+                    opacity: show ? 1 : 0,
+                    transition: `all 0.3s ease ${node.delay + 0.03 + j * 0.02}s`,
+                  }}>{item}</div>
+                ))}
+              </div>
+            </div>
+            {i < nodes.length - 1 && (
+              <div style={{
+                display: "flex", justifyContent: "center", padding: "4px 0",
+                opacity: show ? 0.4 : 0,
+                transition: `all 0.4s ease ${node.delay + 0.1}s`,
+              }}>
+                <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
+                  <path d="M7 0V16M7 16L1.5 10.5M7 16L12.5 10.5" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
 
       <div style={{
