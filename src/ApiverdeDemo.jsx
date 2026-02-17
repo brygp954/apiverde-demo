@@ -727,7 +727,9 @@ function StackSection() {
 
   return (
     <section ref={sectionRef} style={{
-      padding: "80px 32px 60px", position: "relative", overflow: "hidden",
+      padding: "120px 32px", textAlign: "center", color: C.white,
+      borderTop: `1px solid ${C.border}`,
+      position: "relative", overflow: "hidden",
       display: "flex", flexDirection: "column", alignItems: "center",
       background: C.bgAlt,
     }}>
