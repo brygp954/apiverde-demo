@@ -758,10 +758,16 @@ function StackSection() {
       background: C.bg,
     }}>
       <div style={{
-        position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)",
+        position: "absolute", top: "0%", left: "50%", transform: "translateX(-50%)",
         width: "700px", height: "500px",
-        background: `radial-gradient(ellipse at center, ${C.green}06 0%, transparent 55%)`,
-        pointerEvents: "none", filter: "blur(120px)",
+        background: `radial-gradient(ellipse at center, ${C.green}35 0%, ${C.greenDeep}18 40%, transparent 70%)`,
+        pointerEvents: "none", filter: "blur(80px)",
+      }} />
+      <div style={{
+        position: "absolute", top: "-15%", left: "-18%",
+        width: "450px", height: "350px",
+        background: `radial-gradient(ellipse at center, ${C.cyan}35 0%, ${C.cyanDeep}18 40%, transparent 65%)`,
+        pointerEvents: "none", filter: "blur(80px)",
       }} />
 
       <div style={{ textAlign: "center", marginBottom: "36px", position: "relative" }}>
@@ -845,7 +851,7 @@ function StackSection() {
         opacity: show ? 1 : 0, transition: "all 0.6s ease 1s",
       }}>
         <p style={{
-          fontFamily: outfit, fontSize: "16px", color: C.white, fontWeight: 500,
+          fontFamily: outfit, fontSize: "22px", color: C.white, fontWeight: 500,
           lineHeight: 1.6, maxWidth: "520px", margin: "0 auto",
         }}>Average gives everyone the same answer. You're not everyone.</p>
       </div>
