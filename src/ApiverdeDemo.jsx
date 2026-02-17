@@ -681,6 +681,178 @@ function InsightSection() {
   );
 }
 
+// ─── UNDER THE SURFACE — STACKED CYCLING SECTION ────────────
+function StackSection() {
+  const [show, setShow] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) setShow(true);
+    }, { threshold: 0.3 });
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
+  }, []);
+
+  const palette = {
+    purple: "#c084fc", blue: "#60a5fa", yellow: "#fbbf24", red: "#ef4444",
+  };
+
+  function CyclingBox({ label, items, color, delay, speed = 2200 }) {
+    const [index, setIndex] = useState(0);
+    const [fading, setFading] = useState(false);
+    useEffect(() => {
+      if (!show) return;
+      const interval = setInterval(() => {
+        setFading(true);
+        setTimeout(() => {
+          setIndex(prev => (prev + 1) % items.length);
+          setFading(false);
+        }, Math.min(250, speed * 0.15));
+      }, speed);
+      return () => clearInterval(interval);
+    }, [show, items.length, speed]);
+    return (
+      <div style={{
+        background: `${color}10`, border: `1px solid ${color}30`,
+        padding: "10px 40px",
+        display: "flex", flexDirection: "column", alignItems: "center", gap: "2px",
+        opacity: show ? 1 : 0,
+        transform: show ? "translateY(0)" : "translateY(12px)",
+        transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
+      }}>
+        <div style={{
+          fontFamily: outfit, fontSize: "10px", fontWeight: 600,
+          color: `${color}99`, textTransform: "uppercase", letterSpacing: "0.14em",
+        }}>{label}</div>
+        <div style={{
+          fontFamily: jakarta, fontSize: "22px", fontWeight: 700,
+          color: color, height: "28px",
+          display: "flex", alignItems: "center",
+          opacity: fading ? 0 : 1,
+          transform: fading ? "translateY(6px)" : "translateY(0)",
+          transition: "all 0.3s ease",
+        }}>{items[index]}</div>
+      </div>
+    );
+  }
+
+  function Arrow({ delay }) {
+    return (
+      <div style={{
+        display: "flex", justifyContent: "center", lineHeight: 1, padding: "3px 0",
+        opacity: show ? 0.5 : 0,
+        transition: `all 0.4s ease ${delay}s`,
+      }}>
+        <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
+          <path d="M2 1L9 8L16 1" stroke="rgba(255,255,255,0.65)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </div>
+    );
+  }
+
+  return (
+    <section ref={sectionRef} style={{
+      padding: "80px 32px 60px", position: "relative", overflow: "hidden",
+      display: "flex", flexDirection: "column", alignItems: "center",
+      background: C.bg,
+    }}>
+      <div style={{
+        position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)",
+        width: "700px", height: "500px",
+        background: `radial-gradient(ellipse at center, ${C.green}06 0%, transparent 55%)`,
+        pointerEvents: "none", filter: "blur(120px)",
+      }} />
+
+      <div style={{ textAlign: "center", marginBottom: "36px", position: "relative" }}>
+        <Reveal>
+          <SectionLabel>Under the Surface</SectionLabel>
+          <h2 style={{
+            fontFamily: jakarta, fontSize: "clamp(28px, 5vw, 48px)",
+            fontWeight: 700, color: C.white, lineHeight: 1.1,
+            letterSpacing: "-0.03em",
+          }}>This is what <span style={{ color: C.green }}>average misses.</span></h2>
+        </Reveal>
+      </div>
+
+      <div style={{
+        display: "flex", flexDirection: "column", gap: "0px",
+        width: "100%", maxWidth: "420px",
+      }}>
+        <div style={{
+          background: `${C.green}15`, border: `1px solid ${C.green}35`,
+          padding: "10px 40px",
+          display: "flex", flexDirection: "column", alignItems: "center", gap: "2px",
+          opacity: show ? 1 : 0,
+          transform: show ? "translateY(0)" : "translateY(16px)",
+          transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0s",
+        }}>
+          <div style={{
+            fontFamily: outfit, fontSize: "10px", fontWeight: 600,
+            color: `${C.green}99`, textTransform: "uppercase", letterSpacing: "0.14em",
+          }}>COMPLAINT</div>
+          <div style={{
+            fontFamily: jakarta, fontSize: "22px", fontWeight: 700, color: C.green,
+          }}>Sleep</div>
+        </div>
+
+        <Arrow delay={0.1} />
+
+        <CyclingBox label="CHRONOTYPE"
+          items={["Night owl", "Early bird", "Short sleeper", "Long sleeper", "Irregular rhythm", "Delayed phase"]}
+          color={palette.purple} delay={0.15} speed={2800} />
+
+        <Arrow delay={0.25} />
+
+        <CyclingBox label="PATTERN"
+          items={["Racing mind", "Wrong schedule", "Light sleeper", "3am wake-up", "Wired but tired", "Can't stay asleep"]}
+          color={palette.blue} delay={0.3} speed={1600} />
+
+        <Arrow delay={0.4} />
+
+        <CyclingBox label="VARIABLE"
+          items={["Caffeine", "Screen time", "Shift work", "Napping", "Late meals", "Noise", "Temperature", "Exercise timing"]}
+          color={palette.yellow} delay={0.45} speed={1200} />
+
+        <Arrow delay={0.55} />
+
+        <CyclingBox label="PRIMARY DRIVER"
+          items={["Deadlines", "Trauma", "Hormones", "Chronic pain", "Menopause", "Grief", "Medications", "Cortisol", "Blood sugar", "Sleep apnea", "Parenthood", "Perfectionism"]}
+          color={palette.red} delay={0.6} speed={900} />
+
+        <Arrow delay={0.7} />
+
+        <div style={{
+          background: `${C.green}15`, border: `1px solid ${C.green}35`,
+          padding: "10px 40px",
+          display: "flex", flexDirection: "column", alignItems: "center", gap: "2px",
+          opacity: show ? 1 : 0,
+          transform: show ? "translateY(0)" : "translateY(16px)",
+          transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.75s",
+        }}>
+          <div style={{
+            fontFamily: outfit, fontSize: "10px", fontWeight: 600,
+            color: `${C.green}99`, textTransform: "uppercase", letterSpacing: "0.14em",
+          }}>PROTOCOL</div>
+          <div style={{
+            fontFamily: jakarta, fontSize: "22px", fontWeight: 700, color: C.green,
+          }}>Your solution</div>
+        </div>
+      </div>
+
+      <div style={{
+        textAlign: "center", marginTop: "32px",
+        opacity: show ? 1 : 0, transition: "all 0.6s ease 1s",
+      }}>
+        <p style={{
+          fontFamily: outfit, fontSize: "16px", color: C.white, fontWeight: 500,
+          lineHeight: 1.6, maxWidth: "520px", margin: "0 auto",
+        }}>Average gives everyone the same answer. You're not everyone.</p>
+      </div>
+    </section>
+  );
+}
+
 // ─── SCIENCE MEETS PRECISION SECTION ────────────────────────
 function PrecisionSection() {
   const cards = [
@@ -845,7 +1017,7 @@ function HowItWorksSection() {
           fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
           fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
           maxWidth: "700px", margin: "0 auto 80px",
-        }}>From concern to protocol in <span style={{ color: C.green }}>under 3 minutes.</span></h2>
+        }}>From problem to protocol in <span style={{ color: C.green }}>under 3 minutes.</span></h2>
       </Reveal>
 
       <div ref={sectionRef} className="hiw-grid" style={{
@@ -1692,7 +1864,7 @@ function ApiverdeDemo() {
           transform: heroReady ? "translateY(0)" : "translateY(30px)",
           transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1)",
         }}>
-          <SectionLabel>Cannabinoid Intelligence</SectionLabel>
+          <SectionLabel>Cannabinoid Intelligence Platform</SectionLabel>
           <h1 style={{
             fontFamily: jakarta, fontSize: "clamp(40px, 8vw, 80px)",
             fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em",
@@ -1709,12 +1881,8 @@ function ApiverdeDemo() {
         }}>
           <p style={{
             fontFamily: outfit, fontSize: "18px", color: C.secondary,
-            maxWidth: "560px", margin: "0 auto 16px", lineHeight: 1.6,
-          }}>Different body, different life, different root cause. What transforms one person's life may barely move the needle for another.</p>
-          <p style={{
-            fontFamily: outfit, fontSize: "18px", color: C.white, fontWeight: 500,
             maxWidth: "560px", margin: "0 auto 48px", lineHeight: 1.6,
-          }}>Apiverde Health helps each person find what actually works for them.</p>
+          }}>Different body, different life, different root cause. What transforms one person's life may barely move the needle for another.</p>
 
         </div>
 
@@ -1729,11 +1897,14 @@ function ApiverdeDemo() {
         </div>
       </section>
 
-      {/* ─── SCIENCE MEETS PRECISION ─── */}
-      <PrecisionSection />
+      {/* ─── UNDER THE SURFACE ─── */}
+      <StackSection />
 
       {/* ─── HOW IT WORKS ─── */}
       <HowItWorksSection />
+
+      {/* ─── SCIENCE MEETS PRECISION ─── */}
+      <PrecisionSection />
 
       {/* ─── DIAGNOSTIC CTA ─── */}
       <DiagnosticCTA />
@@ -1749,7 +1920,7 @@ function ApiverdeDemo() {
         <div style={{
           fontFamily: outfit, fontSize: "13px", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "16px",
-        }}>Cannabinoid Intelligence.</div>
+        }}>Cannabinoid Intelligence Platform.</div>
         <div style={{ height: "1px", background: C.border, maxWidth: "200px", margin: "0 auto 16px" }} />
         <p style={{
           fontFamily: outfit, fontSize: "13px",
