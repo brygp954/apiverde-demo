@@ -755,7 +755,7 @@ function StackSection() {
     <section ref={sectionRef} style={{
       padding: "80px 32px 60px", position: "relative", overflow: "hidden",
       display: "flex", flexDirection: "column", alignItems: "center",
-      background: C.bg,
+      background: C.bgAlt,
     }}>
       <div style={{
         position: "absolute", top: "0%", left: "50%", transform: "translateX(-50%)",
@@ -897,7 +897,7 @@ function PrecisionSection() {
   return (
     <section style={{
       padding: "120px 32px", textAlign: "center", color: C.white,
-      borderTop: `1px solid ${C.border}`,
+      borderTop: `1px solid ${C.border}`, background: C.bgAlt,
       position: "relative", overflow: "hidden",
     }}>
       <div style={{
@@ -1001,7 +1001,7 @@ function HowItWorksSection() {
   return (
     <section style={{
       padding: "120px 32px", textAlign: "center", color: C.white,
-      borderTop: `1px solid ${C.border}`, background: C.bgAlt,
+      borderTop: `1px solid ${C.border}`, background: C.bg,
       position: "relative", overflow: "hidden",
     }}>
       <div style={{
@@ -1084,7 +1084,7 @@ function DiagnosticCTA() {
         pointerEvents: "none", filter: "blur(80px)",
       }} />
       <div style={{
-        position: "absolute", bottom: "-15%", left: "-18%",
+        position: "absolute", bottom: "-15%", right: "-18%",
         width: "450px", height: "350px",
         background: `radial-gradient(ellipse at center, ${C.cyan}35 0%, ${C.cyanDeep}18 40%, transparent 65%)`,
         pointerEvents: "none", filter: "blur(80px)",
@@ -1681,7 +1681,7 @@ function WhoItsForSection() {
   return (
     <section style={{
       padding: "120px 32px", textAlign: "center", color: C.white,
-      borderTop: `1px solid ${C.border}`,
+      borderTop: `1px solid ${C.border}`, background: C.bgAlt,
       position: "relative", overflow: "hidden",
     }}>
       <div style={{
