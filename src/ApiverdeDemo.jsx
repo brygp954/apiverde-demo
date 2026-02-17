@@ -753,7 +753,7 @@ function StackSection() {
             fontFamily: jakarta, fontSize: "clamp(28px, 5vw, 48px)",
             fontWeight: 700, color: C.white, lineHeight: 1.1,
             letterSpacing: "-0.03em",
-          }}>One complaint. Thousands of variables. <span style={{ color: C.green }}>One solution that's yours.</span></h2>
+          }}>One complaint. 12,960 combinations. <span style={{ color: C.green }}>One solution that's yours.</span></h2>
         </Reveal>
       </div>
 
@@ -767,26 +767,31 @@ function StackSection() {
           display: "flex", alignItems: "flex-start",
           gap: "0px", minWidth: "940px", padding: "16px 0",
         }}>
-          {nodes.map((node, i) => (
+          {nodes.map((node, i) => {
+            const isBookend = node.items.length === 1;
+            return (
             <div key={node.label} style={{ display: "flex", alignItems: "flex-start" }}>
               <div style={{
-                background: `${node.color}08`,
-                border: `1px solid ${node.color}20`,
-                padding: "14px 14px",
+                background: isBookend ? `${node.color}12` : `${node.color}08`,
+                border: `1px solid ${isBookend ? `${node.color}50` : `${node.color}20`}`,
+                padding: isBookend ? "24px 28px" : "14px 14px",
                 display: "flex", flexDirection: "column", alignItems: "center",
-                gap: "8px", minWidth: "110px", maxWidth: "140px",
+                gap: "8px",
+                minWidth: isBookend ? "150px" : "110px",
+                maxWidth: isBookend ? "170px" : "140px",
                 opacity: show ? 1 : 0,
                 transform: show ? "translateX(0)" : "translateX(-12px)",
                 transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${node.delay}s`,
               }}>
                 <div style={{
-                  fontFamily: outfit, fontSize: "9px", fontWeight: 600,
-                  color: `${node.color}90`, textTransform: "uppercase",
+                  fontFamily: outfit, fontSize: isBookend ? "11px" : "9px", fontWeight: 600,
+                  color: isBookend ? `${node.color}cc` : `${node.color}90`,
+                  textTransform: "uppercase",
                   letterSpacing: "0.12em", textAlign: "center",
                 }}>{node.label}</div>
                 <div style={{
                   width: "100%", height: "1px",
-                  background: `${node.color}20`,
+                  background: isBookend ? `${node.color}35` : `${node.color}20`,
                 }} />
                 <div style={{
                   display: "flex", flexDirection: "column", gap: "3px",
@@ -794,8 +799,10 @@ function StackSection() {
                 }}>
                   {node.items.map((item, j) => (
                     <div key={item} style={{
-                      fontFamily: outfit, fontSize: "11px", fontWeight: 500,
-                      color: `${node.color}cc`,
+                      fontFamily: isBookend ? jakarta : outfit,
+                      fontSize: isBookend ? "18px" : "11px",
+                      fontWeight: isBookend ? 700 : 500,
+                      color: isBookend ? node.color : `${node.color}cc`,
                       opacity: show ? 1 : 0,
                       transition: `all 0.4s ease ${node.delay + 0.05 + j * 0.03}s`,
                       whiteSpace: "nowrap",
@@ -807,7 +814,8 @@ function StackSection() {
                 <FlowArrow delay={node.delay + 0.08} />
               )}
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
