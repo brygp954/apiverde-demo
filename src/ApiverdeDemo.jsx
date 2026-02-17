@@ -681,7 +681,7 @@ function InsightSection() {
   );
 }
 
-// ─── UNDER THE SURFACE — STACKED CYCLING SECTION ────────────
+// ─── WHY IT'S PERSONAL — FLOWCHART SECTION ────────────────
 function StackSection() {
   const [show, setShow] = useState(false);
   const sectionRef = useRef(null);
@@ -689,63 +689,39 @@ function StackSection() {
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) setShow(true);
-    }, { threshold: 0.3 });
+    }, { threshold: 0.2 });
     if (sectionRef.current) obs.observe(sectionRef.current);
     return () => obs.disconnect();
   }, []);
 
-  const palette = {
-    purple: "#c084fc", blue: "#60a5fa", yellow: "#fbbf24", red: "#ef4444",
+  const flowPalette = {
+    white: "#ffffff", purple: "#c084fc", blue: "#60a5fa",
+    yellow: "#fbbf24", red: "#ef4444", green: "#34d399",
   };
 
-  function CyclingBox({ label, items, color, delay, speed = 2200 }) {
-    const [index, setIndex] = useState(0);
-    const [fading, setFading] = useState(false);
-    useEffect(() => {
-      if (!show) return;
-      const interval = setInterval(() => {
-        setFading(true);
-        setTimeout(() => {
-          setIndex(prev => (prev + 1) % items.length);
-          setFading(false);
-        }, Math.min(250, speed * 0.15));
-      }, speed);
-      return () => clearInterval(interval);
-    }, [show, items.length, speed]);
-    return (
-      <div style={{
-        background: `${color}10`, border: `1px solid ${color}30`,
-        padding: "10px 40px",
-        display: "flex", flexDirection: "column", alignItems: "center", gap: "2px",
-        opacity: show ? 1 : 0,
-        transform: show ? "translateY(0)" : "translateY(12px)",
-        transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
-      }}>
-        <div style={{
-          fontFamily: outfit, fontSize: "10px", fontWeight: 600,
-          color: `${color}99`, textTransform: "uppercase", letterSpacing: "0.14em",
-        }}>{label}</div>
-        <div style={{
-          fontFamily: jakarta, fontSize: "22px", fontWeight: 700,
-          color: color, height: "28px",
-          display: "flex", alignItems: "center",
-          opacity: fading ? 0 : 1,
-          transform: fading ? "translateY(6px)" : "translateY(0)",
-          transition: "all 0.3s ease",
-        }}>{items[index]}</div>
-      </div>
-    );
-  }
+  const nodes = [
+    { label: "COMPLAINT", color: flowPalette.white, delay: 0, items: ["Sleep"] },
+    { label: "CHRONOTYPE", color: flowPalette.purple, delay: 0.12,
+      items: ["Night owl", "Early bird", "Short sleeper", "Long sleeper", "Irregular rhythm", "Delayed phase"] },
+    { label: "PATTERN", color: flowPalette.blue, delay: 0.24,
+      items: ["Racing mind", "Wrong schedule", "Light sleeper", "3am wake-up", "Wired but tired", "Can't stay asleep", "Early waking", "Restless legs", "Sleep talking", "Fragmented sleep"] },
+    { label: "VARIABLE", color: flowPalette.yellow, delay: 0.36,
+      items: ["Caffeine", "Screen time", "Shift work", "Napping", "Late meals", "Noise", "Temperature", "Exercise timing", "Alcohol", "Travel", "Hydration", "Work schedule"] },
+    { label: "PRIMARY DRIVER", color: flowPalette.red, delay: 0.48,
+      items: ["Deadlines", "Trauma", "Hormones", "Chronic pain", "Menopause", "Grief", "Medications", "Cortisol", "Blood sugar", "Sleep apnea", "Parenthood", "Perfectionism", "Anxiety", "Depression", "Thyroid", "Inflammation", "PTSD", "ADHD"] },
+    { label: "PROTOCOL", color: flowPalette.green, delay: 0.6, items: ["Your solution"] },
+  ];
 
-  function Arrow({ delay }) {
+  function FlowArrow({ delay }) {
     return (
       <div style={{
-        display: "flex", justifyContent: "center", lineHeight: 1, padding: "3px 0",
-        opacity: show ? 0.5 : 0,
+        display: "flex", alignItems: "flex-start", flexShrink: 0,
+        paddingTop: "30px",
+        opacity: show ? 0.35 : 0,
         transition: `all 0.4s ease ${delay}s`,
       }}>
-        <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
-          <path d="M2 1L9 8L16 1" stroke="rgba(255,255,255,0.65)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+          <path d="M0 6H16M16 6L11 1M16 6L11 11" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
     );
@@ -770,7 +746,7 @@ function StackSection() {
         pointerEvents: "none", filter: "blur(80px)",
       }} />
 
-      <div style={{ textAlign: "center", marginBottom: "36px", position: "relative" }}>
+      <div style={{ textAlign: "center", marginBottom: "48px", position: "relative" }}>
         <Reveal>
           <SectionLabel>Why It's Personal</SectionLabel>
           <h2 style={{
@@ -781,73 +757,62 @@ function StackSection() {
         </Reveal>
       </div>
 
-      <div style={{
-        display: "flex", flexDirection: "column", gap: "0px",
-        width: "100%", maxWidth: "420px",
-      }}>
+      <style>{`
+        .flow-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .flow-scroll::-webkit-scrollbar { display: none; }
+      `}</style>
+
+      <div className="flow-scroll" style={{ width: "100%", maxWidth: "1100px" }}>
         <div style={{
-          background: `${C.white}10`, border: `1px solid ${C.white}25`,
-          padding: "10px 40px",
-          display: "flex", flexDirection: "column", alignItems: "center", gap: "2px",
-          opacity: show ? 1 : 0,
-          transform: show ? "translateY(0)" : "translateY(16px)",
-          transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0s",
+          display: "flex", alignItems: "flex-start",
+          gap: "0px", minWidth: "940px", padding: "16px 0",
         }}>
-          <div style={{
-            fontFamily: outfit, fontSize: "10px", fontWeight: 600,
-            color: `${C.white}70`, textTransform: "uppercase", letterSpacing: "0.14em",
-          }}>COMPLAINT</div>
-          <div style={{
-            fontFamily: jakarta, fontSize: "22px", fontWeight: 700, color: C.white,
-          }}>Sleep</div>
-        </div>
-
-        <Arrow delay={0.1} />
-
-        <CyclingBox label="CHRONOTYPE"
-          items={["Night owl", "Early bird", "Short sleeper", "Long sleeper", "Irregular rhythm", "Delayed phase"]}
-          color={palette.purple} delay={0.15} speed={2800} />
-
-        <Arrow delay={0.25} />
-
-        <CyclingBox label="PATTERN"
-          items={["Racing mind", "Wrong schedule", "Light sleeper", "3am wake-up", "Wired but tired", "Can't stay asleep"]}
-          color={palette.blue} delay={0.3} speed={1600} />
-
-        <Arrow delay={0.4} />
-
-        <CyclingBox label="VARIABLE"
-          items={["Caffeine", "Screen time", "Shift work", "Napping", "Late meals", "Noise", "Temperature", "Exercise timing"]}
-          color={palette.yellow} delay={0.45} speed={1200} />
-
-        <Arrow delay={0.55} />
-
-        <CyclingBox label="PRIMARY DRIVER"
-          items={["Deadlines", "Trauma", "Hormones", "Chronic pain", "Menopause", "Grief", "Medications", "Cortisol", "Blood sugar", "Sleep apnea", "Parenthood", "Perfectionism"]}
-          color={palette.red} delay={0.6} speed={900} />
-
-        <Arrow delay={0.7} />
-
-        <div style={{
-          background: `${C.green}15`, border: `1px solid ${C.green}35`,
-          padding: "10px 40px",
-          display: "flex", flexDirection: "column", alignItems: "center", gap: "2px",
-          opacity: show ? 1 : 0,
-          transform: show ? "translateY(0)" : "translateY(16px)",
-          transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.75s",
-        }}>
-          <div style={{
-            fontFamily: outfit, fontSize: "10px", fontWeight: 600,
-            color: `${C.green}99`, textTransform: "uppercase", letterSpacing: "0.14em",
-          }}>PROTOCOL</div>
-          <div style={{
-            fontFamily: jakarta, fontSize: "22px", fontWeight: 700, color: C.green,
-          }}>Your solution</div>
+          {nodes.map((node, i) => (
+            <div key={node.label} style={{ display: "flex", alignItems: "flex-start" }}>
+              <div style={{
+                background: `${node.color}08`,
+                border: `1px solid ${node.color}20`,
+                padding: "14px 14px",
+                display: "flex", flexDirection: "column", alignItems: "center",
+                gap: "8px", minWidth: "110px", maxWidth: "140px",
+                opacity: show ? 1 : 0,
+                transform: show ? "translateX(0)" : "translateX(-12px)",
+                transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${node.delay}s`,
+              }}>
+                <div style={{
+                  fontFamily: outfit, fontSize: "9px", fontWeight: 600,
+                  color: `${node.color}90`, textTransform: "uppercase",
+                  letterSpacing: "0.12em", textAlign: "center",
+                }}>{node.label}</div>
+                <div style={{
+                  width: "100%", height: "1px",
+                  background: `${node.color}20`,
+                }} />
+                <div style={{
+                  display: "flex", flexDirection: "column", gap: "3px",
+                  alignItems: "center", width: "100%",
+                }}>
+                  {node.items.map((item, j) => (
+                    <div key={item} style={{
+                      fontFamily: outfit, fontSize: "11px", fontWeight: 500,
+                      color: `${node.color}cc`,
+                      opacity: show ? 1 : 0,
+                      transition: `all 0.4s ease ${node.delay + 0.05 + j * 0.03}s`,
+                      whiteSpace: "nowrap",
+                    }}>{item}</div>
+                  ))}
+                </div>
+              </div>
+              {i < nodes.length - 1 && (
+                <FlowArrow delay={node.delay + 0.08} />
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
       <div style={{
-        textAlign: "center", marginTop: "32px",
+        textAlign: "center", marginTop: "40px",
         opacity: show ? 1 : 0, transition: "all 0.6s ease 1s",
       }}>
         <p style={{
