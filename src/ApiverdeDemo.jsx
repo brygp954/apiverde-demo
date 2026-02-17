@@ -700,28 +700,26 @@ function StackSection() {
   };
 
   const nodes = [
-    { label: "COMPLAINT", color: flowPalette.white, delay: 0, items: ["Sleep"] },
-    { label: "CHRONOTYPE", color: flowPalette.purple, delay: 0.12,
+    { label: "CHRONOTYPE", color: flowPalette.purple, delay: 0,
       items: ["Night owl", "Early bird", "Short sleeper", "Long sleeper", "Irregular rhythm", "Delayed phase"] },
-    { label: "PATTERN", color: flowPalette.blue, delay: 0.24,
+    { label: "PATTERN", color: flowPalette.blue, delay: 0.12,
       items: ["Racing mind", "Wrong schedule", "Light sleeper", "3am wake-up", "Wired but tired", "Can't stay asleep", "Early waking", "Restless legs", "Sleep talking", "Fragmented sleep"] },
-    { label: "VARIABLE", color: flowPalette.yellow, delay: 0.36,
+    { label: "VARIABLE", color: flowPalette.yellow, delay: 0.24,
       items: ["Caffeine", "Screen time", "Shift work", "Napping", "Late meals", "Noise", "Temperature", "Exercise timing", "Alcohol", "Travel", "Hydration", "Work schedule"] },
-    { label: "PRIMARY DRIVER", color: flowPalette.red, delay: 0.48,
+    { label: "PRIMARY DRIVER", color: flowPalette.red, delay: 0.36,
       items: ["Deadlines", "Trauma", "Hormones", "Chronic pain", "Menopause", "Grief", "Medications", "Cortisol", "Blood sugar", "Sleep apnea", "Parenthood", "Perfectionism", "Anxiety", "Depression", "Thyroid", "Inflammation", "PTSD", "ADHD"] },
-    { label: "PROTOCOL", color: flowPalette.green, delay: 0.6, items: ["Your solution"] },
   ];
 
   function FlowArrow({ delay }) {
     return (
       <div style={{
         display: "flex", alignItems: "flex-start", flexShrink: 0,
-        paddingTop: "30px",
-        opacity: show ? 0.35 : 0,
+        paddingTop: "28px",
+        opacity: show ? 0.5 : 0,
         transition: `all 0.4s ease ${delay}s`,
       }}>
-        <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
-          <path d="M0 6H16M16 6L11 1M16 6L11 11" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="28" height="14" viewBox="0 0 28 14" fill="none">
+          <path d="M0 7H22M22 7L16 1.5M22 7L16 12.5" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
     );
@@ -753,7 +751,7 @@ function StackSection() {
             fontFamily: jakarta, fontSize: "clamp(28px, 5vw, 48px)",
             fontWeight: 700, color: C.white, lineHeight: 1.1,
             letterSpacing: "-0.03em",
-          }}>One complaint. 12,960 combinations. <span style={{ color: C.green }}>One solution that's yours.</span></h2>
+          }}>One complaint, sleep. <span style={{ color: C.green }}>12,960 combinations.</span></h2>
         </Reveal>
       </div>
 
@@ -764,34 +762,32 @@ function StackSection() {
 
       <div className="flow-scroll" style={{ width: "100%", maxWidth: "1100px" }}>
         <div style={{
-          display: "flex", alignItems: "flex-start",
+          display: "flex", alignItems: "flex-start", justifyContent: "center",
           gap: "0px", minWidth: "940px", padding: "16px 0",
         }}>
           {nodes.map((node, i) => {
-            const isBookend = node.items.length === 1;
             return (
             <div key={node.label} style={{ display: "flex", alignItems: "flex-start" }}>
               <div style={{
-                background: isBookend ? `${node.color}12` : `${node.color}08`,
-                border: `1px solid ${isBookend ? `${node.color}50` : `${node.color}20`}`,
-                padding: isBookend ? "24px 28px" : "14px 14px",
+                background: `${node.color}08`,
+                border: `1px solid ${node.color}20`,
+                padding: "14px 14px",
                 display: "flex", flexDirection: "column", alignItems: "center",
                 gap: "8px",
-                minWidth: isBookend ? "150px" : "110px",
-                maxWidth: isBookend ? "170px" : "140px",
+                minWidth: "110px", maxWidth: "140px",
                 opacity: show ? 1 : 0,
                 transform: show ? "translateX(0)" : "translateX(-12px)",
                 transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${node.delay}s`,
               }}>
                 <div style={{
-                  fontFamily: outfit, fontSize: isBookend ? "11px" : "9px", fontWeight: 600,
-                  color: isBookend ? `${node.color}cc` : `${node.color}90`,
+                  fontFamily: outfit, fontSize: "9px", fontWeight: 600,
+                  color: `${node.color}90`,
                   textTransform: "uppercase",
                   letterSpacing: "0.12em", textAlign: "center",
                 }}>{node.label}</div>
                 <div style={{
                   width: "100%", height: "1px",
-                  background: isBookend ? `${node.color}35` : `${node.color}20`,
+                  background: `${node.color}20`,
                 }} />
                 <div style={{
                   display: "flex", flexDirection: "column", gap: "3px",
@@ -799,10 +795,10 @@ function StackSection() {
                 }}>
                   {node.items.map((item, j) => (
                     <div key={item} style={{
-                      fontFamily: isBookend ? jakarta : outfit,
-                      fontSize: isBookend ? "18px" : "11px",
-                      fontWeight: isBookend ? 700 : 500,
-                      color: isBookend ? node.color : `${node.color}cc`,
+                      fontFamily: outfit,
+                      fontSize: "11px",
+                      fontWeight: 500,
+                      color: `${node.color}cc`,
                       opacity: show ? 1 : 0,
                       transition: `all 0.4s ease ${node.delay + 0.05 + j * 0.03}s`,
                       whiteSpace: "nowrap",
@@ -824,9 +820,9 @@ function StackSection() {
         opacity: show ? 1 : 0, transition: "all 0.6s ease 1s",
       }}>
         <p style={{
-          fontFamily: outfit, fontSize: "22px", color: C.white, fontWeight: 500,
+          fontFamily: jakarta, fontSize: "clamp(24px, 4vw, 32px)", color: C.green, fontWeight: 700,
           lineHeight: 1.6, maxWidth: "520px", margin: "0 auto",
-        }}>This is what average misses.</p>
+        }}>One solution that's yours.</p>
       </div>
     </section>
   );
