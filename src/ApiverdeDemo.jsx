@@ -933,9 +933,9 @@ function PrecisionSection() {
           maxWidth: "700px", margin: "0 auto 16px",
         }}>Applied intelligence replaces <span style={{ color: C.green }}>trial and error.</span></h2>
         <p style={{
-          fontFamily: outfit, fontSize: "18px", color: C.secondary,
+          fontFamily: outfit, fontSize: "18px", color: "rgba(255,255,255,0.9)",
           maxWidth: "560px", margin: "0 auto 64px", lineHeight: 1.6,
-        }}>Most platforms match you to a product. We match a protocol to your problem.</p>
+        }}>It starts with the person and the problem. The protocol finds the most effective product for both.</p>
       </Reveal>
 
       <div className="capability-grid" style={{
@@ -1891,7 +1891,7 @@ function ApiverdeDemo() {
           transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s",
         }}>
           <p style={{
-            fontFamily: outfit, fontSize: "18px", color: C.secondary,
+            fontFamily: outfit, fontSize: "18px", color: "rgba(255,255,255,0.9)",
             maxWidth: "560px", margin: "0 auto 48px", lineHeight: 1.6,
           }}>Different body, different life, different root cause. What transforms one person's life may barely move the needle for another.</p>
 
@@ -1923,6 +1923,45 @@ function ApiverdeDemo() {
       {/* ─── WHO IT'S FOR ─── */}
       <WhoItsForSection />
 
+      {/* ─── BUILT ON THV ─── */}
+      <section style={{
+        padding: "120px 32px", textAlign: "center", color: C.white,
+        borderTop: `1px solid ${C.border}`, background: C.bg,
+        position: "relative", overflow: "hidden",
+      }}>
+        <div style={{
+          position: "absolute", top: "0%", left: "50%", transform: "translateX(-50%)",
+          width: "700px", height: "500px",
+          background: `radial-gradient(ellipse at center, ${C.green}35 0%, ${C.greenDeep}18 40%, transparent 70%)`,
+          pointerEvents: "none", filter: "blur(80px)",
+        }} />
+        <div style={{
+          position: "absolute", top: "-15%", left: "-18%",
+          width: "450px", height: "350px",
+          background: `radial-gradient(ellipse at center, ${C.cyan}35 0%, ${C.cyanDeep}18 40%, transparent 65%)`,
+          pointerEvents: "none", filter: "blur(80px)",
+        }} />
+        <Reveal>
+          <SectionLabel>The Framework</SectionLabel>
+          <h2 style={{
+            fontFamily: jakarta, fontSize: "clamp(32px, 6vw, 56px)",
+            fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.03em",
+            maxWidth: "700px", margin: "0 auto 40px",
+          }}>Built on <span style={{ color: C.green }}>Human Variable Intelligence.</span></h2>
+          <div style={{ maxWidth: "560px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "20px" }}>
+            <p style={{
+              fontFamily: outfit, fontSize: "18px", color: "rgba(255,255,255,0.9)", lineHeight: 1.6,
+            }}>Apiverde Health is powered by <span style={{ color: C.cyan }}>The Human Variable</span>, an intelligence framework that treats every person as a unique system, not a data point.</p>
+            <p style={{
+              fontFamily: outfit, fontSize: "18px", color: "rgba(255,255,255,0.9)", lineHeight: 1.6,
+            }}>It maps context, behavior, and root causes to replace guessing with precision.</p>
+            <p style={{
+              fontFamily: outfit, fontSize: "18px", color: C.white, fontWeight: 500, lineHeight: 1.6,
+            }}>The intelligence layer exists to find what works for the individual, and to protect them from what doesn't.</p>
+          </div>
+        </Reveal>
+      </section>
+
       {/* ─── FOOTER ─── */}
       <footer style={{
         borderTop: `1px solid ${C.green}30`, padding: "40px 32px",
@@ -1937,7 +1976,7 @@ function ApiverdeDemo() {
         <p style={{
           fontFamily: outfit, fontSize: "13px",
           color: "rgba(255,255,255,0.5)", letterSpacing: "0.05em", marginBottom: "12px",
-        }}>Apiverde Health in partnership with The Human Variable [ x = human ]</p>
+        }}>Apiverde Health</p>
         <p style={{
           fontFamily: outfit, fontSize: "12px",
           color: "rgba(255,255,255,0.3)", letterSpacing: "0.05em",
