@@ -1892,9 +1892,19 @@ function ApiverdeDemo() {
         }}>
           <p style={{
             fontFamily: outfit, fontSize: "18px", color: "rgba(255,255,255,0.9)",
-            maxWidth: "560px", margin: "0 auto 48px", lineHeight: 1.6,
+            maxWidth: "560px", margin: "0 auto 16px", lineHeight: 1.6,
           }}>Different body, different life, different root cause. What transforms one person's life may barely move the needle for another.</p>
+        </div>
 
+        <div style={{
+          opacity: heroReady ? 1 : 0,
+          transform: heroReady ? "translateY(0)" : "translateY(20px)",
+          transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s",
+        }}>
+          <p style={{
+            fontFamily: outfit, fontSize: "18px", color: C.white, fontWeight: 500,
+            maxWidth: "560px", margin: "0 auto 48px", lineHeight: 1.6,
+          }}>Every person is a unique system.</p>
         </div>
 
         <div style={{
