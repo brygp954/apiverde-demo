@@ -1054,7 +1054,7 @@ function HowItWorksSection() {
               }}>
                 <div style={{
                   fontFamily: jakarta, fontSize: "clamp(48px, 8vw, 64px)",
-                  fontWeight: 700, color: `${s.color}30`,
+                  fontWeight: 700, color: `${s.color}50`,
                   lineHeight: 1, letterSpacing: "-0.03em",
                   marginBottom: "12px",
                 }}>{s.num}</div>
@@ -1799,6 +1799,12 @@ function ApiverdeDemo() {
         * { margin: 0; padding: 0; box-sizing: border-box; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        @keyframes glowSweep {
+          0% { opacity: 0; transform: translateY(-50%) translateX(-100%); }
+          15% { opacity: 1; }
+          85% { opacity: 1; }
+          100% { opacity: 0; transform: translateY(-50%) translateX(100%); }
+        }
         @keyframes dotPulse { 0%, 80%, 100% { opacity: 0.2; } 40% { opacity: 1; } }
         textarea::placeholder { color: rgba(255,255,255,0.25); }
         textarea:focus { outline: none; border-color: rgba(52,211,153,0.3) !important; }
@@ -1900,11 +1906,24 @@ function ApiverdeDemo() {
           opacity: heroReady ? 1 : 0,
           transform: heroReady ? "translateY(0)" : "translateY(20px)",
           transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s",
+          textAlign: "center",
         }}>
           <p style={{
             fontFamily: outfit, fontSize: "18px", color: C.white, fontWeight: 500,
             maxWidth: "560px", margin: "0 auto 48px", lineHeight: 1.6,
-          }}>Every person is a unique system.</p>
+            position: "relative", display: "inline-block", overflow: "hidden",
+          }}>
+            <span style={{ position: "relative", zIndex: 1 }}>Every person is a unique system.</span>
+            <span style={{
+              position: "absolute", top: "50%", left: 0, transform: "translateY(-50%)",
+              width: "100%", height: "120%",
+              background: `linear-gradient(90deg, transparent, ${C.green}18, transparent)`,
+              borderRadius: "8px",
+              animation: heroReady ? "glowSweep 1.8s ease 1.2s forwards" : "none",
+              opacity: 0,
+              pointerEvents: "none",
+            }} />
+          </p>
         </div>
 
         <div style={{
