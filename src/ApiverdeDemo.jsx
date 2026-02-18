@@ -935,7 +935,7 @@ function PrecisionSection() {
         <p style={{
           fontFamily: outfit, fontSize: "18px", color: "rgba(255,255,255,0.9)",
           maxWidth: "560px", margin: "0 auto 64px", lineHeight: 1.6,
-        }}>It starts with the person and the problem. The protocol finds the most effective product for both.</p>
+        }}>It starts with the person and the problem. The protocol delivers the most effective product for both.</p>
       </Reveal>
 
       <div className="capability-grid" style={{
